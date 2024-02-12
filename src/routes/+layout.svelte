@@ -10,7 +10,6 @@
    $: user = data?.user
    $: cart = data?.cart
    $: count = cart?.items?.length || null
-   console.log("pathname:", $page.url.pathname)
 </script>
 {$page.url.pathname}
 {naked}
