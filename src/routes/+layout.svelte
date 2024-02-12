@@ -14,7 +14,7 @@
 {#if naked}
    <slot />
 {:else}
-   <h1>testies</h1>
+   <h1>testies 1 2 3 :D</h1>
    <NavBar bind:user={user} bind:cart={cart} bind:count={count} />
    <slot />
    <Footer />
