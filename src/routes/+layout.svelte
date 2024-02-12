@@ -11,8 +11,6 @@
    $: cart = data?.cart
    $: count = cart?.items?.length || null
 </script>
-{$page.url.pathname}
-{naked}
 {#if naked}
    <slot />
 {:else}
