@@ -6,11 +6,14 @@
    import Footer from '$lib/components/Footer.svelte'
    export let data: PageData
    const nakedPaths = ['/auth', '/checkout', '/sitemap.xml']
-   $: naked = nakedPaths.includes($page.url.pathname)
+   $: naked = $page ? nakedPaths.includes($page.url.pathname) : false
    $: user = data?.user
    $: cart = data?.cart
    $: count = cart?.items?.length || null
+   console.log("pathname:", $page.url.pathname)
 </script>
+{$page.url.pathname}
+{naked}
 {#if naked}
    <slot />
 {:else}
