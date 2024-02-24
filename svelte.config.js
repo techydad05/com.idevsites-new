@@ -20,9 +20,9 @@ const config = {
       alias: {
 			'$src/*': 'src/*'
 		},
-	csrf: {
-         checkOrigin: false,
-       },
+	// csrf: {
+ //         checkOrigin: false,
+ //       },
       csp: {
          directives: {
             'script-src': ['self', process.env.ORIGIN || "", 'https://challenges.cloudflare.com', 'https://js.stripe.com'],
