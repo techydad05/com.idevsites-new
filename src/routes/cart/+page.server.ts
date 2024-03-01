@@ -4,11 +4,28 @@ import medusa from '$lib/server/medusa'
 export const actions: Actions = {
 
    add: async ({ request, locals, cookies }) => {
-      const data = await request.formData()
-      const variantId = data.get('variantId') as string
-      const cart = await medusa.addToCart(locals, cookies, variantId)
-      if (cart) return { success: true, cart }
+      try {
+         const data = await request.formData();
+         const variantId = data.get('variantId') as string;
+         const cart = await medusa.addToCart(locals, cookies, variantId);
+         if (cart) {
+            
+            return { success: true, cart };
+         }
+      } catch (error) {
+         // Handle any errors (e.g., logging, custom error response)
+         console.error('Error adding item to cart:', error);
+         return { success: false, error: 'Failed to add item to cart' };
+      }
    },
+
+   // added above code for error handling etc... 
+   // add: async ({ request, locals, cookies }) => {
+   //    const data = await request.formData()
+   //    const variantId = data.get('variantId') as string
+   //    const cart = await medusa.addToCart(locals, cookies, variantId)
+   //    if (cart) return { success: true, cart }
+   // },
 
    remove: async({ request, locals }) => {
       const data = await request.formData()

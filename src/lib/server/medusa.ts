@@ -6,5 +6,5 @@ export default new MedusaClient(MEDUSA_BACKEND_URL, {
       'CF-Access-Client-Secret': CLOUDFLARE_ACCESS_SECRET,
    },
    retry: 0,
-   persistentCart: true
+   persistentCart: true,
 })

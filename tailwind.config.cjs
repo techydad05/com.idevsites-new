@@ -4,25 +4,71 @@ import forms from '@tailwindcss/forms'
 
 /** @type {import('tailwindcss').Config}*/
 const config = {
-  content: ["./src/**/*.{html,js,svelte,ts}"],
-  theme: {
+   content: ["./src/**/*.{html,js,svelte,ts}"],
+   theme: {
+      container: {
+         center: true,
+         padding: '2rem',
+         screens: {
+            '2xl': '1440px'
+         }
+      },
       extend: {
          colors: {
-            'orange': {
-               50: '#FFF2EE',
-               100: '#FFDBD1',
-               200: '#FFC7B7',
-               300: '#FFAF9B',
-               400: '#FF977D',
-               500: '#FF8E72',
-               600: '#FF7A59',
-               700: '#FF6C47',
-               800: '#FF5621',
-               900: '#FF460C'
+            magnum: {
+               '50': '#fff9ed',
+               '100': '#fef2d6',
+               '200': '#fce0ac',
+               '300': '#f9c978',
+               '400': '#f7b155',
+               '500': '#f38d1c',
+               '600': '#e47312',
+               '700': '#bd5711',
+               '800': '#964516',
+               '900': '#793a15',
+               '950': '#411c09'
+            },
+         },
+         fontFamily: {
+            sans: [
+               '-apple-system',
+               'BlinkMacSystemFont',
+               'Segoe UI',
+               'Roboto',
+               'Oxygen',
+               'Ubuntu',
+               'Cantarell',
+               'Fira Sans',
+               'Droid Sans',
+               'Helvetica Neue',
+               'Arial',
+               'sans-serif',
+               'Apple Color Emoji',
+               'Segoe UI Emoji',
+               'Segoe UI Symbol'
+            ],
+            mono: [
+               'ui-monospace',
+               'SFMono-Regular',
+               'SF Mono',
+               'Menlo',
+               'Consolas',
+               'Liberation Mono',
+               'monospace'
+            ]
+         },
+         typography: (theme) => ({
+            DEFAULT: {
+               css: {
+                  code: {
+                     position: 'relative',
+                     borderRadius: theme('borderRadius.md')
+                  }
+               }
             }
-         }
+         })
       }
-  },
+   },
 
    plugins: [
       typography,
@@ -31,12 +77,12 @@ const config = {
          addVariant('hocus', ['&:hover', '&:focus']);
          // Square utility
          matchUtilities({
-             square: (value) => ({
+            square: (value) => ({
                width: value,
                height: value,
-             }),
-           },
-           { values: theme('spacing') }
+            }),
+         },
+            { values: theme('spacing') }
          );
       })
    ]

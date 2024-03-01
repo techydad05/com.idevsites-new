@@ -9,11 +9,14 @@
    import SocialProviders from '$lib/components/SocialProviders.svelte'
 
    export let data: PageData
+   // console.log("data:", data);
+   
 
+   
    type state = 'signin' | 'signup' | 'forgot' | 'reset'
    let state = data.code ? 'reset' : 'signin'
-   let token: string = (PUBLIC_TURNSTILE_SITE_KEY === '')? 'no-token-required' : ''
-
+   let token: string = (PUBLIC_TURNSTILE_SITE_KEY === '')? 'no-token-required' : ''   
+   
    const { 
       form: loginForm, 
       errors: loginErrors, 
@@ -73,7 +76,7 @@
    $: $registerForm.token = token
    $: $forgotForm.token = token
    $: $resetForm.token = token
-
+   
 </script>
 <AuthContainer>
    {#if !token}

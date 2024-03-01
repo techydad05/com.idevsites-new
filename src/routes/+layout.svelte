@@ -4,6 +4,7 @@
    import { page } from '$app/stores'
    import NavBar from '$lib/components/NavBar.svelte'
    import Footer from '$lib/components/Footer.svelte'
+   import Toaster from '$lib/components/Toaster.svelte'
    export let data: PageData
    const nakedPaths = ['/auth', '/checkout', '/sitemap.xml']
    $: naked = nakedPaths.includes($page?.url?.pathname)
@@ -11,6 +12,9 @@
    $: cart = data?.cart
    $: count = cart?.items?.length || null
 </script>
+
+<Toaster />
+
 {#if naked}
    <slot />
 {:else}
