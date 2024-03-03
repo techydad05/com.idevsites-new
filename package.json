@@ -65,7 +65,6 @@
 	"type": "module",
 	"dependencies": {
 		"embla-carousel": "^8.0.0",
-		"theme-change": "^2.5.0",
 		"embla-carousel-autoplay": "^8.0.0"
 
 	}

@@ -24,7 +24,7 @@ const config = {
     // },
     csp: {
       directives: {
-        'script-src': ['self', process.env.ORIGIN || "", 'https://challenges.cloudflare.com', 'https://js.stripe.com'],
+        'script-src': ['https://cdn.jsdelivr.net','self', process.env.ORIGIN || "", 'https://challenges.cloudflare.com', 'https://js.stripe.com'],
         'frame-src': ['self', process.env.ORIGIN || "", 'https://challenges.cloudflare.com', 'https://js.stripe.com'],
         'img-src': ['https://picsum.photos','https://fastly.picsum.photos','https://medusa-public-images.s3.eu-west-1.amazonaws.com', 'self', process.env.ORIGIN || "", 'data:', process.env.PUBLIC_IMAGE_BASE_URL || "", 'https://challenges.cloudflare.com', 'https://js.stripe.com']
       }
