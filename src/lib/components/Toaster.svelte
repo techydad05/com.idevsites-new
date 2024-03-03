@@ -4,6 +4,7 @@
         description: string;
         color: string;
         confirm: boolean;
+        portal?: string;
     };
 
     const {
@@ -24,15 +25,14 @@
 
 <div
     class="fixed right-0 top-0 z-[99] m-4 flex flex-col items-end gap-2 md:bottom-0 md:top-auto"
-    use:portal
->
+    use:portal>
     {#each $toasts as { id, data } (id)}
         <div
             use:melt={$content(id)}
             animate:flip={{ duration: 500 }}
             in:fly={{ duration: 150, x: "100%" }}
             out:fly={{ duration: 150, x: "100%" }}
-            class="rounded-lg bg-neutral-800 text-white shadow-md"
+            class="rounded-lg bg-transparent text-white shadow-md"
         >
             <div
                 class="{data.color} relative flex w-[24rem] max-w-[calc(100vw-2rem)] items-center justify-between gap-4 p-5"

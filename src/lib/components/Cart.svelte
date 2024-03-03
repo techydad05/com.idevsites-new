@@ -71,6 +71,7 @@
       <div
          {...$content}
          use:content
+         id="cart"
          class="overflow-auto fixed right-0 top-0 z-50 w-full h-full pb-0 mb-0 sm:w-4/5 md:w-2/3 lg:w-2/3 xl:w-1/2 bg-white p-[25px] shadow-lg focus:outline-none"
          transition:fly={{ x: "100%", duration: 300, opacity: 1 }}
       >
@@ -174,7 +175,6 @@
                               />
                            </form>
                            <form
-                              id="removeItem"
                               action="/cart?/remove"
                               method="post"
                               use:enhance
@@ -217,6 +217,7 @@
                                        //       description: "Are you sure?",
                                        //       color: "bg-yellow-500",
                                        //       confirm: true,
+                                       //       portal: "#cart"
                                        //   },
                                        //   closeDelay: 0
                                        // });
