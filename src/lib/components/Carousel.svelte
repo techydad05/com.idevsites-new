@@ -36,8 +36,8 @@
   });
 </script>
 
-<div class="container bg-slate-700 py-4 theme-dark relative">  
-  <div class="embla relative">
+<div class="bg-secondary-content py-2 theme-dark relative">  
+  <div class="embla relative w-[99%] max-w-none">
     <div class="embla__viewport">
       <div class="embla__container">
         <div class="embla__slide">
@@ -122,11 +122,11 @@
 
 <style>
   .embla {
-    max-width: 48rem;
+    /* max-width: 48rem; */
     margin: auto;
     --slide-height: 19rem;
     --slide-spacing: 1rem;
-    --slide-size: 80%;
+    --slide-size: 100%;
   }
   .embla__viewport {
     overflow: hidden;
@@ -192,7 +192,8 @@
     height: 35%;
   }
   .embla__dots {
-    display: flex;
+    /* display: flex; */
+    display: none;
     flex-wrap: wrap;
     justify-content: flex-end;
     align-items: center;

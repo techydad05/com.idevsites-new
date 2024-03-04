@@ -31,10 +31,10 @@
    <button
       {...$close}
       use:close
-      class="flex relative mx-2 p-2 items-center justify-center hover:bg-stone-200 rounded-md"
+      class="btn btn-ghost relative"
    >
       <span class="sr-only">Close cart</span>
-      <ShoppingCart class="text-gray-800 h-10 w-10" />
+      <ShoppingCart class="text-primary h-10 w-10" />
       {#if count > 0}
          <span
             class="z-50 absolute top-3 right-2 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-lime-600 rounded-full"
@@ -47,10 +47,10 @@
    <button
       {...$trigger}
       use:trigger
-      class="flex p-2 relative mx-2 items-center justify-center hover:bg-stone-200 rounded-md"
+      class="btn btn-ghost relative"
    >
       <span class="sr-only">View cart</span>
-      <ShoppingCart class="text-gray-800 h-10 w-10" />
+      <ShoppingCart class="text-primary h-10 w-10" />
       {#if count > 0}
          <span
             class="z-50 absolute top-3 right-2 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-lime-600 rounded-full"

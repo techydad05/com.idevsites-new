@@ -2,6 +2,7 @@
    import { X, Menu } from 'lucide-svelte'
    import { createDialog } from '@melt-ui/svelte'
    import { fade, fly } from 'svelte/transition'
+    import NavLinks from './NavLinks.svelte';
    export let user: {}
    const { 
       elements: { trigger, portalled, overlay, content, close },
@@ -9,38 +10,37 @@
    } = createDialog( { preventScroll: false } )
 </script>
 {#if $open}
-   <button {...$close} use:close class="flex p-2 ml-2 items-center justify-center hover:bg-stone-200 rounded-md">
-      <Menu class="text-gray-800 h-10 w-10" />
+   <button {...$close} use:close class="btn btn-ghost">
+      <Menu class="text-primary h-10 w-10" />
    </button>
 {:else}
-   <button {...$trigger} use:trigger class="flex p-2 mx-2 items-center justify-center hover:bg-stone-200 rounded-md">
-      <Menu class="text-gray-800 h-10 w-10" />
+   <button {...$trigger} use:trigger class="btn btn-ghost">
+      <Menu class="text-primary h-10 w-10" />
    </button>
 {/if}
 <div use:portalled>
    {#if $open}
       <div {...$overlay} use:overlay class="fixed inset-0 z-20 bg-black/50" transition:fade={{ duration: 150 }} />
       <div {...$content} use:content class="overflow-auto fixed left-0 top-0 z-50 h-screen w-full max-w-[350px] bg-white p-[25px] shadow-lg focus:outline-none" transition:fly={{ x: '-100%', duration: 300, opacity: 1, }}>
-         <div class="flex flex-col justify-between h-full">
+         <div class="flex flex-col justify-between h-full text-primary-content">
             <div>
-
-               <div class="flex items-center mb-6">
-                  <a class="mr-auto text-2xl font-medium leading-none" href="/">
-                     <img class="h-10" src="/logo.svg" alt="" width="auto">
+               <div class="flex items-center mb-6 justify-between">
+                  <a href="/" class="logo btn btn-ghost">
+                     <img src="/svelte_logo.png" alt="" class="h-[inherit]" />
                   </a>
-                  <button {...$close} use:close>
+                  <button class="btn btn-ghost" {...$close} use:close>
                      <X />
                   </button>
                </div>
                <div class="flex flex-col">
-                  <a href="/about" use:close class="py-2 px-3 mr-2 mb-12 rounded-md font-medium text-lg hover:bg-stone-200">About Us</a>
+                  <NavLinks />
                   {#if user}
-                     <a href="/account" use:close class="py-2 px-3 mr-2 mt-12 rounded-md font-medium text-lg hover:bg-stone-200">Your Profile</a>
+                     <a href="/account" use:close class="btn btn-secondary mb-2">Your Profile</a>
                      <form action="/auth?/logout" method="POST">
-                        <button type="submit" class="py-2 px-3 mr-2 rounded-md font-medium text-lg hover:bg-stone-200">Sign Out</button>
+                        <button type="submit" class="btn btn-secondary w-full">Sign Out</button>
                      </form>
                   {:else}
-                     <a href="/auth" use:close class="py-2 px-3 mr-2 mt-12 rounded-md font-medium text-lg hover:bg-stone-200">Sign In</a>
+                     <a href="/auth" use:close class="btn btn-secondary">Sign In</a>
                   {/if}
                </div>
             </div>
