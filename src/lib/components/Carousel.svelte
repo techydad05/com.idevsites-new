@@ -1,5 +1,11 @@
 <script>
   import EmblaCarousel from "embla-carousel";
+  import Autoplay from "embla-carousel-autoplay";
+  // work on adding this back in 
+  // import {
+  //   addPlayBtnListeners,
+  //   addNavBtnListeners
+  // } from './EmblaCarouselAutoplay'
   import {
     setupTweenParallax,
     addDotBtnsAndClickHandlers,
@@ -16,7 +22,9 @@
     const prevBtn = emblaNode?.querySelector(".embla__button--prev");
     const nextBtn = emblaNode?.querySelector(".embla__button--next");
     const dotsNode = document.querySelector(".embla__dots");
-    const emblaApi = EmblaCarousel(viewportNode, OPTIONS);
+    const emblaApi = EmblaCarousel(viewportNode, OPTIONS, [
+      Autoplay({ playOnInit: false, delay: 3000 }),
+    ]);
     const removeTweenParallax = setupTweenParallax(emblaApi);
 
     const removePrevNextBtnsClickHandlers = addPrevNextBtnsClickHandlers(
@@ -36,7 +44,7 @@
   });
 </script>
 
-<div class="bg-secondary-content py-2 theme-dark relative">  
+<div class="bg-secondary-content py-2 theme-dark relative">
   <div class="embla relative w-[99%] max-w-none">
     <div class="embla__viewport">
       <div class="embla__container">
