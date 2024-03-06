@@ -3,6 +3,7 @@
    import type { PageData } from "./$types";
    import { page } from "$app/stores";
    import NavBar from "$lib/components/NavBar.svelte";
+   import NavBarNew from "$lib/components/NavBarNew.svelte";
    import Footer from "$lib/components/Footer.svelte";
    import Toaster from "$lib/components/Toaster.svelte";
    export let data: PageData;
@@ -25,6 +26,7 @@
    {#if naked}
       <slot />
    {:else}
+    <NavBarNew bind:user bind:cart bind:count />
     <NavBar bind:user bind:cart bind:count />
     <slot />
     <Footer />

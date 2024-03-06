@@ -132,7 +132,7 @@
   .embla {
     /* max-width: 48rem; */
     margin: auto;
-    --slide-height: 19rem;
+    --slide-height: 100%;
     --slide-spacing: 1rem;
     --slide-size: 100%;
   }

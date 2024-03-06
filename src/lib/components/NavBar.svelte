@@ -44,7 +44,7 @@
 
    let showThemeChange = false;
 </script>
-<nav class="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8 bg-transparent">
+<nav class="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8 bg-transparent fixed z-[99]">
    <div class="flex flex-grow items-center justify-between">
       <div
          on:dblclick={() => (showThemeChange = !showThemeChange)}
