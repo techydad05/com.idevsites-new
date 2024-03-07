@@ -23,7 +23,7 @@
   </div>
   <div class="navbar-end">
     <button class="btn btn-ghost btn-circle">
-      
+
     </button>
     <button class="btn btn-ghost btn-circle">
       
