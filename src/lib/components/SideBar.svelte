@@ -10,13 +10,19 @@
       states: { open, } 
    } = createDialog( { preventScroll: false } )
 </script>
-<button class="btn btn-ghost btn-lg btn-circle" {...$trigger} use:trigger>
+{#if $open}
+<button class="btn btn-ghost btn-lg btn-circle" {...$close} use:close>
       <AnimatedIcon open={$open} />
 </button>
+   {:else}
+   <button class="btn btn-ghost btn-lg btn-circle" {...$trigger} use:trigger>
+         <AnimatedIcon open={$open} />
+   </button>
+{/if}
 <div use:portalled>
    {#if $open}
       <div {...$overlay} use:overlay class="fixed inset-0 z-[150] bg-black/50" transition:fade={{ duration: 150 }} />
-      <div {...$content} use:content class="overflow-auto fixed left-0 top-0 z-50 h-screen w-full max-w-[300px] bg-white shadow-lg focus:outline-none" transition:fly={{ x: '-100%', duration: 300, opacity: 1, }}>
+      <div {...$content} use:content class="overflow-auto fixed left-0 top-0 z-[151] h-screen w-full max-w-[300px] bg-white shadow-lg focus:outline-none" transition:fly={{ x: '-100%', duration: 300, opacity: 1, }}>
          <div class="flex flex-col justify-between h-full text-primary-content bg-secondary p-6">
             <div>
                <div class="flex items-center mb-6 justify-between">
