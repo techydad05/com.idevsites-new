@@ -10,12 +10,12 @@
       states: { open, } 
    } = createDialog( { preventScroll: false } )
 </script>
-<div class="flex items-center justify-center w-1/2">
+<div class="flex items-center justify-center w-20 relative">
    {#if $open}
-   <button class="btn btn-ghost btn-circle absolute z-[100]" {...$close} use:close>
+   <button class="w-full h-full absolute z-[100]" {...$close} use:close>
    </button>
    {:else if !$open}
-   <button class="btn btn-ghost btn-circle absolute z-[100]" {...$trigger} use:trigger>
+   <button class="w-full h-full absolute z-[100]" {...$trigger} use:trigger>
    </button>
    {/if}
    <AnimatedIcon open={$open} />
