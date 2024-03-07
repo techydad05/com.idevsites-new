@@ -27,7 +27,7 @@
       <slot />
    {:else}
     <NavBarNew bind:user bind:cart bind:count />
-    <NavBar bind:user bind:cart bind:count />
+    <!-- <NavBar bind:user bind:cart bind:count /> -->
     <slot />
     <Footer />
    {/if}

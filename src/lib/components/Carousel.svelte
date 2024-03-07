@@ -50,59 +50,22 @@
       <div class="embla__container">
         <div class="embla__slide">
           <div class="embla__parallax">
-            <div class="embla__parallax__layer">
-              <img
-                class="embla__slide__img embla__parallax__img"
-                src="https://picsum.photos/600/350?v=1"
-                alt="Your alt text"
+            <div class="embla__parallax__layer flex-1 flex-nowrap">
+              <div class="w-full">
+                <img
+                class="embla__slide__img embla__parallax__img float-left"
+                style="width: 50% !important;"
+                src="/billiards.png"
+                alt="pool tables"
               />
+              <div class="w-1/2 float-left text-white">
+                <h1 class="text-[5rem] text-white p-4">Billiards Anyone?</h1>
+              </div>
+              </div>
             </div>
           </div>
         </div>
-        <div class="embla__slide">
-          <div class="embla__parallax">
-            <div class="embla__parallax__layer">
-              <img
-                class="embla__slide__img embla__parallax__img"
-                src="https://picsum.photos/600/350?v=2"
-                alt="Your alt text"
-              />
-            </div>
-          </div>
-        </div>
-        <div class="embla__slide">
-          <div class="embla__parallax">
-            <div class="embla__parallax__layer">
-              <img
-                class="embla__slide__img embla__parallax__img"
-                src="https://picsum.photos/600/350?v=3"
-                alt="Your alt text"
-              />
-            </div>
-          </div>
-        </div>
-        <div class="embla__slide">
-          <div class="embla__parallax">
-            <div class="embla__parallax__layer">
-              <img
-                class="embla__slide__img embla__parallax__img"
-                src="https://picsum.photos/600/350?v=4"
-                alt="Your alt text"
-              />
-            </div>
-          </div>
-        </div>
-        <div class="embla__slide">
-          <div class="embla__parallax">
-            <div class="embla__parallax__layer">
-              <img
-                class="embla__slide__img embla__parallax__img"
-                src="https://picsum.photos/600/350?v=5"
-                alt="Your alt text"
-              />
-            </div>
-          </div>
-        </div>
+       
       </div>
     </div>
     <div class="embla__controls absolute bottom-2 ml-[10%] w-[80%]">
@@ -266,3 +229,50 @@
     min-width: 0;
   }
 </style>
+
+
+
+<!-- <div class="embla__slide">
+  <div class="embla__parallax">
+    <div class="embla__parallax__layer">
+      <img
+        class="embla__slide__img embla__parallax__img"
+        src="https://picsum.photos/600/350?v=2"
+        alt="Your alt text"
+      />
+    </div>
+  </div>
+</div>
+<div class="embla__slide">
+  <div class="embla__parallax">
+    <div class="embla__parallax__layer">
+      <img
+        class="embla__slide__img embla__parallax__img"
+        src="https://picsum.photos/600/350?v=3"
+        alt="Your alt text"
+      />
+    </div>
+  </div>
+</div>
+<div class="embla__slide">
+  <div class="embla__parallax">
+    <div class="embla__parallax__layer">
+      <img
+        class="embla__slide__img embla__parallax__img"
+        src="https://picsum.photos/600/350?v=4"
+        alt="Your alt text"
+      />
+    </div>
+  </div>
+</div>
+<div class="embla__slide">
+  <div class="embla__parallax">
+    <div class="embla__parallax__layer">
+      <img
+        class="embla__slide__img embla__parallax__img"
+        src="https://picsum.photos/600/350?v=5"
+        alt="Your alt text"
+      />
+    </div>
+  </div>
+</div> -->
