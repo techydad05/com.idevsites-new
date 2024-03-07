@@ -2,22 +2,17 @@
    import { X, Menu } from 'lucide-svelte'
    import { createDialog } from '@melt-ui/svelte'
    import { fade, fly } from 'svelte/transition'
-    import NavLinks from './NavLinks.svelte';
+   import NavLinks from './NavLinks.svelte';
+    import AnimatedIcon from './AnimatedIcon.svelte';
    export let user: {}
    const { 
       elements: { trigger, portalled, overlay, content, close },
       states: { open, } 
    } = createDialog( { preventScroll: false } )
 </script>
-{#if $open}
-   <button {...$close} use:close class="btn btn-ghost">
-      <Menu class="text-primary h-10 w-10" />
-   </button>
-{:else}
-   <button {...$trigger} use:trigger class="btn btn-ghost">
-      <Menu class="text-primary h-10 w-10" />
-   </button>
-{/if}
+<button class="btn btn-ghost btn-lg btn-circle" {...$trigger} use:trigger>
+      <AnimatedIcon open={$open} />
+</button>
 <div use:portalled>
    {#if $open}
       <div {...$overlay} use:overlay class="fixed inset-0 z-20 bg-black/50" transition:fade={{ duration: 150 }} />

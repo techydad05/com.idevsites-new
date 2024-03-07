@@ -5,7 +5,6 @@
    import Account from './Account.svelte'
    import SearchBox from './SearchBox.svelte'
    import SideBar from './SideBar.svelte'
-    import AnimatedIcon from './AnimatedIcon.svelte';
    export let user: {}
    export let cart: {}
    export let count: number
@@ -22,12 +21,12 @@
     <img src="/logo.png" width="100%" alt="">
   </div>
   <div class="navbar-end">
-    <button class="btn btn-ghost btn-circle">
+    <!-- <button class="btn btn-ghost btn-circle">
 
     </button>
     <button class="btn btn-ghost btn-circle">
       
-    </button>
-    <AnimatedIcon />
+    </button> -->
+    <SideBar {user} />
   </div>
 </div>
