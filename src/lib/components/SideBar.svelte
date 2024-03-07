@@ -11,8 +11,13 @@
    } = createDialog( { preventScroll: false } )
 </script>
 <div class="flex items-center justify-center w-1/4">
-   <button class="btn btn-ghost btn-lg btn-circle absolute z-[149]" {...$trigger} use:trigger>
+   {#if $open}
+   <button class="btn btn-ghost btn-lg btn-circle absolute z-[100]" {...$close} use:close>
    </button>
+   {:else}
+   <button class="btn btn-ghost btn-lg btn-circle absolute z-[100]" {...$trigger} use:trigger>
+   </button>
+   {/if}
    <AnimatedIcon open={$open} />
 </div>
 <div use:portalled>
