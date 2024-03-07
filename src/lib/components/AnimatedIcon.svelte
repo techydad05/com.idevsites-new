@@ -1,5 +1,5 @@
 <script>
-export let open = false;
+export let open;
 </script>
 <svg class:active={open} class="ham ham3" viewBox="0 0 100 100" width="100%">
         <path
