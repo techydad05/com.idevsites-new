@@ -11,7 +11,7 @@
    } = createDialog( { preventScroll: false } )
 </script>
 <div class="flex items-center justify-center w-1/4">
-   {#if $open}
+   {#if !$open}
    <button class="btn btn-ghost btn-lg btn-circle absolute z-[100]" {...$close} use:close>
    </button>
    {:else}
