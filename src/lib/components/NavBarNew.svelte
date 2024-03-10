@@ -12,7 +12,7 @@
   let showThemeChange = false;
 </script>
 
-<div class="navbar bg-secondary fixed top-0 z-30 h-[20vh] shadow-lg">
+<div class="navbar bg-base-100 fixed top-0 z-30 h-[20vh] shadow-lg">
   <!-- svelte-ignore a11y-no-static-element-interactions -->
   <div
     on:dblclick={() => (showThemeChange = !showThemeChange)}
