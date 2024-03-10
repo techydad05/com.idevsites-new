@@ -21,7 +21,7 @@
       // 👆 false parameter is required for svelte
    })
 </script>
-<div class="ACTIVECLASS">
+<div>
    <Toaster />
    {#if naked}
       <slot />

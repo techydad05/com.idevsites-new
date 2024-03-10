@@ -73,7 +73,7 @@
     <div class="embla__viewport">
       <div class="embla__container">
         {#each slides as slide}
-          <div class="embla__slide">
+          <div class="embla__slide bg-gradient-to-t from-base-100 to-accent">
             <div class="embla__parallax">
               <div
                 class="embla__parallax__layer"
@@ -84,7 +84,7 @@
                   alt="pool tables"
                   style={`height:${imgHeight}px`}
                 />
-                <h1 class="text-white p-4 text-[4rem] absolute md:relative">
+                <h1 class="text-white p-4 text-[6rem] md:text-[8rem] absolute md:relative leading-tight">
                   {slide.text}
                 </h1>
               </div>
