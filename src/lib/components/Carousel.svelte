@@ -1,7 +1,9 @@
 <script>
+  // @ts-nocheck
+
   import EmblaCarousel from "embla-carousel";
   import Autoplay from "embla-carousel-autoplay";
-  // work on adding this back in 
+  // work on adding this back in
   // import {
   //   addPlayBtnListeners,
   //   addNavBtnListeners
@@ -13,6 +15,7 @@
   } from "../carousel-helpers/carousel-helpers.js";
   import "../carousel-helpers/carousel-helpers.css";
   import { onMount } from "svelte";
+  let imgHeight = 0;
 
   const OPTIONS = { dragFree: true, loop: true };
 
@@ -43,29 +46,27 @@
       .on("destroy", removeDotBtnsAndClickHandlers);
   });
 </script>
-
-<div class="bg-secondary-content py-2 theme-dark relative">
-  <div class="embla relative w-[99%] max-w-none">
+<div bind:clientHeight={imgHeight} class="h-[80vh] mt-[20vh] overflow-hidden">
+  <div class="embla relative max-w-none h-full">
     <div class="embla__viewport">
       <div class="embla__container">
         <div class="embla__slide">
           <div class="embla__parallax">
-            <div class="embla__parallax__layer flex-1 flex-nowrap">
-              <div class="w-full">
-                <img
-                class="embla__slide__img embla__parallax__img float-left"
-                style="width: 50% !important;"
+            <div
+              class="embla__parallax__layer bg-gradient-to-b from-base-300 to-base-accent"
+            >
+              <img
+                class="embla__slide__img embla__parallax__img w-full md:w-1/2 rounded-none"
                 src="/billiards.png"
                 alt="pool tables"
+                style={`height:${imgHeight}px`}
               />
-              <div class="w-1/2 float-left text-white">
-                <h1 class="text-[5rem] text-white p-4">Billiards Anyone?</h1>
-              </div>
-              </div>
+              <h1 class="text-white p-4 text-[4rem] absolute md:relative">
+                Billiards<br />Anyone?
+              </h1>
             </div>
           </div>
         </div>
-       
       </div>
     </div>
     <div class="embla__controls absolute bottom-2 ml-[10%] w-[80%]">
@@ -91,6 +92,51 @@
   </div>
 </div>
 
+<!-- <div class="embla__slide">
+  <div class="embla__parallax">
+    <div class="embla__parallax__layer">
+      <img
+        class="embla__slide__img embla__parallax__img"
+        src="https://picsum.photos/600/350?v=2"
+        alt="Your alt text"
+      />
+    </div>
+  </div>
+</div>
+<div class="embla__slide">
+  <div class="embla__parallax">
+    <div class="embla__parallax__layer">
+      <img
+        class="embla__slide__img embla__parallax__img"
+        src="https://picsum.photos/600/350?v=3"
+        alt="Your alt text"
+      />
+    </div>
+  </div>
+</div>
+<div class="embla__slide">
+  <div class="embla__parallax">
+    <div class="embla__parallax__layer">
+      <img
+        class="embla__slide__img embla__parallax__img"
+        src="https://picsum.photos/600/350?v=4"
+        alt="Your alt text"
+      />
+    </div>
+  </div>
+</div>
+<div class="embla__slide">
+  <div class="embla__parallax">
+    <div class="embla__parallax__layer">
+      <img
+        class="embla__slide__img embla__parallax__img"
+        src="https://picsum.photos/600/350?v=5"
+        alt="Your alt text"
+      />
+    </div>
+  </div>
+</div> -->
+
 <style>
   .embla {
     /* max-width: 48rem; */
@@ -114,11 +160,20 @@
     padding-left: var(--slide-spacing);
   }
   .embla__slide__img {
-    border-radius: 1.8rem;
-    display: block;
-    height: var(--slide-height);
-    width: 100%;
+    /* border-radius: 1.8rem; */
+    /* display: block; */
+    /* height: var(--slide-height); */
+    /* width: 100%; */
+    /* object-fit: cover; */
+  }
+  .embla__parallax__layer h1 {
+    width: 50%;
+    float: left;
+  }
+  .embla__parallax__img {
+    max-width: none;
     object-fit: cover;
+    float: left;
   }
   .embla__controls {
     display: grid;
@@ -202,21 +257,15 @@
     box-shadow: inset 0 0 0 0.2rem var(--text-body);
   }
   .embla__parallax {
-    border-radius: 1.8rem;
+    /* border-radius: 1.8rem; */
     height: 100%;
     overflow: hidden;
+    display: flex;
   }
   .embla__parallax__layer {
     position: relative;
     height: 100%;
     width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-  .embla__parallax__img {
-    max-width: none;
-    flex: 0 0 calc(115% + (var(--slide-spacing) * 2));
-    object-fit: cover;
   }
   .embla {
     overflow: hidden;
@@ -229,50 +278,3 @@
     min-width: 0;
   }
 </style>
-
-
-
-<!-- <div class="embla__slide">
-  <div class="embla__parallax">
-    <div class="embla__parallax__layer">
-      <img
-        class="embla__slide__img embla__parallax__img"
-        src="https://picsum.photos/600/350?v=2"
-        alt="Your alt text"
-      />
-    </div>
-  </div>
-</div>
-<div class="embla__slide">
-  <div class="embla__parallax">
-    <div class="embla__parallax__layer">
-      <img
-        class="embla__slide__img embla__parallax__img"
-        src="https://picsum.photos/600/350?v=3"
-        alt="Your alt text"
-      />
-    </div>
-  </div>
-</div>
-<div class="embla__slide">
-  <div class="embla__parallax">
-    <div class="embla__parallax__layer">
-      <img
-        class="embla__slide__img embla__parallax__img"
-        src="https://picsum.photos/600/350?v=4"
-        alt="Your alt text"
-      />
-    </div>
-  </div>
-</div>
-<div class="embla__slide">
-  <div class="embla__parallax">
-    <div class="embla__parallax__layer">
-      <img
-        class="embla__slide__img embla__parallax__img"
-        src="https://picsum.photos/600/350?v=5"
-        alt="Your alt text"
-      />
-    </div>
-  </div>
-</div> -->

@@ -21,7 +21,7 @@
       // 👆 false parameter is required for svelte
    })
 </script>
-<div data-theme='ACTIVECLASS'>
+<div>
    <Toaster />
    {#if naked}
       <slot />

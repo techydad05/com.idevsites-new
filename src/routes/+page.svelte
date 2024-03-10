@@ -3,9 +3,10 @@
    import Collection from "$lib/components/Collection.svelte";
    import Carousel from "$src/lib/components/Carousel.svelte";
    export let data: PageData;
+   export let carouselContainer = 0;
 </script>
 
-<Carousel />
+<Carousel imgHeight={carouselContainer}/>
 <Collection products={data.products} />
 
 <!-- {#each data.products as product}
