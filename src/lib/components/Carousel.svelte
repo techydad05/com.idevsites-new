@@ -15,9 +15,10 @@
   } from "../carousel-helpers/carousel-helpers.js";
   import "../carousel-helpers/carousel-helpers.css";
   import { onMount } from "svelte";
+  import { slide } from "svelte/transition";
   let imgHeight = 0;
 
-  const OPTIONS = { dragFree: true, loop: true };
+  const OPTIONS = { dragFree: false, loop: true };
 
   onMount(() => {
     const emblaNode = document.querySelector(".embla");
@@ -26,7 +27,7 @@
     const nextBtn = emblaNode?.querySelector(".embla__button--next");
     const dotsNode = document.querySelector(".embla__dots");
     const emblaApi = EmblaCarousel(viewportNode, OPTIONS, [
-      Autoplay({ playOnInit: false, delay: 3000 }),
+      Autoplay({ playOnInit: true, delay: 3000 }),
     ]);
     const removeTweenParallax = setupTweenParallax(emblaApi);
 
@@ -45,62 +46,51 @@
       .on("destroy", removePrevNextBtnsClickHandlers)
       .on("destroy", removeDotBtnsAndClickHandlers);
   });
+
+
+  const slides = [
+    {
+      img: "volcano.png",
+      text: "Sushi, Tapas, & More"
+    },
+    {
+      img: "billiards.png",
+      text: "Billiards Anyone?"
+    },
+    {
+      img: "mimosa.png",
+      text: "Brunch with Us"
+    },
+    {
+      img: "tikis.png",
+      text: "Potent Tikis and Cocktails"
+    },
+  ]
 </script>
+
 <div bind:clientHeight={imgHeight} class="h-[80vh] mt-[20vh] overflow-hidden">
   <div class="embla relative max-w-none h-full">
     <div class="embla__viewport">
       <div class="embla__container">
-        <div class="embla__slide">
-          <div class="embla__parallax">
-            <div
-              class="embla__parallax__layer bg-gradient-to-b from-base-300 to-base-accent"
-            >
-              <img
-                class="embla__slide__img embla__parallax__img w-full md:w-1/2 rounded-none"
-                src="/billiards.png"
-                alt="pool tables"
-                style={`height:${imgHeight}px`}
-              />
-              <h1 class="text-white p-4 text-[4rem] absolute md:relative">
-                Billiards<br />Anyone?
-              </h1>
+        {#each slides as slide}
+          <div class="embla__slide">
+            <div class="embla__parallax">
+              <div
+                class="embla__parallax__layer"
+              >
+                <img
+                  class="embla__slide__img embla__parallax__img w-full md:w-1/2 rounded-none"
+                  src={slide.img}
+                  alt="pool tables"
+                  style={`height:${imgHeight}px`}
+                />
+                <h1 class="text-white p-4 text-[4rem] absolute md:relative">
+                  {slide.text}
+                </h1>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="embla__slide">
-          <div class="embla__parallax">
-            <div
-              class="embla__parallax__layer bg-gradient-to-b from-base-300 to-base-accent"
-            >
-              <img
-                class="embla__slide__img embla__parallax__img w-full md:w-1/2 rounded-none"
-                src="/billiards.png"
-                alt="pool tables"
-                style={`height:${imgHeight}px`}
-              />
-              <h1 class="text-white p-4 text-[4rem] absolute md:relative">
-                Billiards<br />Anyone?
-              </h1>
-            </div>
-          </div>
-        </div>
-        <div class="embla__slide">
-          <div class="embla__parallax">
-            <div
-              class="embla__parallax__layer bg-gradient-to-b from-base-300 to-base-accent"
-            >
-              <img
-                class="embla__slide__img embla__parallax__img w-full md:w-1/2 rounded-none"
-                src="/billiards.png"
-                alt="pool tables"
-                style={`height:${imgHeight}px`}
-              />
-              <h1 class="text-white p-4 text-[4rem] absolute md:relative">
-                Billiards<br />Anyone?
-              </h1>
-            </div>
-          </div>
-        </div>
+        {/each}
       </div>
     </div>
     <div class="embla__controls absolute bottom-2 ml-[10%] w-[80%]">
