@@ -76,7 +76,7 @@
           <div class="embla__slide bg-gradient-to-t from-base-100 to-accent">
             <div class="embla__parallax">
               <div
-                class="embla__parallax__layer"
+                class="embla__parallax__layer flex items-center"
               >
                 <img
                   class="embla__slide__img embla__parallax__img w-full md:w-1/2 rounded-none"
@@ -84,8 +84,8 @@
                   alt="pool tables"
                   style={`height:${imgHeight}px`}
                 />
-                <h1 class="text-pretty text-primary-content p-4 text-[6rem] md:text-[8rem] absolute md:relative leading-tight"
-                  style="text-shadow: -4px 4px 11px black;">
+                <h1 class="font-normal text-pretty text-secondary/70 p-4 text-[6rem] md:text-[7rem] lg:text-[9rem] absolute md:relative leading-tight"
+                  style="text-shadow: -4px 4px 6px darkslategray;">
                   {slide.text}
                 </h1>
               </div>
@@ -94,7 +94,7 @@
         {/each}
       </div>
     </div>
-    <div class="embla__controls absolute bottom-2 ml-[10%] w-[80%]">
+    <div class="embla__controls absolute top-0 right-0">
       <div class="embla__buttons">
         <button class="embla__button embla__button--prev" type="button">
           <svg class="embla__button__svg" viewBox="0 0 532 532">
