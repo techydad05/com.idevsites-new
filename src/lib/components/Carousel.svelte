@@ -84,7 +84,8 @@
                   alt="pool tables"
                   style={`height:${imgHeight}px`}
                 />
-                <h1 class="text-white p-4 text-[6rem] md:text-[8rem] absolute md:relative leading-tight">
+                <h1 class="text-pretty text-primary-content p-4 text-[6rem] md:text-[8rem] absolute md:relative leading-tight"
+                  style="text-shadow: -4px 4px 11px black;">
                   {slide.text}
                 </h1>
               </div>
