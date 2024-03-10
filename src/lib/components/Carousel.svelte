@@ -67,6 +67,40 @@
             </div>
           </div>
         </div>
+        <div class="embla__slide">
+          <div class="embla__parallax">
+            <div
+              class="embla__parallax__layer bg-gradient-to-b from-base-300 to-base-accent"
+            >
+              <img
+                class="embla__slide__img embla__parallax__img w-full md:w-1/2 rounded-none"
+                src="/billiards.png"
+                alt="pool tables"
+                style={`height:${imgHeight}px`}
+              />
+              <h1 class="text-white p-4 text-[4rem] absolute md:relative">
+                Billiards<br />Anyone?
+              </h1>
+            </div>
+          </div>
+        </div>
+        <div class="embla__slide">
+          <div class="embla__parallax">
+            <div
+              class="embla__parallax__layer bg-gradient-to-b from-base-300 to-base-accent"
+            >
+              <img
+                class="embla__slide__img embla__parallax__img w-full md:w-1/2 rounded-none"
+                src="/billiards.png"
+                alt="pool tables"
+                style={`height:${imgHeight}px`}
+              />
+              <h1 class="text-white p-4 text-[4rem] absolute md:relative">
+                Billiards<br />Anyone?
+              </h1>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="embla__controls absolute bottom-2 ml-[10%] w-[80%]">
