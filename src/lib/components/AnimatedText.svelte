@@ -3,21 +3,19 @@
     export let animate = false;
 </script>
 
-<div class="logo-container {animate ? 'animated' : ''}">
+<div class="logo-container {animate ? 'animated' : ''} absolute pl-5 md:pl-0 md:relative">
     <h1 id="page-logo">
         {text}
     </h1>
 </div>
 <!-- <button class="absolute bottom-0 left-0" on:click={() => animate = !animate}>animated!</button> -->
 <style>
-    .logo-container {
-        position: relative;
-    }
     .logo-container:before {
         content: "";
         position: absolute;
         top: calc(100% - 2px);
-        width: 100%;
+        left: 20px;
+        width: 90%;
         height: 4px;
         background-color: #cf0000;
         transform-origin: center center;
