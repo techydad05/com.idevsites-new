@@ -2,11 +2,13 @@
    import type { PageData } from "./$types";
    import Collection from "$lib/components/Collection.svelte";
    import Carousel from "$src/lib/components/Carousel.svelte";
+    import DaisyHero from "$src/lib/components/DaisyHero.svelte";
    export let data: PageData;
 </script>
 
 <Carousel />
-<Collection products={data.products} />
+<DaisyHero />
+<!-- <Collection products={data.products} /> -->
 
 <!-- {#each data.products as product}
    <div>

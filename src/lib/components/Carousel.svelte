@@ -16,7 +16,9 @@
   import "../carousel-helpers/carousel-helpers.css";
   import { onMount } from "svelte";
   import { slide } from "svelte/transition";
+  import AnimatedText from "./AnimatedText.svelte";
   let imgHeight = 0;
+  let animateText = false;
 
   const OPTIONS = { dragFree: false, loop: true };
 
@@ -27,7 +29,7 @@
     const nextBtn = emblaNode?.querySelector(".embla__button--next");
     const dotsNode = document.querySelector(".embla__dots");
     const emblaApi = EmblaCarousel(viewportNode, OPTIONS, [
-      Autoplay({ playOnInit: true, delay: 3000 }),
+      Autoplay({ playOnInit: true, delay: 5000 }),
     ]);
     const removeTweenParallax = setupTweenParallax(emblaApi);
 
@@ -45,27 +47,31 @@
       .on("destroy", removeTweenParallax)
       .on("destroy", removePrevNextBtnsClickHandlers)
       .on("destroy", removeDotBtnsAndClickHandlers);
-  });
 
+    emblaApi.on("slidesInView", () => {
+      console.log("in view");
+      animateText = true;
+    });
+  });
 
   const slides = [
     {
       img: "volcano.png",
-      text: "Sushi, Tapas, & More"
+      text: "Sushi, Tapas, & More",
     },
     {
       img: "billiards.png",
-      text: "Billiards Anyone?"
+      text: "Billiards Anyone?",
     },
     {
       img: "mimosa.png",
-      text: "Brunch with Us"
+      text: "Brunch with Us",
     },
     {
       img: "tikis.png",
-      text: "Potent Tikis and Cocktails"
+      text: "Potent Tikis and Cocktails",
     },
-  ]
+  ];
 </script>
 
 <div bind:clientHeight={imgHeight} class="h-[80vh] mt-[20vh] overflow-hidden">
@@ -73,21 +79,20 @@
     <div class="embla__viewport">
       <div class="embla__container">
         {#each slides as slide}
-          <div class="embla__slide bg-gradient-to-t from-base-100 to-secondary">
+          <div class="embla__slide bg-gradient-to-t from-base-100 to-base-300">
             <div class="embla__parallax">
-              <div
-                class="embla__parallax__layer flex items-center"
-              >
+              <div class="embla__parallax__layer flex items-center">
                 <img
                   class="embla__slide__img embla__parallax__img w-full md:w-1/2 rounded-none"
                   src={slide.img}
                   alt="pool tables"
                   style={`height:${imgHeight}px`}
                 />
-                <h1 class="font-normal text-pretty text-neutral-content p-4 text-[6rem] md:text-[7rem] lg:text-[9rem] absolute md:relative leading-tight"
+                <AnimatedText animate={animateText} text={slide.text} />
+                <!-- <h1 class="font-normal text-pretty text-neutral-content p-4 text-[6rem] md:text-[7rem] lg:text-[9rem] absolute md:relative leading-tight"
                   style="text-shadow: -1px 1px 1px black;">
                   {slide.text}
-                </h1>
+                </h1> -->
               </div>
             </div>
           </div>
