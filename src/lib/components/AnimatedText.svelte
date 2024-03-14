@@ -3,21 +3,22 @@
     export let animate = false;
 </script>
 
-<div class="logo-container {animate ? 'animated' : ''} absolute pl-5 md:pl-0 md:relative">
+<div
+    class="logo-container absolute pl-5 md:pl-0 md:relative"
+>
+    <div class="line bg-accent"></div>
     <h1 id="page-logo">
         {text}
     </h1>
 </div>
-<!-- <button class="absolute bottom-0 left-0" on:click={() => animate = !animate}>animated!</button> -->
 <style>
-    .logo-container:before {
-        content: "";
+    .line {
         position: absolute;
         top: calc(100% - 2px);
         left: 20px;
         width: 90%;
         height: 4px;
-        background-color: #cf0000;
+        /* background-color: #cf0000; */
         transform-origin: center center;
         transform: scaleX(0);
     }
@@ -26,10 +27,11 @@
             bold 6rem "Arial",
             sans-serif;
     }
-    .animated.logo-container:before {
+    /* .is-snapped .logo-container:before { */
+    .is-snapped .logo-container .line {
         animation: line-animation 2.5s ease infinite alternate;
     }
-    .animated.logo-container h1#page-logo {
+    .is-snapped .logo-container h1#page-logo {
         animation: clip-path-reveal-1 2.5s ease infinite alternate;
     }
 

@@ -1,7 +1,6 @@
 <script>
-  // @ts-nocheck
-
-  import EmblaCarousel from "embla-carousel";
+  import EmblaCarousel from 'embla-carousel'
+  import ClassNames from 'embla-carousel-class-names'
   import Autoplay from "embla-carousel-autoplay";
   // work on adding this back in
   // import {
@@ -15,10 +14,12 @@
   } from "../carousel-helpers/carousel-helpers.js";
   import "../carousel-helpers/carousel-helpers.css";
   import { onMount } from "svelte";
+  import { draw } from "svelte/transition";
+  import { quintOut } from "svelte/easing";
   import { slide } from "svelte/transition";
   import AnimatedText from "./AnimatedText.svelte";
-  let imgHeight = 0;
   let animateText = false;
+  let imgHeight = 0;
 
   const OPTIONS = { dragFree: false, loop: true };
 
@@ -30,6 +31,7 @@
     const dotsNode = document.querySelector(".embla__dots");
     const emblaApi = EmblaCarousel(viewportNode, OPTIONS, [
       Autoplay({ playOnInit: true, delay: 5000 }),
+      ClassNames()
     ]);
     const removeTweenParallax = setupTweenParallax(emblaApi);
 
@@ -47,14 +49,9 @@
       .on("destroy", removeTweenParallax)
       .on("destroy", removePrevNextBtnsClickHandlers)
       .on("destroy", removeDotBtnsAndClickHandlers);
-
-    emblaApi.on("slidesInView", () => {
-      console.log("in view");
-      animateText = true;
-    });
   });
 
-  const slides = [
+  const imgSlides = [
     {
       img: "volcano.png",
       text: "Sushi, Tapas, & More",
@@ -78,7 +75,7 @@
   <div class="embla relative max-w-none h-full">
     <div class="embla__viewport">
       <div class="embla__container">
-        {#each slides as slide}
+        {#each imgSlides as slide}
           <div class="embla__slide bg-gradient-to-t from-base-100 to-base-300">
             <div class="embla__parallax">
               <div class="embla__parallax__layer flex items-center">
@@ -88,7 +85,7 @@
                   alt="pool tables"
                   style={`height:${imgHeight}px`}
                 />
-                <AnimatedText animate={animateText} text={slide.text} />
+                <AnimatedText text={slide.text} />
                 <!-- <h1 class="font-normal text-pretty text-neutral-content p-4 text-[6rem] md:text-[7rem] lg:text-[9rem] absolute md:relative leading-tight"
                   style="text-shadow: -1px 1px 1px black;">
                   {slide.text}
@@ -168,6 +165,9 @@
 </div> -->
 
 <style>
+  .slide-text {
+    transition: opacity 2s linear;
+  }
   .embla {
     /* max-width: 48rem; */
     margin: auto;

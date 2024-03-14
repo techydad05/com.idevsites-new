@@ -65,7 +65,7 @@
 	"type": "module",
 	"dependencies": {
 		"embla-carousel": "^8.0.0",
-		"embla-carousel-autoplay": "^8.0.0"
-
+		"embla-carousel-autoplay": "^8.0.0",
+		"embla-carousel-class-names": "^8.0.0"
 	}
 }
