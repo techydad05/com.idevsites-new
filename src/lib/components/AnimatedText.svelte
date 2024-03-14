@@ -7,7 +7,7 @@
     class="logo-container absolute pl-5 md:pl-0 md:relative"
 >
     <div class="line bg-secondary"></div>
-    <h1 id="page-logo" class="text-5xl md:text-8xl">
+    <h1 id="page-logo" class="text-9xl md:text-[10rem]">
         {text}
     </h1>
 </div>
@@ -22,10 +22,10 @@
         transform: scaleX(0);
     }
     .is-snapped .logo-container .line {
-        animation: line-animation 2.5s ease infinite alternate;
+        animation: line-animation 2.5s ease 1 alternate;
     }
     .is-snapped .logo-container h1#page-logo {
-        animation: clip-path-reveal-1 2.5s ease infinite alternate;
+        animation: clip-path-reveal-1 2.5s ease 1 alternate;
     }
 
     @keyframes line-animation {

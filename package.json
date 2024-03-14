@@ -64,6 +64,8 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@slidy/core": "^3.7.6",
+		"@slidy/svelte": "^3.4.4",
 		"embla-carousel": "^8.0.0",
 		"embla-carousel-autoplay": "^8.0.0",
 		"embla-carousel-class-names": "^8.0.0"
