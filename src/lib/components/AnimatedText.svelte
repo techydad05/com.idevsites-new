@@ -6,8 +6,8 @@
 <div
     class="logo-container absolute pl-5 md:pl-0 md:relative"
 >
-    <div class="line bg-accent"></div>
-    <h1 id="page-logo">
+    <div class="line bg-secondary"></div>
+    <h1 id="page-logo" class="text-5xl md:text-8xl">
         {text}
     </h1>
 </div>
@@ -18,16 +18,9 @@
         left: 20px;
         width: 90%;
         height: 4px;
-        /* background-color: #cf0000; */
         transform-origin: center center;
         transform: scaleX(0);
     }
-    .logo-container h1#page-logo {
-        font:
-            bold 6rem "Arial",
-            sans-serif;
-    }
-    /* .is-snapped .logo-container:before { */
     .is-snapped .logo-container .line {
         animation: line-animation 2.5s ease infinite alternate;
     }

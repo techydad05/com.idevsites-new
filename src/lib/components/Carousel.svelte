@@ -85,6 +85,7 @@
                   alt="pool tables"
                   style={`height:${imgHeight}px`}
                 />
+                
                 <AnimatedText text={slide.text} />
                 <!-- <h1 class="font-normal text-pretty text-neutral-content p-4 text-[6rem] md:text-[7rem] lg:text-[9rem] absolute md:relative leading-tight"
                   style="text-shadow: -1px 1px 1px black;">
