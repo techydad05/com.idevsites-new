@@ -1,13 +1,12 @@
 <script>
     export let text = "";
-    export let animate = false;
 </script>
 
 <div
     class="logo-container absolute pl-5 md:pl-0 md:relative"
 >
     <div class="line bg-secondary"></div>
-    <h1 id="page-logo" class="text-9xl md:text-[10rem]">
+    <h1 id="page-logo" class="text-9xl md:text-[10rem] pl-4">
         {text}
     </h1>
 </div>
@@ -22,10 +21,10 @@
         transform: scaleX(0);
     }
     .is-snapped .logo-container .line {
-        animation: line-animation 2.5s ease 1 alternate;
+        animation: line-animation 2.5s ease infinite alternate;
     }
     .is-snapped .logo-container h1#page-logo {
-        animation: clip-path-reveal-1 2.5s ease 1 alternate;
+        animation: clip-path-reveal-1 2.5s ease infinite alternate;
     }
 
     @keyframes line-animation {
