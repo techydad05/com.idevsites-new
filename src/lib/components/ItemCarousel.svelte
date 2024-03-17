@@ -2,7 +2,7 @@
     import { Slidy } from "@slidy/svelte";
     import { flip } from "@slidy/animation";
     import "@slidy/svelte/dist/slidy.css";
-    import { autoplay } from "@slidy/plugins";
+    // import { autoplay } from "@slidy/plugins";
 
     const images = [
         { src: "mimosa.png", width: "90vw", height: "405px" },
@@ -21,7 +21,6 @@
         loop
         thumbnails={true}
         arrows={false}
-        plugins={[autoplay()]}
         let:item
     />
 </div>
