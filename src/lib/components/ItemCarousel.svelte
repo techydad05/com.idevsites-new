@@ -2,7 +2,15 @@
     import { Slidy } from "@slidy/svelte";
     import { flip } from "@slidy/animation";
     import "@slidy/svelte/dist/slidy.css";
-    // import { autoplay } from "@slidy/plugins";
+    import { onMount } from "svelte";
+
+    let Plugins = import("@slidy/plugins");
+
+    // onMount(async () => {
+    //     Plugins = import( "@slidy/plugins");
+    //     console.log(Plugins)
+    //     return Plugins;
+    // })
 
     const images = [
         { src: "mimosa.png", width: "90vw", height: "405px" },
@@ -10,20 +18,28 @@
         { src: "tikis.png", width: "90vw", height: "405px" },
     ];
 </script>
-<div class="p-4">
-    <Slidy
-        animation={flip}
-        slides={images}
-        counter={false}
-        duration={450}
-        gravity={1.45}
-        snap="deck"
-        loop
-        thumbnails={true}
-        arrows={false}
-        let:item
-    />
-</div>
+
+<node id="node" class="p-4">
+    <!-- find out why plugins arent working in prod build.. might be dom not loaded  -->
+    {#await Plugins}
+        Loading....
+    {:then Plugins}
+        <Slidy
+            animation={flip}
+            slides={images}
+            counter={false}
+            duration={450}
+            gravity={1.45}
+            snap="deck"
+            loop
+            plugins={[Plugins.autoplay()]}
+            arrows={false}
+            let:item
+        />
+    {:catch error}
+        {console.log(error)}
+    {/await}
+</node>
 
 <style>
     main {
