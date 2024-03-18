@@ -2,45 +2,61 @@
     import { Slidy } from "@slidy/svelte";
     import { flip } from "@slidy/animation";
     import "@slidy/svelte/dist/slidy.css";
-    import { onMount } from "svelte";
+    import { date } from "zod";
+    const Plugins = import("@slidy/plugins");
+    export let items = [];
 
-    let Plugins = import("@slidy/plugins");
-
-    // onMount(async () => {
-    //     Plugins = import( "@slidy/plugins");
-    //     console.log(Plugins)
-    //     return Plugins;
-    // })
 
     const images = [
-        { src: "mimosa.png", width: "90vw", height: "405px" },
-        { src: "volcano.png", width: "90vw", height: "405px" },
-        { src: "tikis.png", width: "90vw", height: "405px" },
+        {
+            src: "mimosa.png",
+            width: "90vw",
+            height: "405px",
+            figCap: "testies1",
+        },
+        {
+            src: "volcano.png",
+            width: "90vw",
+            height: "405px",
+            figCap: "testies2",
+        },
+        {
+            src: "tikis.png",
+            width: "90vw",
+            height: "405px",
+            figCap: "testies3",
+        },
     ];
 </script>
 
-<node id="node" class="p-4">
+<div class="p-4">
     <!-- find out why plugins arent working in prod build.. might be dom not loaded  -->
     {#await Plugins}
         Loading....
     {:then Plugins}
         <Slidy
-            on:change={() => console.log("changing")}
-            slides={images}
+            slides={items}
             counter={false}
             duration={450}
+            animation={flip}
+            snap="deck"
             gravity={1.45}
             loop
-            plugins={[Plugins.autoplay(),Plugins.log(),Plugins.marquee({delay: 1000, duration: 1000})]}
+            plugins={[Plugins.autoplay(), Plugins.log()]}
             arrows={false}
             let:item
-            />
-            <!-- animation={flip} -->
-            <!-- snap="deck" -->
+        >
+            <figure>
+                <img class="float-left" src={item.thumbnail} width="48%" alt={item.title} />
+                <figcaption class="p-4 text-4xl w-1/2 float-left">
+                    {item.description}
+                </figcaption>
+            </figure>
+        </Slidy>
     {:catch error}
         {console.log(error)}
     {/await}
-</node>
+</div>
 
 <style>
     main {

@@ -9,7 +9,7 @@
 
 <Carousel />
 <DaisyHero />
-<ItemCarousel />
+<ItemCarousel items={data.products} />
 <!-- <Collection products={data.products} /> -->
 
 <!-- {#each data.products as product}
