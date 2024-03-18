@@ -25,17 +25,18 @@
         Loading....
     {:then Plugins}
         <Slidy
-            animation={flip}
+            on:change={() => console.log("changing")}
             slides={images}
             counter={false}
             duration={450}
             gravity={1.45}
-            snap="deck"
             loop
-            plugins={[Plugins.autoplay()]}
+            plugins={[Plugins.autoplay(),Plugins.log(),Plugins.marquee({delay: 1000, duration: 1000})]}
             arrows={false}
             let:item
-        />
+            />
+            <!-- animation={flip} -->
+            <!-- snap="deck" -->
     {:catch error}
         {console.log(error)}
     {/await}
