@@ -46,12 +46,16 @@
             arrows={false}
             let:item
         >
-            <figure>
-                <img class="float-left" src={item.thumbnail} width="48%" alt={item.title} />
-                <figcaption class="p-4 text-4xl w-1/2 float-left">
-                    {item.description}
-                </figcaption>
-            </figure>
+            <div class="card w-96 glass">
+              <figure><img src={item.thumbnail} class="h-[40vw] mt-5" alt={item.title}/></figure>
+              <div class="card-body">
+                <h2 class="card-title">{item.title}</h2>
+                <p>{item.description}</p>
+                <div class="card-actions justify-end">
+                  <button class="btn btn-primary">Add to Cart </button>
+                </div>
+              </div>
+            </div>
         </Slidy>
     {:catch error}
         {console.log(error)}
