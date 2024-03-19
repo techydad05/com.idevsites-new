@@ -2,7 +2,6 @@
     import { Slidy } from "@slidy/svelte";
     import { flip } from "@slidy/animation";
     import "@slidy/svelte/dist/slidy.css";
-    import { date } from "zod";
     const Plugins = import("@slidy/plugins");
     export let items = [];
 
@@ -33,8 +32,8 @@
     <!-- find out why plugins arent working in prod build.. might be dom not loaded  -->
     {#await Plugins}
         Loading....
-    {:then Plugins}
-        <Slidy
+    {:then Plugins}   
+        <Slidy --slidy-thumbnail-size={"100px"}
             slides={items}
             counter={false}
             duration={450}
@@ -42,6 +41,8 @@
             snap="deck"
             gravity={1.45}
             loop
+            thumbnail
+            getThumbSrc={(item) => item.thumbnail}
             plugins={[Plugins.autoplay(), Plugins.log()]}
             arrows={false}
             let:item
