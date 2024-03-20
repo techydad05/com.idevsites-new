@@ -6,7 +6,7 @@
     class="logo-container absolute pl-5 md:pl-0 md:relative"
 >
     <div class="line bg-secondary"></div>
-    <h1 id="page-logo" class="text-9xl md:text-[10rem] pl-4">
+    <h1 id="page-logo" class="text-9xl md:text-[10rem] pl-4 pb-6 opacity-0">
         {text}
     </h1>
 </div>
@@ -21,10 +21,10 @@
         transform: scaleX(0);
     }
     .is-snapped .logo-container .line {
-        animation: line-animation 2.5s ease infinite alternate;
+        animation: line-animation 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite alternate;
     }
     .is-snapped .logo-container h1#page-logo {
-        animation: clip-path-reveal-1 2.5s ease infinite alternate;
+        animation: clip-path-reveal-1 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite alternate;
     }
 
     @keyframes line-animation {
@@ -54,12 +54,17 @@
         }
     }
     @keyframes clip-path-reveal-1 {
-        0%,
+        0%, 
         25% {
+            opacity: 1;
             clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
         }
         50% {
+            opacity: 1;
             clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+        }
+        100% {
+            opacity: 1;
         }
     }
 </style>
