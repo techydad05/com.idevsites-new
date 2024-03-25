@@ -52,7 +52,7 @@
     h2 {
         margin-bottom: var(--size-3);
     }
-    :global(.slidy-slides) {
+    /* :global(.slidy-slides) {
         justify-content: center;
     }
     :global(.slidy) {
@@ -60,7 +60,7 @@
     }
     :global(.slidy-slides, .slidy) {
         overflow: visible !important;
-    }
+    } */
     /* learn how to use grid layout */
     .info-section {
         min-height: fit-content;
