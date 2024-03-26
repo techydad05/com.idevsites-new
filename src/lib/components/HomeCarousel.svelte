@@ -9,12 +9,12 @@
     let slidyitem = items[0];
 </script>
 
-<div class="flex-1 h-[80vh] mt-[20vh]">
+<div class="flex-1 h-[80vh] mt-[20vh] relative">
     {#await Plugins}
         <!-- fix this for a better loading -->
         Loading....
     {:then Plugins}
-        <div class="absolute top-[45vh] z-50 text-6xl md:text-9xl">
+        <div class="w-full absolute h-full flex items-center justify-center z-10 text-6xl md:text-9xl">
             <NeonSigns sign="four" text={slidyitem.title} />
         </div>
         <Slidy
@@ -39,6 +39,9 @@
 <style>
     :global(.slidy) {
         gap: 0 !important;
+    }
+    :global(autoplay-button) {
+        z-index: 20 !important;
     }
     /* h1 {
         transition: cubic-bezier(0.175, 0.885, 0.32, 1.275);

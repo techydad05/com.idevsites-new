@@ -25,71 +25,50 @@
     });
 </script>
 
-<section class={classes}>
-    <div class="container">
-        <x-sign class={`${sign}`}>{text}</x-sign>
-    </div>
-    {#if list}
-        <img src="/neon_signs.jpeg" alt="" />
-    {/if}
-</section>
+<x-sign class={`${sign}`}>{text}</x-sign>
+{#if list}
+    <img src="/neon_signs.jpeg" alt="" />
+{/if}
 
-{#if sign === "one" }
+{#if sign === "one"}
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Gruppo");
     </style>
-    {:else if sign === "two"}
+{:else if sign === "two"}
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Bad+Script&");
     </style>
-    {:else if sign === "three"}
+{:else if sign === "three"}
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Kumar+One+Outline");
     </style>
-    {:else if sign === "four"}
+{:else if sign === "four"}
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Londrina+Outline");
     </style>
-    {:else if sign === "five"}
+{:else if sign === "five"}
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Sriracha");
     </style>
-    {:else if sign === "six"}
+{:else if sign === "six"}
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Bad+Script&family=Yellowtail");
     </style>
-    {:else if sign === "seven"}
+{:else if sign === "seven"}
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Bad+Script&family=Bad+Script");
     </style>
-    {:else if sign === "eight"}
+{:else if sign === "eight"}
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Bad+Script&family=Monoton");
     </style>
-    {:else if sign === "nine"}
+{:else if sign === "nine"}
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Bad+Script&family=Sriracha");
     </style>
-
 {/if}
 
-
 <style lang="postcss">
-    section {
-        font-size: calc(1em + 3vmax);
-        line-height: 1.1;
-        text-align: center;
-    }
-
-    .container {
-        display: grid;
-        grid-gap: 1em;
-        grid-template-columns: repeat(auto-fit, minmax(0, 12ch));
-        align-items: center;
-        align-content: center;
-        justify-content: center;
-    }
-
     x-sign {
         --interval: 1s;
         display: block;
@@ -105,8 +84,8 @@
 
     x-sign.one {
         color: oklch(var(--p));
-        --color1: color-mix(in srgb,oklch(var(--p)),#000 35%);
-        --color2: color-mix(in srgb,oklch(var(--p)),#000 15%);
+        --color1: color-mix(in srgb, oklch(var(--p)), #000 35%);
+        --color2: color-mix(in srgb, oklch(var(--p)), #000 15%);
         --color3: oklch(var(--ac));
         --color4: oklch(var(--n));
         font-family: Gruppo;
@@ -114,8 +93,8 @@
 
     x-sign.two {
         color: oklch(var(--p));
-        --color1: color-mix(in srgb,oklch(var(--p)),#000 35%);
-        --color2: color-mix(in srgb,oklch(var(--p)),#000 15%);
+        --color1: color-mix(in srgb, oklch(var(--p)), #000 35%);
+        --color2: color-mix(in srgb, oklch(var(--p)), #000 15%);
         --color3: oklch(var(--ac));
         --color4: oklch(var(--n));
         font-family: Bad Script;
@@ -123,8 +102,8 @@
 
     x-sign.three {
         color: oklch(var(--p));
-        --color1: color-mix(in srgb,oklch(var(--p)),#000 35%);
-        --color2: color-mix(in srgb,oklch(var(--p)),#000 15%);
+        --color1: color-mix(in srgb, oklch(var(--p)), #000 35%);
+        --color2: color-mix(in srgb, oklch(var(--p)), #000 15%);
         --color3: oklch(var(--ac));
         --color4: oklch(var(--n));
         font-family: Kumar One Outline;
@@ -132,17 +111,18 @@
 
     x-sign.four {
         color: oklch(var(--p));
-        --color1: color-mix(in srgb,oklch(var(--p)),#000 35%);
-        --color2: color-mix(in srgb,oklch(var(--p)),#000 15%);
+        --color1: color-mix(in srgb, oklch(var(--p)), #000 35%);
+        --color2: color-mix(in srgb, oklch(var(--p)), #000 15%);
         --color3: oklch(var(--ac));
         --color4: oklch(var(--n));
         font-family: Londrina Outline;
+        text-shadow: black -7px 7px;
     }
 
     x-sign.five {
         color: oklch(var(--p));
-        --color1: color-mix(in srgb,oklch(var(--p)),#000 35%);
-        --color2: color-mix(in srgb,oklch(var(--p)),#000 15%);
+        --color1: color-mix(in srgb, oklch(var(--p)), #000 35%);
+        --color2: color-mix(in srgb, oklch(var(--p)), #000 15%);
         --color3: oklch(var(--ac));
         --color4: oklch(var(--n));
         font-family: Sriracha;
@@ -150,8 +130,8 @@
 
     x-sign.six {
         color: oklch(var(--p));
-        --color1: color-mix(in srgb,oklch(var(--p)),#000 35%);
-        --color2: color-mix(in srgb,oklch(var(--p)),#000 15%);
+        --color1: color-mix(in srgb, oklch(var(--p)), #000 35%);
+        --color2: color-mix(in srgb, oklch(var(--p)), #000 15%);
         --color3: oklch(var(--ac));
         --color4: oklch(var(--n));
         font-family: Yellowtail;
@@ -159,8 +139,8 @@
 
     x-sign.seven {
         color: oklch(var(--p));
-        --color1: color-mix(in srgb,oklch(var(--p)),#000 35%);
-        --color2: color-mix(in srgb,oklch(var(--p)),#000 15%);
+        --color1: color-mix(in srgb, oklch(var(--p)), #000 35%);
+        --color2: color-mix(in srgb, oklch(var(--p)), #000 15%);
         --color3: oklch(var(--ac));
         --color4: oklch(var(--n));
         font-family: Bad Script;
@@ -168,8 +148,8 @@
 
     x-sign.eight {
         color: oklch(var(--p));
-        --color1: color-mix(in srgb,oklch(var(--p)),#000 35%);
-        --color2: color-mix(in srgb,oklch(var(--p)),#000 15%);
+        --color1: color-mix(in srgb, oklch(var(--p)), #000 35%);
+        --color2: color-mix(in srgb, oklch(var(--p)), #000 15%);
         --color3: oklch(var(--ac));
         --color4: oklch(var(--n));
         font-family: Monoton;
@@ -177,8 +157,8 @@
 
     x-sign.nine {
         color: oklch(var(--p));
-        --color1: color-mix(in srgb,oklch(var(--p)),#000 35%);
-        --color2: color-mix(in srgb,oklch(var(--p)),#000 15%);
+        --color1: color-mix(in srgb, oklch(var(--p)), #000 35%);
+        --color2: color-mix(in srgb, oklch(var(--p)), #000 15%);
         --color3: oklch(var(--ac));
         --color4: oklch(var(--n));
         font-family: Sriracha;
