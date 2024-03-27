@@ -7,20 +7,31 @@
     let slidyitem = items[0];
 </script>
 
-<div class="bg-secondary p-4 flex items-center justify-center">
+<div class="item-carousel bg-secondary p-4 flex items-center justify-center">
     {#await Plugins}
         <!-- fix this for a better loading -->
         Loading....
     {:then Plugins}
-        <div class="card card-side bg-base-100 shadow-xl flex-col md:max-w-[50vw]">
+        <div
+            class="card card-side bg-base-100 shadow-xl flex-col md:max-w-[50vw]"
+        >
             <figure class="!justify-start flex-1 rounded-none">
                 <Slidy
+                --slidy-slide-width={"100%"}
+                --slidy-slide-height={"250px"}
                     on:index={(e) => (slidyitem = items[e.detail.index])}
                     getImgSrc={(item) => item.thumbnail}
-                    --slidy-slide-width={"100%"}
-                    --slidy-width={"100%"}
                     slides={items}
-                    counter={false}
+                    background={true}
+                    snap={"center"}
+                    loop
+                    plugins={[Plugins.autoplay(), Plugins.log()]}
+                    let:item
+                />
+                <!-- <Slidy
+                    on:index={(e) => (slidyitem = items[e.detail.index])}
+                    getImgSrc={(item) => item.thumbnail}
+                    slides={items}
                     duration={450}
                     animation={flip}
                     snap="deck"
@@ -29,10 +40,12 @@
                     plugins={[Plugins.autoplay(), Plugins.log()]}
                     arrows={false}
                     let:item
-                />
+                /> -->
             </figure>
             <div class="card-body flex-1 flex-col px-4 py-0">
-                <h2 class="card-title text-5xl leading-none">{slidyitem?.title}</h2>
+                <h2 class="card-title text-5xl leading-none">
+                    {slidyitem?.title}
+                </h2>
                 <p class="text-2xl">{slidyitem?.description}</p>
                 <div class="card-actions justify-end p-4">
                     <button
@@ -49,9 +62,7 @@
 </div>
 
 <style>
-
-    /* USE MEDIA QUERY HERE FOR DAISYUI OR TAILWIND */
-    :global(img.slidy-img) {
+    :global(.item-carousel li) {
         border-bottom-left-radius: 0 !important;
         border-bottom-right-radius: 0 !important;
     }

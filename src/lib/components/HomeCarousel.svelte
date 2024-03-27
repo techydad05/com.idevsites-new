@@ -14,7 +14,7 @@
         <!-- fix this for a better loading -->
         Loading....
     {:then Plugins}
-        <div class="w-full absolute h-full flex items-center justify-center z-10 text-6xl md:text-9xl">
+        <div class="w-full absolute h-full flex items-center justify-center z-10 text-6xl md:text-9xl text-center">
             <NeonSigns sign="four" text={slidyitem.title} />
         </div>
         <Slidy
