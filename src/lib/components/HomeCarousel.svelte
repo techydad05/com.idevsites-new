@@ -9,7 +9,7 @@
     let slidyitem = items[0];
 </script>
 
-<div class="flex-1 h-[80vh] mt-[20vh] relative">
+<div class="flex-1 h-[80dvh] mt-[20vh] relative">
     {#await Plugins}
         <div class="flex w-full h-full justify-center items-center">
             <span class="loading loading-ring w-14"></span>

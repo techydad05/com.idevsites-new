@@ -4,6 +4,7 @@
     export let text = "";
     export let sign = "";
     export let list = false;
+    // todo: add this for changing this up itself? 
     export let classes = "";
 
     onMount(() => {
@@ -69,6 +70,13 @@
 {/if}
 
 <style lang="postcss">
+    @media (max-width: 768px) {
+        x-sign {
+            word-spacing: 50000000px;
+            word-break: break-all;
+            font-size: 9rem;
+        }
+    }
     x-sign {
         --interval: 1s;
         display: block;
