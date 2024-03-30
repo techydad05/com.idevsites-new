@@ -2,7 +2,7 @@
     import { Slidy } from "@slidy/svelte";
     import { shuffle } from "@slidy/animation";
     import "@slidy/svelte/dist/slidy.css";
-    import { cubicInOut, linear } from "svelte/easing";
+    import  * as easings from "svelte/easing";
     import NeonSigns from "./NeonSigns.svelte";
     const Plugins = import("@slidy/plugins");
     export let items = [];
@@ -11,9 +11,10 @@
 
 <div class="flex-1 h-[80vh] mt-[20vh] relative">
     {#await Plugins}
-        <!-- fix this for a better loading -->
-        Loading....
-    {:then Plugins}
+        <div class="flex w-full h-full justify-center items-center">
+            <span class="loading loading-ring w-14"></span>
+        </div>
+        {:then Plugins}
         <div class="w-full absolute h-full flex items-center justify-center z-10 text-6xl md:text-9xl text-center">
             <NeonSigns sign="four" text={slidyitem.title} />
         </div>
@@ -22,12 +23,13 @@
             getImgSrc={(item) => item.thumbnail}
             slides={items}
             plugins={[
-                Plugins.autoplay({ autoplay: true, duration: 4000 }),
+                Plugins.autoplay({ autoplay: true, duration: 5000 }),
                 Plugins.log(),
             ]}
-            let:item
             background={true}
-            snap
+            snap="center"
+            counter={false}
+            easing={easings.backIn}
             loop
             --slidy-slide-width={"100%"}
         />
