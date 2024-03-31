@@ -15,7 +15,7 @@
             <span class="loading loading-ring w-14"></span>
         </div>
         {:then Plugins}
-        <div class="w-full absolute h-full flex items-center justify-center z-10 text-6xl md:text-9xl text-center">
+        <div class="w-full absolute h-full flex items-center justify-center z-10 text-center text-8xl leading-[.6] pointer-events-none">
             <NeonSigns sign="four" text={slidyitem.title} />
         </div>
         <Slidy
@@ -31,6 +31,7 @@
             counter={false}
             easing={easings.backIn}
             loop
+            arrows
             --slidy-slide-width={"100%"}
         />
     {:catch error}

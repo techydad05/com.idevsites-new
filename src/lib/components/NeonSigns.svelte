@@ -74,7 +74,6 @@
         x-sign {
             word-spacing: 50000000px;
             word-break: break-all;
-            font-size: 9rem;
         }
     }
     x-sign {
