@@ -7,6 +7,14 @@
     const Plugins = import("@slidy/plugins");
     export let items = [];
     let slidyitem = items[0];
+
+    function scrollIntoView({ target }) {
+        const el = document.querySelector(target.getAttribute("href"));
+        if (!el) return;
+        el.scrollIntoView({
+            behavior: "smooth",
+        });
+    }
 </script>
 
 <div class="home-carousel flex-1 h-[80dvh] mt-[20vh] relative">
@@ -36,7 +44,10 @@
             arrows
             --slidy-slide-width={"100%"}
             --slidy-slide-radius={"none"}
-            ><div class="btn btn-primary absolute bottom-6">Learn More</div>
+        >
+            <div class="btn btn-primary absolute bottom-6">
+                <a class="h-full w-full flex items-center justify-center" href="#section-2" on:click|preventDefault={scrollIntoView}>About Us</a>
+            </div>
         </Slidy>
     {:catch error}
         {console.log(error)}
