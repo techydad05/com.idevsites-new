@@ -8,8 +8,9 @@
     export let items = [];
     let slidyitem = items[0];
 
+    // todo: move this into utils folder and set some notes
     function scrollIntoView({ target }) {
-        const el = document.querySelector(target.getAttribute("href"));
+        const el = document.querySelector(target.dataset.scroll);
         if (!el) return;
         el.scrollIntoView({
             behavior: "smooth",
@@ -45,8 +46,8 @@
             --slidy-slide-width={"100%"}
             --slidy-slide-radius={"none"}
         >
-            <div class="btn btn-primary absolute bottom-6">
-                <a class="h-full w-full flex items-center justify-center" href="#section-2" on:click|preventDefault={scrollIntoView}>About Us</a>
+            <div data-scroll="#section-2" class="btn btn-primary absolute bottom-6" on:click={scrollIntoView}>
+                <!-- <a class="h-full w-full flex items-center justify-center" href="#section-2" on:click|preventDefault={scrollIntoView}>About Us</a> -->Testies
             </div>
         </Slidy>
     {:catch error}
