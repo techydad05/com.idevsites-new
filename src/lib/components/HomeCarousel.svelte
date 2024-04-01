@@ -47,7 +47,7 @@
             --slidy-slide-radius={"none"}
         >
             <div data-scroll="#section-2" class="btn btn-primary absolute bottom-6" on:click={scrollIntoView}>
-                <!-- <a class="h-full w-full flex items-center justify-center" href="#section-2" on:click|preventDefault={scrollIntoView}>About Us</a> -->Testies
+                <!-- <a class="h-full w-full flex items-center justify-center" href="#section-2" on:click|preventDefault={scrollIntoView}>About Us</a> -->About Us
             </div>
         </Slidy>
     {:catch error}
