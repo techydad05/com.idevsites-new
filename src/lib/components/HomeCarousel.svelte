@@ -2,20 +2,22 @@
     import { Slidy } from "@slidy/svelte";
     import { shuffle } from "@slidy/animation";
     import "@slidy/svelte/dist/slidy.css";
-    import  * as easings from "svelte/easing";
+    import * as easings from "svelte/easing";
     import NeonSigns from "./NeonSigns.svelte";
     const Plugins = import("@slidy/plugins");
     export let items = [];
     let slidyitem = items[0];
 </script>
 
-<div class="flex-1 h-[80dvh] mt-[20vh] relative">
+<div class="home-carousel flex-1 h-[80dvh] mt-[20vh] relative">
     {#await Plugins}
         <div class="flex w-full h-full justify-center items-center">
             <span class="loading loading-ring w-14"></span>
         </div>
-        {:then Plugins}
-        <div class="w-full absolute h-full flex items-center justify-center z-10 text-center text-8xl leading-[.6] pointer-events-none">
+    {:then Plugins}
+        <div
+            class="w-full absolute h-full flex items-center justify-center z-10 text-center text-8xl md:text-[12rem] leading-[.6] pointer-events-none"
+        >
             <NeonSigns sign="four" text={slidyitem.title} />
         </div>
         <Slidy
@@ -33,7 +35,9 @@
             loop
             arrows
             --slidy-slide-width={"100%"}
-        />
+            --slidy-slide-radius={"none"}
+            ><div class="btn btn-primary absolute bottom-6">Learn More</div>
+        </Slidy>
     {:catch error}
         {console.log(error)}
     {/await}
@@ -43,10 +47,8 @@
     :global(.slidy) {
         gap: 0 !important;
     }
-    :global(autoplay-button) {
-        z-index: 20 !important;
+    :global(.home-carousel autoplay-button) {
+        /* z-index: 20 !important; */
+        display: none;
     }
-    /* h1 {
-        transition: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    } */
 </style>

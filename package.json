@@ -67,10 +67,5 @@
 		"vitest": "^0.34.6",
 		"zod": "^3.22.4"
 	},
-	"type": "module",
-	"dependencies": {
-		"embla-carousel": "^8.0.0",
-		"embla-carousel-autoplay": "^8.0.0",
-		"embla-carousel-class-names": "^8.0.0"
-	}
+	"type": "module"
 }

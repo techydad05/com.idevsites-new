@@ -7,7 +7,7 @@
     let slidyitem = items[0];
 </script>
 
-<div class="item-carousel bg-secondary p-4 flex items-center justify-center">
+<div class="item-carousel bg-primary p-4 flex items-center justify-center">
     {#await Plugins}
         <!-- fix this for a better loading -->
         Loading....
