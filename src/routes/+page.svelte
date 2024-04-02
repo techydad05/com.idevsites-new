@@ -25,15 +25,19 @@
 
 <style>
    .shark {
+      -webkit-animation: shark-swim linear;
       animation: shark-swim linear;
+      -webkit-animation-timeline: view();
       animation-timeline: view();
    }
    @keyframes shark-swim {
       from {
          transform: initial;
+         -webkit-transform: initial;
       }
       to {
-         transform: translate3d(80vw, -80px, 500px)
+         transform: translate3d(80vw, -80px, 500px);
+         -webkit-transform: translate3d(80vw, -80px, 500px);
       }
    }
 </style>

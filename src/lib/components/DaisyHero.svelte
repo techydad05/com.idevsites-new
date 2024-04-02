@@ -27,14 +27,17 @@
   .parallax {
     transform-origin: center;
     animation: parallax linear;
+    -webkit-animation: parallax linear;
     animation-timeline: view(100px);
+    -webkit-animation-timeline: view(100px);
   }
-
   @keyframes parallax {
     from {
+      -webkit-background-position: center;
       background-position: center;
     }
     to {
+      -webkit-background-position: -5%  0;
       background-position: -5%  0;
     }
   }
