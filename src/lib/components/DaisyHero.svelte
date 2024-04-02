@@ -1,6 +1,6 @@
 <div
-  class="hero min-h-screen parallax"
-  style="background: url(/red-dragon.jpeg) no-repeat; background-size: 100%;"
+  class="hero min-h-screen parallax !bg-no-repeat bg-center"
+  style="background: url(/red-dragon.jpeg); background-size: auto 100% !important;"
 >
   <div class="hero-overlay bg-opacity-60"></div>
   <div class="hero-content text-center text-neutral-200">
@@ -32,10 +32,10 @@
 
   @keyframes parallax {
     from {
-      background-size: 100%;
+      background-position: center;
     }
     to {
-      background-size: 200%;
+      background-position: -5%  0;
     }
   }
 </style>
