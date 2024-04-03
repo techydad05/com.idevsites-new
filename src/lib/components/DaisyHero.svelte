@@ -24,7 +24,7 @@
 </div>
 
 <style>
-  .parallax {
+  /* .parallax {
     transform-origin: center;
     animation: parallax linear;
     -webkit-animation: parallax linear;
@@ -40,5 +40,5 @@
       -webkit-background-position: -5%  0;
       background-position: -5%  0;
     }
-  }
+  } */
 </style>
