@@ -1,5 +1,21 @@
+<script>
+  let scrolled;
+  function getScrollPercent() {
+    let h = document.documentElement,
+      b = document.body,
+      st = "scrollTop",
+      sh = "scrollHeight";
+    scrolled = ((h[st] || b[st]) / ((h[sh] || b[sh]) - h.clientHeight)) * 100;
+    console.log(scrolled);
+    return scrolled;
+  }
+</script>
+
+<svelte:window on:scroll={() => getScrollPercent()} />
+
 <div
-  class="hero min-h-screen parallax !bg-no-repeat bg-center"
+  class="hero min-h-screen !bg-no-repeat bg-center"
+  style:background-position={`-${scrolled * 5}px 0`}
   style="background: url(/red-dragon.jpeg); background-size: auto 100% !important;"
 >
   <div class="hero-overlay bg-opacity-60"></div>
@@ -22,23 +38,3 @@
     </div>
   </div>
 </div>
-
-<style>
-  .parallax {
-    transform-origin: center;
-    animation: parallax linear;
-    -webkit-animation: parallax linear;
-    animation-timeline: view(100px);
-    -webkit-animation-timeline: view(100px);
-  }
-  @keyframes parallax {
-    from {
-      -webkit-background-position: center;
-      background-position: center;
-    }
-    to {
-      -webkit-background-position: -5%  0;
-      background-position: -5%  0;
-    }
-  }
-</style>

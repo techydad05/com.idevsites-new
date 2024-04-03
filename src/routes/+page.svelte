@@ -4,34 +4,23 @@
    import DaisyHero from "$src/lib/components/DaisyHero.svelte";
    import ItemCarousel from "$src/lib/components/ItemCarousel.svelte";
    import HomeCarousel from "$src/lib/components/HomeCarousel.svelte";
+   // import { getVerticalScrollPercentage } from "$lib/utils";
    import { onMount } from "svelte";
    export let data: PageData;
 
-   let scrollPercent;
-
-   onMount(async () => {
-      document.onscroll = function () {
-         scrollPercent = getVerticalScrollPercentage(document.body);
-         console.log(`${Math.round(scrollPercent)}%`);
-      };
-
-      function getVerticalScrollPercentage(elm) {
-         var p = elm.parentNode;
-         return (
-            ((elm.scrollTop || p.scrollTop) /
-               (p.scrollHeight - p.clientHeight)) *
-            100
-         );
-      }
-   });
-
-   // let scrolledY;
-   // let bodyHeight;
-   // console.log(bodyHeight);
-   // $: console.log(scrolledY);
+   let scrolled;
+   function getScrollPercent() {
+      let h = document.documentElement,
+         b = document.body,
+         st = "scrollTop",
+         sh = "scrollHeight";
+      scrolled = ((h[st] || b[st]) / ((h[sh] || b[sh]) - h.clientHeight)) * 100;
+      console.log(scrolled);
+      return scrolled;
+   }
 </script>
 
-<!-- <svelte:window bind:scrollY={scrolledY} /> -->
+<svelte:window on:scroll={() => getScrollPercent()} />
 
 <section>
    <HomeCarousel items={data.products} />
@@ -54,7 +43,7 @@
    <svg
       xmlns="http://www.w3.org/2000/svg"
       class="shark absolute top-6 fill-primary"
-      style:margin-left={`${scrollPercent*3}%`}
+      style:margin-left={`${scrolled * 3}%`}
       width="6rem"
       height="6rem"
       viewBox="0 0 24 24"
@@ -101,41 +90,3 @@
 {:else}
    No products found.
 {/each} -->
-
-<style>
-   .shark {
-      animation: swimming linear;
-   }
-   @keyframes swimming {
-      from {
-         margin-left: 0;
-      }
-      to {
-         margin-left: 500px;
-      }
-   }
-
-   /* .shark {
-      -webkit-animation: shark-swim;
-      webkit-animation: shark-swim;
-      animation: shark-swim;
-      -webkit-animation-timing-function: linear;
-      webkit-animation-timing-function: linear;
-      animation-timing-function: linear;
-      -webkit-animation-timeline: view();
-      webkit-animation-timeline: view();
-      animation-timeline: view();
-   }
-   @keyframes shark-swim {
-      from {
-         transform: initial;
-         -webkit-transform: initial;
-         webkit-transform: initial;
-      }
-      to {
-         transform: translate3d(80vw, -80px, 500px);
-         -webkit-transform: translate3d(80vw, -80px, 500px);
-         webkit-transform: translate3d(80vw, -80px, 500px);
-      }
-   } */
-</style>
