@@ -4,21 +4,13 @@
     import "@slidy/svelte/dist/slidy.css";
     import * as easings from "svelte/easing";
     import NeonSigns from "./NeonSigns.svelte";
+    import { scrollIntoView } from "../utils";
     const Plugins = import("@slidy/plugins");
     export let items = [];
     let slidyitem = items[0];
-
-    // todo: move this into utils folder and set some notes
-    function scrollIntoView({ target }) {
-        const el = document.querySelector(target.dataset.scroll);
-        if (!el) return;
-        el.scrollIntoView({
-            behavior: "smooth",
-        });
-    }
 </script>
 
-<div class="home-carousel flex-1 h-[80dvh] mt-[20vh] relative">
+<div class="home-carousel flex-1 h-[80svh] mt-[20vh] relative">
     {#await Plugins}
         <div class="flex w-full h-full justify-center items-center">
             <span class="loading loading-ring w-14"></span>
@@ -35,20 +27,22 @@
             slides={items}
             plugins={[
                 Plugins.autoplay({ autoplay: true, duration: 5000 }),
-                Plugins.log(),
             ]}
             background={true}
             snap="center"
             counter={false}
             easing={easings.backIn}
             loop
-            arrows
             --slidy-slide-width={"100%"}
             --slidy-slide-radius={"none"}
         >
-            <div data-scroll="#section-2" class="btn btn-primary absolute bottom-6" on:click={scrollIntoView}>
-                <!-- <a class="h-full w-full flex items-center justify-center" href="#section-2" on:click|preventDefault={scrollIntoView}>About Us</a> -->About Us
-            </div>
+            <button
+                data-scroll="#section-2"
+                class="btn btn-lg btn-primary absolute bottom-[20%] !px-4"
+                on:click={scrollIntoView}
+            >
+                About Us</button
+            >
         </Slidy>
     {:catch error}
         {console.log(error)}

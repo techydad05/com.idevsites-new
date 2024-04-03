@@ -4,7 +4,7 @@
 >
   <div class="hero-overlay bg-opacity-60"></div>
   <div class="hero-content text-center text-neutral-200">
-    <div class="max-w-2xl">
+    <div class="max-w-2xl pt-8">
       <h1 class="mb-5 text-5xl font-bold">A Little bit about us</h1>
       <p class="mb-5 text-xl tracking-wider font-semibold">
         We are The Lure of Downtown St. Petersburg, Florida. The Lure has been
@@ -24,7 +24,7 @@
 </div>
 
 <style>
-  /* .parallax {
+  .parallax {
     transform-origin: center;
     animation: parallax linear;
     -webkit-animation: parallax linear;
@@ -40,5 +40,5 @@
       -webkit-background-position: -5%  0;
       background-position: -5%  0;
     }
-  } */
+  }
 </style>
