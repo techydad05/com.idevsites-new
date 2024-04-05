@@ -2,7 +2,7 @@
     import { Slidy } from "@slidy/svelte";
     import { shuffle } from "@slidy/animation";
     import "@slidy/svelte/dist/slidy.css";
-    import * as easings from "svelte/easing";
+    import { backIn } from "svelte/easing";
     import NeonSigns from "./NeonSigns.svelte";
     import { scrollIntoView } from "../utils";
     const Plugins = import("@slidy/plugins");
@@ -31,7 +31,8 @@
             background={true}
             snap="center"
             counter={false}
-            easing={easings.backIn}
+            arrows={false}
+            easing={backIn}
             loop
             --slidy-slide-width={"100%"}
             --slidy-slide-radius={"none"}

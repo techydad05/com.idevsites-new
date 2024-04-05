@@ -5,7 +5,6 @@
    import ItemCarousel from "$src/lib/components/ItemCarousel.svelte";
    import HomeCarousel from "$src/lib/components/HomeCarousel.svelte";
    // import { getVerticalScrollPercentage } from "$lib/utils";
-   import { onMount } from "svelte";
    export let data: PageData;
 
    let scrolled;
