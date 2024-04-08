@@ -4,18 +4,26 @@
     import { Slidy } from "@slidy/svelte";
     import "@slidy/svelte/dist/slidy.css";
     import { createImageGroups } from "../utils";
+    import { stringify } from "postcss";
     const Plugins = import("@slidy/plugins");
     export let storeData = {};
-    console.log("categories", storeData.categories)
+    console.log("categories", storeData.categories);
     let manyArr = [];
     $: manyArr = createImageGroups(storeData.products);
-    let slidyitem = storeData.products[0];
+    let singleItem = storeData.products[0];
     let sushi = true;
     let food = false;
     let drinks = false;
     let single = false;
     let many = true;
     let index = 0;
+
+    const setSingle = (el) => {
+        console.log(el.id);
+        singleItem = storeData.products[el.id];
+        many = false;
+        single = true;
+    };
 
     const setMenuSection = (section) => {
         switch (section) {
@@ -34,10 +42,10 @@
                 food = false;
                 drinks = true;
                 break;
-            case "single":
-                many = false;
-                single = !single;
-                break;
+            // case "single":
+            //     many = false;
+            //     single = !single;
+            //     break;
             case "many":
                 single = false;
                 many = !many;
@@ -67,9 +75,12 @@
                 class="btn btn-lg btn-secondary"
                 on:click={() => setMenuSection("drinks")}>Drinks</button
             >
-            <!-- set these up  -->
-            <button on:click={() => setMenuSection("single")}>single</button>
-            <button on:click={() => setMenuSection("many")}>many</button>
+            {#if single}
+                <button
+                    class="btn btn-lg btn-secondary"
+                    on:click={() => setMenuSection("many")}>Back</button
+                >
+            {/if}
         </div>
         {#if single}
             <div
@@ -79,9 +90,12 @@
                     <Slidy
                         --slidy-slide-width={"100%"}
                         --slidy-slide-height={"250px"}
-                        on:index={(e) => (slidyitem = storeData.products[e.detail.index])}
-                        getImgSrc={(item) => item.thumbnail}
-                        slides={storeData.items}
+                        on:index={(e) => {
+                            console.log(e);
+                            index = e.detail.index;
+                        }}
+                        getImgSrc={(index) => singleItem.thumbnail}
+                        slides={storeData.products}
                         background={true}
                         counter={false}
                         arrows={false}
@@ -92,9 +106,9 @@
                 </figure>
                 <div class="card-body flex-1 flex-col px-4 py-4">
                     <h2 class="card-title text-5xl leading-none">
-                        {slidyitem?.title}
+                        {singleItem?.title}
                     </h2>
-                    <p class="text-2xl">{slidyitem?.description}</p>
+                    <p class="text-2xl">{singleItem?.description}</p>
                     <div class="card-actions justify-end p-4">
                         <button
                             on:click={() => location.assign(location.pathname)}
@@ -107,19 +121,38 @@
             <figure class="!justify-start flex-1">
                 <Slidy
                     bind:index
-                    getImgSrc={(item) => item.thumb1}
+                    let:item
+                    getImgSrc={(index) => storeData.products[index]?.thumbnail}
                     snap={"start"}
                     slides={manyArr}
-                    let:item
                 >
-                    <div class="grid-container">
-                        <div style={`background-image: url(${item.thumb1});`} class="element1 bg-cover bg-center bg-no-repeat"></div>
-                        <div style={`background-image: url(${item.thumb2});`} class="element2 bg-cover bg-center bg-no-repeat"></div>
-                        <div style={`background-image: url(${item.thumb3});`} class="element3 bg-cover bg-center bg-no-repeat"></div>
-                        <div style={`background-image: url(${item.thumb4});`} class="element4 bg-cover bg-center bg-no-repeat"></div>
+                    <div class="grid-container text-black">
+                        <div
+                            on:click={(e) => setSingle(e.currentTarget)}
+                            id={item.id1}
+                            style={`background-image: url(${storeData.products[item.id1].thumbnail});`}
+                            class="element1 bg-cover bg-center bg-no-repeat"
+                        ></div>
+                        <div
+                            on:click={(e) => setSingle(e.currentTarget)}
+                            id={item.id2}
+                            style={`background-image: url(${storeData.products[item.id2].thumbnail});`}
+                            class="element2 bg-cover bg-center bg-no-repeat"
+                        ></div>
+                        <div
+                            on:click={(e) => setSingle(e.currentTarget)}
+                            id={item.id3}
+                            style={`background-image: url(${storeData.products[item.id3].thumbnail});`}
+                            class="element3 bg-cover bg-center bg-no-repeat"
+                        ></div>
+                        <div
+                            on:click={(e) => setSingle(e.currentTarget)}
+                            id={item.id4}
+                            style={`background-image: url(${storeData.products[item.id4].thumbnail});`}
+                            class="element4 bg-cover bg-center bg-no-repeat"
+                        ></div>
                     </div>
                 </Slidy>
-                <!-- <img src={item.thumbnail} alt=""> -->
             </figure>
         {/if}
     {:catch error}

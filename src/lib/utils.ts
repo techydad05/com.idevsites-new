@@ -89,12 +89,33 @@ export const createImageGroups = (initialArray) => {
      for (let j = 0; j < imagesPerGroup; j++) {
        const index = i + j;
        if (index < initialArray.length) {
-         group[`thumb${j + 1}`] = initialArray[index].thumbnail;
-       }
-     }
- 
-     imageGroups.push(group);
+          group[`id${j + 1}`] = index;
+         }
+      }
+      
+      imageGroups.push(group);
+      console.log(imageGroups);
    }
  
    return imageGroups;
  }
+// export const createImageGroups = (initialArray) => {
+//    const imagesPerGroup = 4;
+//    const imageGroups = [];
+ 
+//    for (let i = 0; i < initialArray.length; i += imagesPerGroup) {
+//      const group = {};
+ 
+//      for (let j = 0; j < imagesPerGroup; j++) {
+//        const index = i + j;
+//        if (index < initialArray.length) {
+//           group[`thumb${j + 1}`] = initialArray[index].thumbnail;
+//          }
+//       }
+//      console.log(group);
+      
+//      imageGroups.push(group);
+//    }
+ 
+//    return imageGroups;
+//  }
