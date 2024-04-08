@@ -1,4 +1,3 @@
-import { onMount } from "svelte";
 
 export const clickOutside = (node: HTMLElement) => {
    const handleClick = (event: MouseEvent) => {
@@ -79,18 +78,23 @@ export const scrollIntoView = ({ target }) => {
    });
 }
 
-// onMount(async () => {
-// document.onscroll = function () {
-//    scrollPercent = getVerticalScrollPercentage(document.body);
-//    console.log(`${Math.round(scrollPercent)}%`);
-// };
-// });
 
-// export const getVerticalScrollPercentage = (elm) => {
-//    let p = elm.parentNode;
-//    return (
-//       ((elm.scrollTop || p.scrollTop) /
-//          (p.scrollHeight - p.clientHeight)) *
-//       100
-//    );
-// }
+export const createImageGroups = (initialArray) => {
+   const imagesPerGroup = 4;
+   const imageGroups = [];
+ 
+   for (let i = 0; i < initialArray.length; i += imagesPerGroup) {
+     const group = {};
+ 
+     for (let j = 0; j < imagesPerGroup; j++) {
+       const index = i + j;
+       if (index < initialArray.length) {
+         group[`thumb${j + 1}`] = initialArray[index].thumbnail;
+       }
+     }
+ 
+     imageGroups.push(group);
+   }
+ 
+   return imageGroups;
+ }

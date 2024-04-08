@@ -63,7 +63,8 @@
    /></svg
 >
 <section>
-   <ItemCarousel items={data.products} />
+   <!-- FIX THIS TO HAVE DATA AS ONE OBJECT.. WILL NEED TO FIX ITEMCAROUSEL AND RENAME IT TO MENU -->
+   <ItemCarousel items={data.products} categories={data.categories} />
 </section>
 <svg
    xmlns="http://www.w3.org/2000/svg"
