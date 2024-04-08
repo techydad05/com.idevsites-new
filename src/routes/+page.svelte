@@ -2,7 +2,7 @@
    import type { PageData } from "./$types";
    import Collection from "$lib/components/Collection.svelte";
    import DaisyHero from "$src/lib/components/DaisyHero.svelte";
-   import ItemCarousel from "$src/lib/components/ItemCarousel.svelte";
+   import MenuSection from "$src/lib/components/MenuSection.svelte";
    import HomeCarousel from "$src/lib/components/HomeCarousel.svelte";
    // import { getVerticalScrollPercentage } from "$lib/utils";
    export let data: PageData;
@@ -64,7 +64,7 @@
 >
 <section>
    <!-- FIX THIS TO HAVE DATA AS ONE OBJECT.. WILL NEED TO FIX ITEMCAROUSEL AND RENAME IT TO MENU -->
-   <ItemCarousel items={data.products} categories={data.categories} />
+   <MenuSection storeData={data} />
 </section>
 <svg
    xmlns="http://www.w3.org/2000/svg"

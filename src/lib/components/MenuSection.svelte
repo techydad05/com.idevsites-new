@@ -5,12 +5,11 @@
     import "@slidy/svelte/dist/slidy.css";
     import { createImageGroups } from "../utils";
     const Plugins = import("@slidy/plugins");
-    export let items = [];
-    export let categories = [];
-    console.log("categories", categories)
+    export let storeData = {};
+    console.log("categories", storeData.categories)
     let manyArr = [];
-    $: manyArr = createImageGroups(items);
-    let slidyitem = items[0];
+    $: manyArr = createImageGroups(storeData.products);
+    let slidyitem = storeData.products[0];
     let sushi = true;
     let food = false;
     let drinks = false;
@@ -80,9 +79,9 @@
                     <Slidy
                         --slidy-slide-width={"100%"}
                         --slidy-slide-height={"250px"}
-                        on:index={(e) => (slidyitem = items[e.detail.index])}
+                        on:index={(e) => (slidyitem = storeData.products[e.detail.index])}
                         getImgSrc={(item) => item.thumbnail}
-                        slides={items}
+                        slides={storeData.items}
                         background={true}
                         counter={false}
                         arrows={false}
@@ -106,14 +105,11 @@
             </div>
         {:else if many}
             <figure class="!justify-start flex-1">
-                ${console.log(manyArr)}
-                ${console.log(items)}
                 <Slidy
                     bind:index
                     getImgSrc={(item) => item.thumb1}
                     snap={"start"}
                     slides={manyArr}
-                    loop
                     let:item
                 >
                     <div class="grid-container">
