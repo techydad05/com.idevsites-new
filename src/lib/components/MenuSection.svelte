@@ -62,7 +62,7 @@
             <span class="loading loading-ring w-14"></span>
         </div>
     {:then Plugins}
-        <div class="w-full bg-accent">
+        <div class="w-full flex justify-center gap-4 mb-4">
             <button
                 class="btn btn-lg btn-secondary"
                 on:click={() => setMenuSection("sushi")}>Sushi</button
@@ -130,27 +130,39 @@
                         <div
                             on:click={(e) => setSingle(e.currentTarget)}
                             id={item.id1}
-                            style={`background-image: url(${storeData.products[item.id1].thumbnail});`}
+                            style={`background-image: url(${storeData.products[item.id1]?.thumbnail});`}
                             class="element1 bg-cover bg-center bg-no-repeat"
                         ></div>
+                        {#if storeData.products[item.id2]}
                         <div
-                            on:click={(e) => setSingle(e.currentTarget)}
-                            id={item.id2}
-                            style={`background-image: url(${storeData.products[item.id2].thumbnail});`}
-                            class="element2 bg-cover bg-center bg-no-repeat"
-                        ></div>
-                        <div
+                        on:click={(e) => setSingle(e.currentTarget)}
+                                id={item.id2}
+                                style={`background-image: url(${storeData.products[item.id2]?.thumbnail});`}
+                                class="element2 bg-cover bg-center bg-no-repeat"
+                            ></div>
+                        {:else}
+                            <div class="skeleton w-full h-full rounded-none"></div>
+                            {/if}
+                            {#if storeData.products[item.id3]}
+                            <div
                             on:click={(e) => setSingle(e.currentTarget)}
                             id={item.id3}
-                            style={`background-image: url(${storeData.products[item.id3].thumbnail});`}
+                            style={`background-image: url(${storeData.products[item.id3]?.thumbnail});`}
                             class="element3 bg-cover bg-center bg-no-repeat"
-                        ></div>
+                            ></div>
+                            {:else}
+                            <div class="skeleton w-full h-full rounded-none"></div>
+                            {/if}
+                            {#if storeData.products[item.id4]}
                         <div
                             on:click={(e) => setSingle(e.currentTarget)}
                             id={item.id4}
-                            style={`background-image: url(${storeData.products[item.id4].thumbnail});`}
+                            style={`background-image: url(${storeData.products[item.id4]?.thumbnail});`}
                             class="element4 bg-cover bg-center bg-no-repeat"
                         ></div>
+                        {:else}
+                        <div class="skeleton w-full h-full rounded-none"></div>
+                        {/if}
                     </div>
                 </Slidy>
             </figure>
