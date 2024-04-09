@@ -120,16 +120,16 @@
       },
    }}
 />
-
+<div class="h-[20vh]"></div>
 <div
    class="max-w-screen-2xl mx-auto py-6 px-6 md:px-8 sm:px-6 lg:grid lg:grid-cols-2 lg:gap-x-6"
 >
    <div class="lg:max-w-lg lg:self-end">
-      <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+      <h1 class="text-2xl font-bold tracking-tight text-neutral-100 sm:text-3xl">
          {product.title}
       </h1>
       <h2 id="information-heading" class="sr-only">Product information</h2>
-      <p class="mt-2 text-sm">{product.subtitle}</p>
+      <p class="mt-2 text-sm">{product.subtitle || ""}</p>
       <p class="mt-6">{product.description}</p>
       {#each product.options as option}
          <div class="mt-6">
@@ -140,7 +140,7 @@
                      {#if value === selectedOptions[option.id]}
                         <button
                            type="button"
-                           class="uppercase whitespace-nowrap px-3 py-2 mr-2 mb-2 rounded-lg text-sm font-medium text-gray-700 border-4 border-lime-600 bg-white hover:bg-white"
+                           class="uppercase whitespace-nowrap px-3 py-2 mr-2 mb-2 rounded-lg text-sm font-medium text-neutral-100 border-4 border-lime-600 bg-white hover:bg-white"
                         >
                            {value}
                         </button>
@@ -150,7 +150,7 @@
                            on:click={(e) => {
                               handleSelection(option, value);
                            }}
-                           class="uppercase whitespace-nowrap px-3 py-2 mr-2 mb-2 rounded-lg text-sm font-medium text-gray-700 border border-gray-400 bg-white hover:bg-stone-200"
+                           class="uppercase whitespace-nowrap px-3 py-2 mr-2 mb-2 rounded-lg text-sm font-medium text-neutral-100 border border-gray-400 bg-white hover:bg-stone-200"
                         >
                            {value}
                         </button>
@@ -172,7 +172,7 @@
                   ].prices[0].amount,
                )}
             </p>
-            <p class="ml-1 text-sm font-medium text-gray-600">
+            <p class="ml-1 text-sm font-medium text-neutral-100">
                / {product.variants[
                   product.variants.findIndex((v) => v.id === selectedVariantId)
                ].title}
@@ -228,14 +228,14 @@
       <Highlights />
    </div>
    <!-- Tabs -->
-   <div class="max-w-screen-lg lg:col-span-2">
+   <div class="max-w-screen-lg lg:col-span-2 text-neutral-100">
       <div class="flex" aria-orientation="horizontal" role="tablist">
          <button
             type="button"
             on:click={() => (tab = "faq")}
             class={tab === "faq"
                ? "whitespace-nowrap p-3 px-4 mr-4 border-b-2 font-medium border-lime-600 text-gray-800"
-               : "whitespace-nowrap p-3 px-4 mr-4 text-gray-500 hover:text-gray-700 border-b border-gray-300 hover:border-b-2 hover:border-gray-300"}
+               : "whitespace-nowrap p-3 px-4 mr-4 text-neutral-100 hover:text-gray-700 border-b border-gray-300 hover:border-b-2 hover:border-gray-300"}
          >
             FAQ
          </button>
@@ -244,7 +244,7 @@
             on:click={() => (tab = "other")}
             class={tab === "other"
                ? "whitespace-nowrap p-3 pr-4 mr-4 border-b-2 font-medium border-lime-600 text-gray-800"
-               : "whitespace-nowrap p-3 pr-4 mr-4 text-gray-500 hover:text-gray-700 border-b border-gray-300 hover:border-b-2 hover:border-gray-300"}
+               : "whitespace-nowrap p-3 pr-4 mr-4 text-neutral-100 hover:text-gray-700 border-b border-gray-300 hover:border-b-2 hover:border-gray-300"}
          >
             Other Tab
          </button>

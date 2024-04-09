@@ -111,7 +111,7 @@
                     <p class="text-2xl">{singleItem?.description}</p>
                     <div class="card-actions justify-end p-4">
                         <button
-                            on:click={() => location.assign(location.pathname)}
+                            on:click={() => location.assign(location.pathname + "product/" + singleItem.handle)}
                             class="btn btn-primary">Go to</button
                         >
                     </div>
