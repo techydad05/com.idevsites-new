@@ -182,7 +182,12 @@
         display: grid;
         grid-template-columns: auto auto;
         grid-template-rows: auto auto;
+        gap: 4px;
+        background-color: oklch(var(--s));
+        padding: 4px;
+        @apply rounded;
     }
+
     .element1 {
         grid-column: 1;
         grid-row: 1;
