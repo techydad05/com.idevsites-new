@@ -60,7 +60,7 @@
   </div>
   <div class="navbar-start"></div>
   <div class="navbar-center w-1/2 h-full justify-center">
-    <a class="" href="/"><img class="h-full" src="/logo.png" alt="" /></a>
+    <a class="h-full" href="/"><img class="h-full" src="/logo.png" alt="" /></a>
   </div>
   <div class="navbar-end">
     <!-- <button class="btn btn-ghost btn-circle">
