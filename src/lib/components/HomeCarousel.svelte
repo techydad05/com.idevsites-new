@@ -21,6 +21,8 @@
         >
             <NeonSigns sign="four" text={slidyitem.title} />
         </div>
+        <!-- background={true} -->
+        <!-- easing={backIn} -->
         <Slidy
             on:index={(e) => (slidyitem = items[e.detail.index])}
             getImgSrc={(item) => item.thumbnail}
@@ -28,13 +30,10 @@
             plugins={[
                 Plugins.autoplay({ autoplay: true, duration: 5000 }),
             ]}
-            background={true}
             snap="center"
             counter={false}
             arrows={false}
-            easing={backIn}
             loop
-            clamp={0}
             --slidy-slide-width={"100%"}
             --slidy-slide-radius={"none"}
         />
