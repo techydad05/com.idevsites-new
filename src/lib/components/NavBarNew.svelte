@@ -59,9 +59,8 @@
     </select>
   </div>
   <div class="navbar-start"></div>
-  <div class="navbar-center w-1/4 h-full justify-center">
-    <!-- <a class="btn btn-ghost text-xl">daisyUI</a> -->
-    <img class="h-full max-w-none" src="/logo.png" alt="" />
+  <div class="navbar-center w-1/2 h-full justify-center">
+    <a class="" href="/"><img class="h-full" src="/logo.png" alt="" /></a>
   </div>
   <div class="navbar-end">
     <!-- <button class="btn btn-ghost btn-circle">

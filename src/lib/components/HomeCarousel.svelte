@@ -34,17 +34,18 @@
             arrows={false}
             easing={backIn}
             loop
+            clamp={0}
             --slidy-slide-width={"100%"}
             --slidy-slide-radius={"none"}
-        >
-            <button
+        />
+            <!-- <button
                 data-scroll="#section-2"
                 class="btn btn-lg btn-primary absolute bottom-[20%] !px-4"
                 on:click={scrollIntoView}
             >
                 About Us</button
             >
-        </Slidy>
+        </Slidy> -->
     {:catch error}
         {console.log(error)}
     {/await}
