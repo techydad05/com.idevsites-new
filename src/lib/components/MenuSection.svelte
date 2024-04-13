@@ -4,52 +4,37 @@
     import { Slidy } from "@slidy/svelte";
     import "@slidy/svelte/dist/slidy.css";
     import { createImageGroups } from "../utils";
-    import { stringify } from "postcss";
     const Plugins = import("@slidy/plugins");
     export let storeData = {};
-    console.log("categories", storeData.categories);
+    let currentProducts = [];
+    $: currentProducts = filterProducts(category);
     let manyArr = [];
-    $: manyArr = createImageGroups(storeData.products);
-    let singleItem = storeData.products[0];
-    let sushi = true;
-    let food = false;
-    let drinks = false;
+    $: manyArr = createImageGroups(currentProducts);
+    let singleItem = currentProducts[0];
     let single = false;
-    let many = true;
     let index = 0;
+    let category = "";
 
     const setSingle = (el) => {
         console.log(el.id);
-        singleItem = storeData.products[el.id];
-        many = false;
+        singleItem = currentProducts[el.id];
         single = true;
     };
 
-    const setMenuSection = (section) => {
-        switch (section) {
-            case "sushi":
-                food = false;
-                drinks = false;
-                sushi = true;
-                break;
-            case "food":
-                sushi = false;
-                drinks = false;
-                food = true;
-                break;
-            case "drinks":
-                sushi = false;
-                food = false;
-                drinks = true;
-                break;
-            // case "single":
-            //     many = false;
-            //     single = !single;
-            //     break;
-            case "many":
-                single = false;
-                many = !many;
-                break;
+    const filterProducts = (category) => {
+        if (category === "") {
+            console.log("loading storeData.products");
+            return storeData.products;
+        } else {
+            console.log("loading currentProducts");
+            let categoryID = storeData.categories.find(
+                (cat) => cat.handle === category,
+            )?.id;
+            currentProducts = storeData.products.filter((product) => {
+                return product.collection_id === categoryID;
+            });
+            console.log("Active Products:", currentProducts);
+            return currentProducts;
         }
     };
 </script>
@@ -65,20 +50,20 @@
         <div class="w-full flex justify-center gap-4 mb-4">
             <button
                 class="btn btn-lg btn-secondary"
-                on:click={() => setMenuSection("sushi")}>Sushi</button
+                on:click={() => (category = "sushi")}>Sushi</button
             >
             <button
                 class="btn btn-lg btn-secondary"
-                on:click={() => setMenuSection("food")}>Food</button
+                on:click={() => (category = "food")}>Food</button
             >
             <button
                 class="btn btn-lg btn-secondary"
-                on:click={() => setMenuSection("drinks")}>Drinks</button
+                on:click={() => (category = "drinks")}>Drinks</button
             >
             {#if single}
                 <button
                     class="btn btn-lg btn-secondary"
-                    on:click={() => setMenuSection("many")}>Back</button
+                    on:click={() => (single = false)}>Back</button
                 >
             {/if}
         </div>
@@ -95,7 +80,7 @@
                             index = e.detail.index;
                         }}
                         getImgSrc={(index) => singleItem.thumbnail}
-                        slides={storeData.products}
+                        slides={currentProducts}
                         background={true}
                         counter={false}
                         arrows={false}
@@ -111,18 +96,33 @@
                     <p class="text-2xl">{singleItem?.description}</p>
                     <div class="card-actions justify-end p-4">
                         <button
-                            on:click={() => location.assign(location.pathname + "product/" + singleItem.handle)}
+                            on:click={() =>
+                                location.assign(
+                                    location.pathname +
+                                        "product/" +
+                                        singleItem.handle,
+                                )}
                             class="btn btn-primary">Go to</button
                         >
                     </div>
                 </div>
             </div>
-        {:else if many}
+        {:else if category === "drinks"}
+        <div class="hero" style="background-image: url(/drinks.jpg);">
+            <div class="hero-overlay bg-opacity-60"></div>
+            <div class="hero-content text-center text-neutral-100">
+              <div class="max-w-md">
+                <h1 class="mb-5 text-5xl font-bold">No drinks here yet!</h1>
+                <p class="mb-5 text-2xl">..but if you can make it in to see us we got you!</p>
+              </div>
+            </div>
+          </div>
+        {:else}
             <figure class="!justify-start flex-1">
                 <Slidy
                     bind:index
                     let:item
-                    getImgSrc={(index) => storeData.products[index]?.thumbnail}
+                    getImgSrc={(index) => currentProducts[index]?.thumbnail}
                     snap={"start"}
                     slides={manyArr}
                 >
@@ -130,38 +130,44 @@
                         <div
                             on:click={(e) => setSingle(e.currentTarget)}
                             id={item.id1}
-                            style={`background-image: url(${storeData.products[item.id1]?.thumbnail});`}
+                            style={`background-image: url(${currentProducts[item.id1]?.thumbnail});`}
                             class="element1 bg-cover bg-center bg-no-repeat"
                         ></div>
-                        {#if storeData.products[item.id2]}
-                        <div
-                        on:click={(e) => setSingle(e.currentTarget)}
+                        {#if currentProducts[item.id2]}
+                            <div
+                                on:click={(e) => setSingle(e.currentTarget)}
                                 id={item.id2}
-                                style={`background-image: url(${storeData.products[item.id2]?.thumbnail});`}
+                                style={`background-image: url(${currentProducts[item.id2]?.thumbnail});`}
                                 class="element2 bg-cover bg-center bg-no-repeat"
                             ></div>
                         {:else}
-                            <div class="skeleton w-full h-full rounded-none"></div>
-                            {/if}
-                            {#if storeData.products[item.id3]}
                             <div
-                            on:click={(e) => setSingle(e.currentTarget)}
-                            id={item.id3}
-                            style={`background-image: url(${storeData.products[item.id3]?.thumbnail});`}
-                            class="element3 bg-cover bg-center bg-no-repeat"
+                                class="skeleton w-full h-full rounded-none"
                             ></div>
-                            {:else}
-                            <div class="skeleton w-full h-full rounded-none"></div>
-                            {/if}
-                            {#if storeData.products[item.id4]}
-                        <div
-                            on:click={(e) => setSingle(e.currentTarget)}
-                            id={item.id4}
-                            style={`background-image: url(${storeData.products[item.id4]?.thumbnail});`}
-                            class="element4 bg-cover bg-center bg-no-repeat"
-                        ></div>
+                        {/if}
+                        {#if currentProducts[item.id3]}
+                            <div
+                                on:click={(e) => setSingle(e.currentTarget)}
+                                id={item.id3}
+                                style={`background-image: url(${currentProducts[item.id3]?.thumbnail});`}
+                                class="element3 bg-cover bg-center bg-no-repeat"
+                            ></div>
                         {:else}
-                        <div class="skeleton w-full h-full rounded-none"></div>
+                            <div
+                                class="skeleton w-full h-full rounded-none"
+                            ></div>
+                        {/if}
+                        {#if currentProducts[item.id4]}
+                            <div
+                                on:click={(e) => setSingle(e.currentTarget)}
+                                id={item.id4}
+                                style={`background-image: url(${currentProducts[item.id4]?.thumbnail});`}
+                                class="element4 bg-cover bg-center bg-no-repeat"
+                            ></div>
+                        {:else}
+                            <div
+                                class="skeleton w-full h-full rounded-none"
+                            ></div>
                         {/if}
                     </div>
                 </Slidy>
