@@ -57,16 +57,25 @@
             <span class="loading loading-ring w-14"></span>
         </div>
     {:then Plugins}
+    <h1 class="text-4xl w-full text-primary-content text-center mb-4 font-[400]">Our Menu</h1>
         <div class="w-full flex justify-center gap-4 mb-4">
             <button
+                class:btn-active={category === ""}
+                class="btn btn-lg btn-secondary"
+                on:click={() => (category = "")}>All</button
+                >
+                <button
+                class:btn-active={category === "sushi"}
                 class="btn btn-lg btn-secondary"
                 on:click={() => (category = "sushi")}>Sushi</button
-            >
-            <button
+                >
+                <button
+                class:btn-active={category === "food"}
                 class="btn btn-lg btn-secondary"
                 on:click={() => (category = "food")}>Food</button
-            >
-            <button
+                >
+                <button
+                class:btn-active={category === "drinks"}
                 class="btn btn-lg btn-secondary"
                 on:click={() => (category = "drinks")}>Drinks</button
             >
