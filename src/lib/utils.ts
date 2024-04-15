@@ -71,31 +71,36 @@ export const findVariant = (selectedOptions: any[], product: any) => {
    return false
 }
 
-export const scrollIntoView = ({ target }) => {
-   const el = document.querySelector(target.dataset.scroll);
+
+export const scrollIntoView = ({ target } ,offset = 0) => {
+   const el = document.querySelector(target.dataset.scroll); // Replace with your target element selector
    if (!el) return;
-   el.scrollIntoView({
-      behavior: "smooth",
-   });
-}
+   const elementPosition = el.getBoundingClientRect().top;
+   const offsetPosition = elementPosition + window.pageYOffset - offset;
+   window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+};
+
+// export const scrollIntoView = ({ target, offset = 0 }) => {
+//    const el = document.querySelector(target.dataset.scroll);
+//    if (!el) return;
+//    const options = {
+//        behavior: "smooth",
+//        block: "start", // Scroll to the top of the element
+//    };
+//    if (offset) {
+//        // Calculate the adjusted position with the offset
+//        const elementPosition = el.getBoundingClientRect().top;
+//        const offsetPosition = elementPosition + window.pageYOffset - offset;
+//        options.top = offsetPosition;
+//    }
+//    el.scrollIntoView(options);
+// };
 
 
-export const createImageGroups = (initialArray) => {
-   const imagesPerGroup = 4;
-   const imageGroups = [];
- 
-   for (let i = 0; i < initialArray.length; i += imagesPerGroup) {
-     const group = {};
- 
-     for (let j = 0; j < imagesPerGroup; j++) {
-       const index = i + j;
-       if (index < initialArray.length) {
-          group[`id${j + 1}`] = index;
-         }
-      }
-      
-      imageGroups.push(group);
-   }
- 
-   return imageGroups;
- }
+// export const scrollIntoView = ({ target }) => {
+//    const el = document.querySelector(target.dataset.scroll);
+//    if (!el) return;
+//    el.scrollIntoView({
+//       behavior: "smooth",
+//    });
+// }

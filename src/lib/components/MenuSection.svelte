@@ -3,7 +3,6 @@
     import { fade, fly, slide } from "svelte/transition";
     import { Slidy } from "@slidy/svelte";
     import "@slidy/svelte/dist/slidy.css";
-    import { createImageGroups } from "../utils";
     const Plugins = import("@slidy/plugins");
     export let storeData = {};
     let currentProducts = [];
@@ -50,6 +49,7 @@
 </script>
 
 <div
+    id="menu-section"
     class="item-carousel bg-primary p-4 flex flex-wrap items-center justify-center"
 >
     {#await Plugins}

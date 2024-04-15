@@ -1,4 +1,6 @@
 <script>
+  import { scrollIntoView } from "../utils";
+
   let scrolled;
   function getScrollPercent() {
     let h = document.documentElement,
@@ -33,7 +35,13 @@
         also have plenty of seats! Check us out in the heart of downtown St.
         Petersburg at <a class="link link-primary" href="/">611 central ave.</a>
       </p>
-      <button class="btn btn-primary">Check out our menu</button>
+      <button
+        data-scroll="#menu-section"
+        class="btn btn-lg btn-primary"
+        on:click={(el) => scrollIntoView(el,200)}
+      >
+        Check out our menu</button
+      >
     </div>
   </div>
 </div>

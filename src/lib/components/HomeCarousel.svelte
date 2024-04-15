@@ -21,13 +21,13 @@
         >
             <NeonSigns sign="four" text={slidyitem.title} />
         </div>
+        <!-- plugins={[Plugins.autoplay({ autoplay: true, duration: 5000 })]} -->
         <Slidy
-        let:item
+            let:item
             on:index={(e) => (slidyitem = items[e.detail.index])}
             getImgSrc={(item) => item.thumbnail}
             slides={items}
             easing={backIn}
-            plugins={[Plugins.autoplay({ autoplay: true, duration: 5000 })]}
             snap="center"
             counter={false}
             arrows={false}
@@ -35,6 +35,21 @@
             --slidy-slide-width={"100%"}
             --slidy-slide-radius={"none"}
         >
+            <figure
+                style={`background-image: url(${item.thumbnail});`}
+                class="carousel-inner w-full h-full text-center bg-no-repeat bg-center"
+            >
+                <!-- <img class="w-full h-auto" src={item.thumbnail} alt={""} /> -->
+                <div class="absolute w-full bottom-[20%] text-center">
+                    <button
+                        data-scroll="#section-2"
+                        class="btn btn-lg btn-primary"
+                        on:click={scrollIntoView}
+                    >
+                        About Us</button
+                    >
+                </div>
+            </figure>
         </Slidy>
     {:catch error}
         {console.log(error)}
@@ -48,5 +63,13 @@
     :global(.home-carousel autoplay-button) {
         /* z-index: 20 !important; */
         display: none;
+    }
+    .carousel-inner {
+        background-size: cover;
+    }
+    @media (min-width: 640px) {
+        .carousel-inner {
+            background-size: 100% auto;
+        }
     }
 </style>
