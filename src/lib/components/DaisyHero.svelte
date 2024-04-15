@@ -16,7 +16,6 @@
 <div
   class="hero min-h-screen !bg-no-repeat bg-center"
   style:background-position={`-${scrolled * 5}px 0`}
-  style="background: url(/red-dragon.jpeg); background-size: auto 100% !important;"
 >
   <div class="hero-overlay bg-opacity-60"></div>
   <div class="hero-content text-center text-neutral-200">
@@ -38,3 +37,15 @@
     </div>
   </div>
 </div>
+
+<style>
+  .hero {
+    background: url(/red-dragon.jpeg);
+    background-size: auto 100% !important;
+  }
+  @media (min-width: 640px) {
+    .hero {
+      background-size: 160% auto !important;
+    }
+  }
+</style>
