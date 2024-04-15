@@ -9,16 +9,19 @@
     let currentProducts = [];
     $: currentProducts = filterProducts(category);
     let manyArr = [];
-    $: manyArr = createImageGroups(currentProducts);
-    let singleItem = currentProducts[0];
-    let single = false;
+    $: manyArr = chunkArray(currentProducts, 4);
     let index = 0;
+    let singleItem = null;
+    let single = false;
     let category = "";
+    let productNum = 0;
+    $: productNum = 0;
+    let slideIndex = 0;
 
-    const setSingle = (el) => {
-        console.log(el.id);
-        singleItem = currentProducts[el.id];
+    const setSingle = (product) => {
+        index = currentProducts.findIndex((p) => p.id === product.id);
         single = true;
+        singleItem = product;
     };
 
     const filterProducts = (category) => {
@@ -37,6 +40,14 @@
             return currentProducts;
         }
     };
+
+    function chunkArray(arr, chunkSize) {
+        const result = [];
+        for (let i = 0; i < arr.length; i += chunkSize) {
+            result.push(arr.slice(i, i + chunkSize));
+        }
+        return result;
+    }
 </script>
 
 <div
@@ -63,30 +74,41 @@
             {#if single}
                 <button
                     class="btn btn-lg btn-secondary"
-                    on:click={() => (single = false)}>Back</button
+                    on:click={() => {
+                        console.log(singleItem);
+                        manyArr.findIndex((chunk) => {
+                            console.log("chunk:", chunk);
+                        })
+                        singleItem = null;
+                        single = false;
+                    }}>Back</button
                 >
             {/if}
         </div>
         {#if single}
             <div
-                class="card card-side bg-base-100 shadow-xl flex-col md:max-w-[50vw]"
+                class="card card-side bg-base-100 shadow-xl flex-col h-[530px] w-[90%] md:w-1/2"
             >
                 <figure class="!justify-start flex-1">
                     <Slidy
                         --slidy-slide-width={"100%"}
                         --slidy-slide-height={"250px"}
+                        bind:index
+                        let:item
                         on:index={(e) => {
-                            console.log(e);
                             index = e.detail.index;
+                            console.log(index);
+                            singleItem = currentProducts[index];
                         }}
-                        getImgSrc={(index) => singleItem.thumbnail}
+                        getImgSrc={(item) => {
+                            return singleItem.thumbnail;
+                        }}
                         slides={currentProducts}
                         background={true}
                         counter={false}
                         arrows={false}
                         snap={"center"}
                         loop
-                        let:item
                     />
                 </figure>
                 <div class="card-body flex-1 flex-col px-4 py-4">
@@ -108,66 +130,54 @@
                 </div>
             </div>
         {:else if category === "drinks"}
-        <div class="hero" style="background-image: url(/drinks.jpg);">
-            <div class="hero-overlay bg-opacity-60"></div>
-            <div class="hero-content text-center text-neutral-100">
-              <div class="max-w-md">
-                <h1 class="mb-5 text-5xl font-bold">No drinks here yet!</h1>
-                <p class="mb-5 text-2xl">..but if you can make it in to see us we got you!</p>
-              </div>
+            <div class="hero" style="background-image: url(/drinks.jpg);">
+                <div class="hero-overlay bg-opacity-60"></div>
+                <div class="hero-content text-center text-neutral-100">
+                    <div class="max-w-md">
+                        <h1 class="mb-5 text-5xl font-bold">
+                            No drinks here yet!
+                        </h1>
+                        <p class="mb-5 text-2xl">
+                            ..but if you can make it in to see us we got you!
+                        </p>
+                    </div>
+                </div>
             </div>
-          </div>
         {:else}
             <figure class="!justify-start flex-1">
                 <Slidy
-                    bind:index
                     let:item
-                    getImgSrc={(index) => currentProducts[index]?.thumbnail}
+                    bind:slideIndex
+                    getImgSrc={(item) => item?.thumbnail}
                     snap={"start"}
                     slides={manyArr}
                 >
+                    <!-- svelte-ignore a11y-no-static-element-interactions -->
+                    <!-- svelte-ignore a11y-click-events-have-key-events -->
                     <div class="grid-container text-black">
-                        <div
-                            on:click={(e) => setSingle(e.currentTarget)}
-                            id={item.id1}
-                            style={`background-image: url(${currentProducts[item.id1]?.thumbnail});`}
-                            class="element1 bg-cover bg-center bg-no-repeat"
-                        ></div>
-                        {#if currentProducts[item.id2]}
+                        {#each item as product}
                             <div
-                                on:click={(e) => setSingle(e.currentTarget)}
-                                id={item.id2}
-                                style={`background-image: url(${currentProducts[item.id2]?.thumbnail});`}
-                                class="element2 bg-cover bg-center bg-no-repeat"
-                            ></div>
-                        {:else}
-                            <div
-                                class="skeleton w-full h-full rounded-none"
-                            ></div>
-                        {/if}
-                        {#if currentProducts[item.id3]}
-                            <div
-                                on:click={(e) => setSingle(e.currentTarget)}
-                                id={item.id3}
-                                style={`background-image: url(${currentProducts[item.id3]?.thumbnail});`}
-                                class="element3 bg-cover bg-center bg-no-repeat"
-                            ></div>
-                        {:else}
-                            <div
-                                class="skeleton w-full h-full rounded-none"
-                            ></div>
-                        {/if}
-                        {#if currentProducts[item.id4]}
-                            <div
-                                on:click={(e) => setSingle(e.currentTarget)}
-                                id={item.id4}
-                                style={`background-image: url(${currentProducts[item.id4]?.thumbnail});`}
-                                class="element4 bg-cover bg-center bg-no-repeat"
-                            ></div>
-                        {:else}
-                            <div
-                                class="skeleton w-full h-full rounded-none"
-                            ></div>
+                                on:click={(e) => {
+                                    setSingle(product)
+                                }}
+                                style={`background-image: url(${product?.thumbnail});`}
+                                class={`bg-cover bg-center bg-no-repeat`}
+                            >
+                                <div class="h-full w-full relative">
+                                    <h1
+                                        class="absolute top-0 text-2xl font-extrabold text-center w-full bg-white/50"
+                                    >
+                                        {product?.title}
+                                    </h1>
+                                </div>
+                            </div>
+                        {/each}
+                        {#if item.length < 4}
+                            {#each Array(4 - item.length) as _}
+                                <div
+                                    class="skeleton w-full h-full rounded-none"
+                                ></div>
+                            {/each}
                         {/if}
                     </div>
                 </Slidy>
@@ -182,6 +192,11 @@
     :global(.item-carousel li.slidy-slide) {
         width: 100% !important;
     }
+    :global(.slidy-counter) {
+        top: unset;
+        bottom: 1rem !important;
+        right: 46%;
+    }
     .grid-container {
         width: 100%;
         height: 300px;
@@ -192,22 +207,5 @@
         background-color: oklch(var(--s));
         padding: 4px;
         @apply rounded;
-    }
-
-    .element1 {
-        grid-column: 1;
-        grid-row: 1;
-    }
-    .element2 {
-        grid-column: 2;
-        grid-row: 1;
-    }
-    .element3 {
-        grid-column: 1;
-        grid-row: 2;
-    }
-    .element4 {
-        grid-column: 2;
-        grid-row: 2;
     }
 </style>
