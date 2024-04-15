@@ -16,7 +16,6 @@
     let category = "";
     let productNum = 0;
     $: productNum = 0;
-    let slideIndex = 0;
 
     const setSingle = (product) => {
         index = currentProducts.findIndex((p) => p.id === product.id);
@@ -75,10 +74,9 @@
                 <button
                     class="btn btn-lg btn-secondary"
                     on:click={() => {
-                        console.log(singleItem);
-                        manyArr.findIndex((chunk) => {
-                            console.log("chunk:", chunk);
-                        })
+                        index = manyArr.findIndex((chunk) =>
+                            chunk.some((obj) => obj.id === singleItem.id),
+                        );
                         singleItem = null;
                         single = false;
                     }}>Back</button
@@ -97,7 +95,6 @@
                         let:item
                         on:index={(e) => {
                             index = e.detail.index;
-                            console.log(index);
                             singleItem = currentProducts[index];
                         }}
                         getImgSrc={(item) => {
@@ -107,7 +104,8 @@
                         background={true}
                         counter={false}
                         arrows={false}
-                        snap={"center"}
+                        animation={flip}
+                        snap={"deck"}
                         loop
                     />
                 </figure>
@@ -147,7 +145,7 @@
             <figure class="!justify-start flex-1">
                 <Slidy
                     let:item
-                    bind:slideIndex
+                    bind:index
                     getImgSrc={(item) => item?.thumbnail}
                     snap={"start"}
                     slides={manyArr}
@@ -158,7 +156,7 @@
                         {#each item as product}
                             <div
                                 on:click={(e) => {
-                                    setSingle(product)
+                                    setSingle(product);
                                 }}
                                 style={`background-image: url(${product?.thumbnail});`}
                                 class={`bg-cover bg-center bg-no-repeat`}

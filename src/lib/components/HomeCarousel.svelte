@@ -22,14 +22,12 @@
             <NeonSigns sign="four" text={slidyitem.title} />
         </div>
         <!-- background={true} -->
-        <!-- easing={backIn} -->
         <Slidy
             on:index={(e) => (slidyitem = items[e.detail.index])}
             getImgSrc={(item) => item.thumbnail}
             slides={items}
-            plugins={[
-                Plugins.autoplay({ autoplay: true, duration: 5000 }),
-            ]}
+            easing={backIn}
+            plugins={[Plugins.autoplay({ autoplay: true, duration: 5000 })]}
             snap="center"
             counter={false}
             arrows={false}
@@ -37,7 +35,7 @@
             --slidy-slide-width={"100%"}
             --slidy-slide-radius={"none"}
         />
-            <!-- <button
+        <!-- <button
                 data-scroll="#section-2"
                 class="btn btn-lg btn-primary absolute bottom-[20%] !px-4"
                 on:click={scrollIntoView}
