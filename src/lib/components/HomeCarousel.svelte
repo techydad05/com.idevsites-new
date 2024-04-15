@@ -23,7 +23,6 @@
         </div>
         <Slidy
         let:item
-        background={true}
             on:index={(e) => (slidyitem = items[e.detail.index])}
             getImgSrc={(item) => item.thumbnail}
             slides={items}
@@ -36,13 +35,6 @@
             --slidy-slide-width={"100%"}
             --slidy-slide-radius={"none"}
         >
-        <button
-                data-scroll="#section-2"
-                class="btn btn-lg btn-primary absolute bottom-[20%] !px-4"
-                on:click={scrollIntoView}
-            >
-                About Us</button
-            >
         </Slidy>
     {:catch error}
         {console.log(error)}
