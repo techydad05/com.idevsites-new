@@ -21,12 +21,12 @@
         >
             <NeonSigns sign="four" text={slidyitem.title} />
         </div>
-        <!-- plugins={[Plugins.autoplay({ autoplay: true, duration: 5000 })]} -->
         <Slidy
             let:item
             on:index={(e) => (slidyitem = items[e.detail.index])}
             getImgSrc={(item) => item.thumbnail}
             slides={items}
+            plugins={[Plugins.autoplay({ autoplay: true, duration: 5000 })]}
             easing={backIn}
             snap="center"
             counter={false}
