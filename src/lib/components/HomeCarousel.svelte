@@ -43,7 +43,7 @@
                 <div class="absolute w-full bottom-[20%] text-center">
                     <button
                         data-scroll="#section-2"
-                        class="btn btn-lg btn-primary"
+                        class="btn btn-lg btn-primary px-4"
                         on:click={scrollIntoView}
                     >
                         About Us</button
