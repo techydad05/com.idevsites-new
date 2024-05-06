@@ -10,8 +10,6 @@ export const load: PageServerLoad = async ({ locals, url }) => {
    let rurl = url.searchParams.get('rurl') || ''
    let code = url.searchParams.get('code') || ''
 
-   console.log("in function");
-
    if (locals.user) { throw redirect(302, `/${rurl}`) }
 
    const loginForm = await superValidate(loginPostReq, { id: 'login' })

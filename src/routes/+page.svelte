@@ -6,6 +6,7 @@
    import HomeCarousel from "$src/lib/components/HomeCarousel.svelte";
    // import { getVerticalScrollPercentage } from "$lib/utils";
    export let data: PageData;
+   import SignupForm from "$src/lib/components/AceternityComponents/ui/SignupForm/SignupForm.svelte";
 
    let scrolled;
    function getScrollPercent() {
@@ -20,8 +21,8 @@
 </script>
 
 <svelte:window on:scroll={() => getScrollPercent()} />
-
 <section>
+   <!-- TODO: fix this to have the correct name  -->
    <HomeCarousel items={data.products} />
 </section>
 <div class="shark-section relative">

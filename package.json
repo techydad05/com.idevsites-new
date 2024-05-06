@@ -67,5 +67,11 @@
 		"vitest": "^0.34.6",
 		"zod": "^3.22.4"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"@tabler/icons-svelte": "^3.3.0",
+		"clsx": "^2.1.1",
+		"svelte-motion": "^0.12.2",
+		"tailwind-merge": "^2.3.0"
+	}
 }

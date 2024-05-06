@@ -5,6 +5,7 @@
   import Account from "./Account.svelte";
   import SearchBox from "./SearchBox.svelte";
   import SideBar from "./SideBar.svelte";
+    import { LogIn } from "lucide-svelte";
   export let user: {};
   export let cart: {};
   export let count: number;
@@ -64,10 +65,8 @@
   </div>
   <div class="navbar-end">
     <!-- <button class="btn btn-ghost btn-circle">
-
     </button>
     <button class="btn btn-ghost btn-circle">
-      
     </button> -->
     <SideBar {user} />
   </div>

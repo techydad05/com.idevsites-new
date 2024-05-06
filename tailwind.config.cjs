@@ -1,6 +1,7 @@
 import plugin from 'tailwindcss/plugin'
 import typography from '@tailwindcss/typography'
 import forms from '@tailwindcss/forms'
+import flattenColorPalette from 'tailwindcss/lib/util/flattenColorPalette'
 
 /** @type {import('tailwindcss').Config}*/
 const config = {
@@ -50,6 +51,9 @@ const config = {
          }
       },
       extend: {
+         boxShadow: {
+				input: `0px 2px 3px -1px rgba(0,0,0,0.1), 0px 1px 0px 0px rgba(25,28,33,0.02), 0px 0px 0px 1px rgba(25,28,33,0.08)`
+			},
          typography: (theme) => ({
             DEFAULT: {
                css: {
@@ -64,9 +68,11 @@ const config = {
    },
 
    plugins: [
-      require('daisyui'),
+      require("@tailwindcss/typography"),
       typography,
       forms,
+      require('daisyui'),
+      addVariablesForColors,
       plugin(function ({ addVariant, matchUtilities, theme }) {
          addVariant('hocus', ['&:hover', '&:focus']);
          // Square utility
@@ -80,6 +86,17 @@ const config = {
          );
       })
    ]
+}
+
+function addVariablesForColors({ addBase, theme }) {
+	let allColors = flattenColorPalette(theme('colors'));
+	let newVars = Object.fromEntries(
+		Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
+	);
+
+	addBase({
+		':root': newVars
+	});
 }
 
 module.exports = config

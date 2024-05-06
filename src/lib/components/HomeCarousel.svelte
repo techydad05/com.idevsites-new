@@ -39,7 +39,6 @@
                 style={`background-image: url(${item.thumbnail});`}
                 class="carousel-inner w-full h-full text-center bg-no-repeat bg-center"
             >
-                <!-- <img class="w-full h-auto" src={item.thumbnail} alt={""} /> -->
                 <div class="absolute w-full bottom-[20%] text-center">
                     <button
                         data-scroll="#section-2"
