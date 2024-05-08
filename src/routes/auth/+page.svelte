@@ -11,9 +11,9 @@
       resetPostReq,
    } from "$lib/validators";
    import AuthContainer from "$lib/components/AuthContainer.svelte";
-   // import SocialProviders from "$lib/components/SocialProviders.svelte";
-   import Label from "$src/lib/components/AceternityComponents/Label.svelte";
-   import Input from "$src/lib/components/AceternityComponents/Input.svelte";
+   import SocialProviders from "$lib/components/SocialProviders.svelte";
+   import Label from "$lib/components/AceternityComponents/Label.svelte";
+   import Input from "$lib/components/AceternityComponents/Input.svelte";
 
    export let data: PageData;
    // console.log("data:", data);
@@ -152,7 +152,7 @@
                   </span>{/if}
             </div>
             <button type="submit" class="btn btn-primary w-full my-4">Sign In</button>
-            <!-- <SocialProviders /> -->
+            <SocialProviders />
             <div class="text-sm text-center font-medium">
                <a
                   on:click={() => {
@@ -252,7 +252,7 @@
                {$registerMessage}
             </span>{/if}
          <button type="submit" class="btn btn-primary w-full my-4">Create Account</button>
-         <!-- <SocialProviders /> -->
+         <SocialProviders />
       </form>
    {:else if state === "forgot"}
       {#if $forgotMessage}
