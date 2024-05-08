@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { cn } from '../../utils/cn';
+	import { cn } from './utils/cn';
 	import { useMotionTemplate, useMotionValue, Motion, MotionValue } from 'svelte-motion';
 
 	export let className: string | undefined = undefined;
