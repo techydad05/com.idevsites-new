@@ -1,6 +1,5 @@
 <script>
     import { Slidy } from "@slidy/svelte";
-    import { shuffle } from "@slidy/animation";
     import "@slidy/svelte/dist/slidy.css";
     import { backIn } from "svelte/easing";
     import NeonSigns from "./NeonSigns.svelte";

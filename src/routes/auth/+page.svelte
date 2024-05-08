@@ -13,8 +13,8 @@
    import AuthContainer from "$lib/components/AuthContainer.svelte";
    import SocialProviders from "$lib/components/SocialProviders.svelte";
    import SignupForm from "$src/lib/components/AceternityComponents/ui/SignupForm/SignupForm.svelte";
-   import Label from "$src/lib/components/AceternityComponents/ui/SignupForm/Label.svelte";
-   import Input from "$src/lib/components/AceternityComponents/ui/SignupForm/Input.svelte";
+   import Label from "$src/lib/components/AceternityComponents/Label.svelte";
+   import Input from "$src/lib/components/AceternityComponents/Input.svelte";
 
    export let data: PageData;
    // console.log("data:", data);

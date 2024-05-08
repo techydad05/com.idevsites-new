@@ -6,7 +6,6 @@
    import HomeCarousel from "$src/lib/components/HomeCarousel.svelte";
    // import { getVerticalScrollPercentage } from "$lib/utils";
    export let data: PageData;
-   import SignupForm from "$src/lib/components/AceternityComponents/ui/SignupForm/SignupForm.svelte";
 
    let scrolled;
    function getScrollPercent() {
