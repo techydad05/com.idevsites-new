@@ -1,4 +1,4 @@
-<!-- <script lang="ts">
+<script lang="ts">
    import type { PageData } from "./$types";
    import { Turnstile } from "sveltekit-turnstile";
    import { superForm } from "sveltekit-superforms/client";
@@ -12,7 +12,6 @@
    } from "$lib/validators";
    import AuthContainer from "$lib/components/AuthContainer.svelte";
    import SocialProviders from "$lib/components/SocialProviders.svelte";
-   import SignupForm from "$src/lib/components/AceternityComponents/ui/SignupForm/SignupForm.svelte";
    import Label from "$src/lib/components/AceternityComponents/Label.svelte";
    import Input from "$src/lib/components/AceternityComponents/Input.svelte";
 
@@ -354,4 +353,4 @@
    .button {
       @apply inline-block w-full my-4 py-3 px-5 text-sm font-semibold text-white bg-lime-600 hover:bg-lime-700 rounded-md transition duration-200;
    }
-</style> -->
+</style>
