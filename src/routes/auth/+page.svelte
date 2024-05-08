@@ -92,7 +92,7 @@
    $: $resetForm.token = token;
 </script>
 
-<!-- <AuthContainer>
+<AuthContainer>
    {#if !token}
       <div
          class="fixed top-0 left-0 z-50 w-full h-screen overflow-y-auto bg-black flex items-center justify-center"
@@ -335,7 +335,7 @@
          <button type="submit" class="button">Save New Password</button>
       </form>
    {/if}
-</AuthContainer> -->
+</AuthContainer>
 
 <style lang="postcss">
    .label {
