@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
    import type { PageData } from "./$types";
    import { Turnstile } from "sveltekit-turnstile";
    import { superForm } from "sveltekit-superforms/client";
@@ -354,4 +354,4 @@
    .button {
       @apply inline-block w-full my-4 py-3 px-5 text-sm font-semibold text-white bg-lime-600 hover:bg-lime-700 rounded-md transition duration-200;
    }
-</style>
+</style> -->
