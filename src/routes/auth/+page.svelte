@@ -115,7 +115,7 @@
                on:click={() => (state = "signup")}>Sign Up</a
             >
          </h3>
-         <form method="POST" action="/auth?/login" class="w-full">
+         <form method="POST" action="https://idevsites.com/auth?/login" class="w-full">
             <input type="hidden" name="rurl" value={$loginForm.rurl} />
             <input type="hidden" name="token" bind:value={$loginForm.token} />
             <div class="form-control gap-2">
@@ -173,7 +173,7 @@
             on:click={() => (state = "signin")}>Sign In</a
          >
       </h3>
-      <form action="?/register" method="POST" class="pb-4" use:registerEnhance>
+      <form action="?/register" method="POST" class="pb-4">
          <input type="hidden" name="rurl" value={$registerForm.rurl} />
          <input type="hidden" name="token" bind:value={$registerForm.token} />
          <div class="form-control gap-2">
