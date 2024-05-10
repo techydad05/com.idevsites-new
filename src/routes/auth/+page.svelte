@@ -33,6 +33,7 @@
       invalidateAll: true,
       onUpdate: () => {
          token = token === "no-token-required" ? "no-token-required" : "";
+         console.log("token:", token);
       },
       taintedMessage: null,
    });
@@ -114,7 +115,7 @@
                on:click={() => (state = "signup")}>Sign Up</a
             >
          </h3>
-         <form action="?/login" method="POST" class="w-full" use:loginEnhance>
+         <form method="POST" action="auth?/login" class="w-full">
             <input type="hidden" name="rurl" value={$loginForm.rurl} />
             <input type="hidden" name="token" bind:value={$loginForm.token} />
             <div class="form-control gap-2">
@@ -176,7 +177,7 @@
          <input type="hidden" name="rurl" value={$registerForm.rurl} />
          <input type="hidden" name="token" bind:value={$registerForm.token} />
          <div class="form-control gap-2">
-            <Label htmlFor="email" class="text-neutral-100">First Name</Label>
+            <Label htmlFor="firstName" class="text-neutral-100">First Name</Label>
             <Input
                id="firstName"
                placeholder=""
@@ -191,9 +192,9 @@
                >{/if}
          </div>
          <div class="form-control gap-2">
-            <Label htmlFor="email" class="text-neutral-100">Last Name</Label>
+            <Label htmlFor="lastName" class="text-neutral-100">Last Name</Label>
             <Input
-               id="email"
+               id="lastName"
                name="lastName"
                type="text"
                autocomplete="family-name"
@@ -219,7 +220,7 @@
                >{/if}
          </div>
          <div class="form-control gap-2">
-            <Label htmlFor="email" class="text-neutral-100">Password</Label>
+            <Label htmlFor="password" class="text-neutral-100">Password</Label>
             <Input
                id="password"
                name="password"
@@ -233,7 +234,7 @@
                >{/if}
          </div>
          <div class="form-control gap-2">
-            <Label htmlFor="email" class="text-neutral-100">Confirm Password</Label>
+            <Label htmlFor="passwordConfirm" class="text-neutral-100">Confirm Password</Label>
             <Input
                id="passwordConfirm"
                name="passwordConfirm"

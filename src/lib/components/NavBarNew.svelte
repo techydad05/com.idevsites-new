@@ -5,7 +5,6 @@
   import Account from "./Account.svelte";
   import SearchBox from "./SearchBox.svelte";
   import SideBar from "./SideBar.svelte";
-    import { LogIn } from "lucide-svelte";
   export let user: {};
   export let cart: {};
   export let count: number;
@@ -59,15 +58,23 @@
       <option value="sunset">Sunset</option>
     </select>
   </div>
-  <div class="navbar-start"></div>
-  <div class="navbar-center w-1/2 h-full justify-center">
-    <a class="h-full" href="/"><img class="h-full" src="/logo.png" alt="" /></a>
+  <div class="navbar-start">
+    <a href="/" class="logo btn btn-ghost text-xl normal-case m-2">
+      <img src="/svelte_logo.png" alt="" class="h-[inherit]" />
+   </a>
+  </div>
+  <div class="navbar-center h-full justify-center">
+    <!-- customization for the lure site...  -->
+    <!-- <a class="h-full" href="/"><img class="h-full" src="/logo.png" alt="" /></a> -->
   </div>
   <div class="navbar-end">
-    <!-- <button class="btn btn-ghost btn-circle">
-    </button>
-    <button class="btn btn-ghost btn-circle">
-    </button> -->
-    <SideBar {user} />
+    <div class="hidden lg:flex flex-row gap-4">
+      <SearchBox />
+      <Account {user} />
+    </div>
+    <Cart bind:cart bind:count />
+    <div class="lg:hidden">
+      <SideBar {user} />
+    </div>
   </div>
 </div>

@@ -39,7 +39,7 @@
 </div>
 <style lang="postcss">
    .menu {
-      @apply z-10 flex flex-col shadow-lg;
+      @apply z-[999] flex flex-col shadow-lg;
       @apply rounded-lg bg-white p-1 shadow-neutral-900/30;
       @apply ring-0 !important;
    }

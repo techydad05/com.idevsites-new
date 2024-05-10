@@ -21,8 +21,8 @@
 
 <svelte:window on:scroll={() => getScrollPercent()} />
 <section>
-   <!-- TODO: fix this to have the correct name  -->
-   <HomeCarousel items={data.products} />
+   <!-- TODO: fix this to have the correct name instead of items  -->
+   <HomeCarousel items={data.products ? data.products : []} />
 </section>
 <div class="shark-section relative">
    <svg
