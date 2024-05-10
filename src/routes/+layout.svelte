@@ -36,6 +36,7 @@
       <slot />
    {:else}
       <NavBarNew bind:user bind:cart bind:count />
+      <!-- TODO: remove this  -->
       <!-- <NavBar bind:user bind:cart bind:count /> -->
       <slot />
       <Footer />
