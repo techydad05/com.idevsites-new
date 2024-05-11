@@ -43,11 +43,15 @@ export const actions: Actions = {
             return message(form, 'Security token timed out or invalid. Please try again.', { status: 418 })
          }
       }
-      if (await medusa.login(locals, cookies, form.data.email, form.data.password)) {
-         throw redirect(302, `/${form.data.rurl}`)
-      } else { 
-         return message(form, 'Invalid email/password combinationnn', { status: 402 })
-      }
+      medusa.login(locals, cookies, form.data.email, form.data.password).then(d => {
+         console.log("Inside Login::",d);
+      })
+      // if (await medusa.login(locals, cookies, form.data.email, form.data.password)) {
+      //    console.log("success");
+      //    throw redirect(302, `/${form.data.rurl}`)
+      // } else { 
+      //    return message(form, 'Invalid email/password combination', { status: 401 })
+      // }
    },
 
    register: async ({ request, locals, cookies }) => {
