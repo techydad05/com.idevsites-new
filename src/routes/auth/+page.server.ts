@@ -6,11 +6,19 @@ import { SECRET_TURNSTILE_KEY } from '$env/static/private'
 import { loginPostReq, registerPostReq, forgotPostReq, resetPostReq } from '$lib/validators'
 import medusa from '$lib/server/medusa'
 
-export const load: PageServerLoad = async ({ locals, url }) => {
+export const load: PageServerLoad = async ({ locals, url, cookies }) => {
    let rurl = url.searchParams.get('rurl') || ''
    let code = url.searchParams.get('code') || ''
 
    if (locals.user) { throw redirect(302, `/${rurl}`) }
+   
+   
+   console.log("locals", locals);
+   console.log("cookies", cookies.getAll());
+   medusa.getCart(locals, cookies).then(d => {
+      console.log("d::",d);
+   })
+   
 
    const loginForm = await superValidate(loginPostReq, { id: 'login' })
    const registerForm = await superValidate(registerPostReq, { id: 'register' })
@@ -29,8 +37,9 @@ export const load: PageServerLoad = async ({ locals, url }) => {
 
 export const actions: Actions = {
    login: async ({ request, locals, cookies }) => {   
-      console.log("testies toooo");
-      const form = await superValidate(request, loginPostReq, { id: 'login' })
+      const form = await superValidate(request, loginPostReq, { id: 'login' });
+      console.log("form::",form);
+      
       if (!form.valid) return message(form, 'Something went wrong', { status: 500}) // this shouldn't happen because of client-side validation
       // If Turnstile public key is not set in env, the token sent by form will be 'no-token-required'
       // If the token is anything else, check for validity
@@ -40,6 +49,7 @@ export const actions: Actions = {
          }
       }
       if (await medusa.login(locals, cookies, form.data.email, form.data.password)) {
+         console.log("success");
          throw redirect(302, `/${form.data.rurl}`)
       } else { 
          return message(form, 'Invalid email/password combination', { status: 401 })

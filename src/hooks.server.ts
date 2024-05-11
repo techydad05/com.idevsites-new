@@ -5,8 +5,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
    // MEDUSA SESSION MIDDLEWARE  
    // Sets locals.user and locals.cart if they are found.
-   event = await medusa.handleRequest(event)
-
+   event = await medusa.handleRequest(event)   
    const response = await resolve(event)
 
    // CACHE CONTROL	

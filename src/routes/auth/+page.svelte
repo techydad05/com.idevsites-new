@@ -27,7 +27,6 @@
       form: loginForm,
       errors: loginErrors,
       message: loginMessage,
-      enhance: loginEnhance,
    } = superForm(data.loginForm, {
       validators: loginPostReq,
       invalidateAll: true,
@@ -115,7 +114,7 @@
                on:click={() => (state = "signup")}>Sign Up</a
             >
          </h3>
-         <form method="POST" action="https://idevsites.com/auth?/login" class="w-full">
+         <form method="POST" action="?/login" class="w-full">
             <input type="hidden" name="rurl" value={$loginForm.rurl} />
             <input type="hidden" name="token" bind:value={$loginForm.token} />
             <div class="form-control gap-2">
