@@ -43,7 +43,7 @@ export const actions: Actions = {
             return message(form, 'Security token timed out or invalid. Please try again.', { status: 418 })
          }
       }
-      medusa.login(locals, cookies, form.data.email, form.data.password).then(d => {
+      await medusa.login(locals, cookies, form.data.email, form.data.password).then(d => {
          console.log("Inside Login::",d);
       })
       // if (await medusa.login(locals, cookies, form.data.email, form.data.password)) {
