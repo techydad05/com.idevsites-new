@@ -14,10 +14,7 @@ export const load: PageServerLoad = async ({ locals, url, cookies }) => {
    
    
    console.log("locals", locals);
-   console.log("cookies", cookies.getAll());
-   medusa.getCart(locals, cookies).then(d => {
-      console.log("d::",d);
-   })
+   console.log("cookies", cookies);
    
 
    const loginForm = await superValidate(loginPostReq, { id: 'login' })
@@ -38,9 +35,7 @@ export const load: PageServerLoad = async ({ locals, url, cookies }) => {
 export const actions: Actions = {
    login: async ({ request, locals, cookies }) => {   
       const form = await superValidate(request, loginPostReq, { id: 'login' });
-      console.log("form::",form);
-      
-      if (!form.valid) return message(form, 'Something went wrong', { status: 500}) // this shouldn't happen because of client-side validation
+            if (!form.valid) return message(form, 'Something went wrong', { status: 500}) // this shouldn't happen because of client-side validation
       // If Turnstile public key is not set in env, the token sent by form will be 'no-token-required'
       // If the token is anything else, check for validity
       if (form.data.token !== 'no-token-required') {
@@ -48,12 +43,15 @@ export const actions: Actions = {
             return message(form, 'Security token timed out or invalid. Please try again.', { status: 418 })
          }
       }
-      if (await medusa.login(locals, cookies, form.data.email, form.data.password)) {
-         console.log("success");
-         throw redirect(302, `/${form.data.rurl}`)
-      } else { 
-         return message(form, 'Invalid email/password combination', { status: 401 })
-      }
+      medusa.login(locals, cookies, form.data.email, form.data.password).then(d => {
+         console.log("Inside Login::",d);
+      })
+      // if (await medusa.login(locals, cookies, form.data.email, form.data.password)) {
+      //    console.log("success");
+      //    throw redirect(302, `/${form.data.rurl}`)
+      // } else { 
+      //    return message(form, 'Invalid email/password combination', { status: 401 })
+      // }
    },
 
    register: async ({ request, locals, cookies }) => {
