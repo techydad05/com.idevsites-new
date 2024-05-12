@@ -71,5 +71,8 @@
 		"vitest": "^0.34.6",
 		"zod": "^3.22.4"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"@medusajs/medusa-js": "^6.1.8"
+	}
 }

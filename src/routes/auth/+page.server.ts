@@ -11,11 +11,6 @@ export const load: PageServerLoad = async ({ locals, url, cookies }) => {
    let code = url.searchParams.get('code') || ''
 
    if (locals.user) { throw redirect(302, `/${rurl}`) }
-   
-   
-   console.log("locals", locals);
-   console.log("cookies", cookies);
-   
 
    const loginForm = await superValidate(loginPostReq, { id: 'login' })
    const registerForm = await superValidate(registerPostReq, { id: 'register' })
@@ -35,7 +30,8 @@ export const load: PageServerLoad = async ({ locals, url, cookies }) => {
 export const actions: Actions = {
    login: async ({ request, locals, cookies }) => {   
       const form = await superValidate(request, loginPostReq, { id: 'login' });
-            if (!form.valid) return message(form, 'Something went wrong', { status: 500}) // this shouldn't happen because of client-side validation
+      console.log(form);  
+      if (!form.valid) return message(form, 'Something went wrong', { status: 500}) // this shouldn't happen because of client-side validation
       // If Turnstile public key is not set in env, the token sent by form will be 'no-token-required'
       // If the token is anything else, check for validity
       if (form.data.token !== 'no-token-required') {
@@ -43,15 +39,19 @@ export const actions: Actions = {
             return message(form, 'Security token timed out or invalid. Please try again.', { status: 418 })
          }
       }
-      medusa.login(locals, cookies, form.data.email, form.data.password).then(d => {
-         console.log("Inside Login::",d);
-      })
-      // if (await medusa.login(locals, cookies, form.data.email, form.data.password)) {
-      //    console.log("success");
-      //    throw redirect(302, `/${form.data.rurl}`)
-      // } else { 
-      //    return message(form, 'Invalid email/password combination', { status: 401 })
-      // }
+      medusa.auth.getToken({
+         email: form.data.email,
+         password: form.data.password
+       })
+       .then(({ access_token }) => {
+         console.log(access_token);
+         cookies.set("sid", access_token);
+         throw redirect(302, `/${form.data.rurl}`)
+       })
+       .catch((err) => {
+         console.log(err);
+         return message(form, 'Invalid email/password combination', { status: 401 })
+       })
    },
 
    register: async ({ request, locals, cookies }) => {
