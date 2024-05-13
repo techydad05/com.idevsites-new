@@ -13,9 +13,7 @@ const medusaHandleRequest = async (event) => {
       event.locals.user = customer
       console.log("CUSTOMER ID:",customer.id);    
     })
-  }
-
-  else {
+  } else {
     event.locals.sid = '';
   }
   event.locals.cartid = event.cookies.get('cartid');
