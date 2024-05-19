@@ -33,6 +33,7 @@
 		"test:unit": "vitest"
 	},
 	"devDependencies": {
+		"@medusajs/medusa-js": "^6.1.8",
 		"@melt-ui/pp": "^0.3.0",
 		"@melt-ui/svelte": "^0.50.1",
 		"@playwright/test": "^1.41.2",
@@ -58,7 +59,7 @@
 		"svelte-check": "^3.6.4",
 		"svelte-meta-tags": "^3.1.0",
 		"svelte-motion": "^0.12.2",
-		"techydad05/sveltekit-medusa-client": "^3.1.1",
+		"sveltekit-medusa-client": "github:techydad05/sveltekit-medusa-client",
 		"sveltekit-search-params": "^1.1.1",
 		"sveltekit-stripe": "^1.1.0",
 		"sveltekit-superforms": "^1.13.4",
@@ -69,10 +70,7 @@
 		"typescript": "^5.3.3",
 		"vite": "^4.5.2",
 		"vitest": "^0.34.6",
-		"zod": "^3.22.4",
-		"@medusajs/medusa-js": "^6.1.8"
+		"zod": "^3.22.4"
 	},
-	"type": "module",
-	"dependencies": {
-	}
+	"type": "module"
 }
