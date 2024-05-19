@@ -20,7 +20,7 @@ export const actions: Actions = {
       if (!first_name || !last_name || !email) {
          return fail(400, { first_name, missing: true })
       }
-      const success = await medusa.editCustomer(locals, { first_name, last_name, email, phone })
+      const success = await medusa.customers.update({ first_name, last_name, email, phone })
       return { success }
    },
 
@@ -39,7 +39,21 @@ export const actions: Actions = {
          console.log(first_name, last_name, address_1, city, province, postal_code)
          return fail(400, { first_name, missing: true })
       }
-      const success = await medusa.addShippingAddress(locals, { first_name, last_name, address_1, address_2, city, country_code, province, postal_code, phone })
+      const success = await medusa.customers.addresses.addAddress({
+         address: {
+            first_name,
+            last_name,
+            address_1,
+            address_2,
+            city,
+            country_code,
+            province,
+            postal_code,
+            phone,
+            metadata: {},
+            company: '',  
+         }
+      })
       return { success  }
    },
 
@@ -52,7 +66,7 @@ export const actions: Actions = {
       if (!addressId) {
          return fail(400, { addressId, missing: true })
       }
-      const success = await medusa.deleteAddress(locals, addressId)
+      const success = await medusa.customers.addresses.deleteAddress(addressId)
       return { success }
    },
 
@@ -67,7 +81,7 @@ export const actions: Actions = {
       if (newPassword !== confirmPassword) {
          return fail(400, { currentPassword, newPassword, confirmPassword, mismatch: true })
       }
-      const success = await medusa.editCustomer(locals, { password: newPassword })
+      const success = await medusa.customers.update({ password: newPassword })
       return { success }
    }
 }

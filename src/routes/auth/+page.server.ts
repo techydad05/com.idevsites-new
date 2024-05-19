@@ -37,7 +37,6 @@ export const load: PageServerLoad = async ({ locals, url, cookies }) => {
 export const actions: Actions = {
   login: async ({ request, locals, cookies }) => {
     const form = await superValidate(request, loginPostReq, { id: "login" });
-    console.log(form);
     if (!form.valid)
       return message(form, "Something went wrong", { status: 500 }); // this shouldn't happen because of client-side validation
     // If Turnstile public key is not set in env, the token sent by form will be 'no-token-required'
@@ -51,24 +50,21 @@ export const actions: Actions = {
         );
       }
     }
-    medusa.auth
-      .getToken({
-        email: form.data.email,
-        password: form.data.password,
-      })
-      .then(({ access_token }) => {
-        console.log(access_token);
-        cookies.set("sid", access_token, {path: '/'});
-        throw redirect(302, `/${form.data.rurl}`);
-      })
-      .catch((err) => {
-        console.log(err);
-        return message(form, "Invalid email/password combination", {
-          status: 401,
-        });
+    if (
+      await medusa.login(locals, cookies, form.data.email, form.data.password)
+    ) {
+      throw redirect(302, `/${form.data.rurl}`);
+    } else {
+      return message(form, "Invalid email/password combination", {
+        status: 401,
       });
+    }
   },
-
+  logout: async ({ locals, cookies }) => {
+    if (await medusa.logout(locals, cookies)) {
+      throw redirect(302, "/");
+    } else throw error(500, "server error");
+  },
   register: async ({ request, locals, cookies }) => {
     const form = await superValidate(request, registerPostReq, {
       id: "register",
@@ -159,11 +155,5 @@ export const actions: Actions = {
     } else {
       return message(form, "The link was expired or invalid.", { status: 400 });
     }
-  },
-
-  logout: async ({ locals, cookies }) => {
-    if (await medusa.logout(locals, cookies)) {
-      throw redirect(302, "/auth");
-    } else throw error(500, "server error");
   },
 };

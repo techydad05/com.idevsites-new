@@ -1,41 +1,15 @@
 import type { Handle } from "@sveltejs/kit";
 import medusa from "$lib/server/medusa";
 
-const medusaHandleRequest = async (event) => {
-  // this middleware function is called by src/hooks.server.ts or src/hooks.server.js
-//   event.locals.sid = event.cookies.get("connect.sid");
-  event.locals.sid = event.cookies.get("sid");
-  console.log("has sid", event.locals.sid);
-  if (event.locals.sid) {
-     // Assuming you have a method to get a customer by session ID
-    await medusa.customers.retrieve()
-    .then(({ customer }) => {
-      event.locals.user = customer
-      console.log("CUSTOMER ID:",customer.id);    
-    })
-  } else {
-    event.locals.sid = '';
-  }
-  event.locals.cartid = event.cookies.get('cartid');
-  if (event.locals.cartid) {
-    // Assuming you have a method to retrieve a cart by ID
-    event.locals.cart = await medusa.carts.retrieve(event.locals.cartid);
-  } else {
-    event.locals.cart = null;
-  }
-  // Update the cart ID based on the retrieved cart
-  event.locals.cartid = event.locals.cart?.id || '';
-  return event;
-};
-
 export const handle: Handle = async ({ event, resolve }) => {
-  // MEDUSA SESSION MIDDLEWARE -- fix this?
+  // MEDUSA SESSION MIDDLEWARE
   // Sets locals.user and locals.cart if they are found.
-  event = await medusaHandleRequest(event);
+  event = await medusa.handleRequest(event)
   const response = await resolve(event);
 
   // CACHE CONTROL
-  // response.headers.set['Cache-Control'] = 'no-store, no-cache, must-revalidate, proxy-revalidate'
+  response.headers.set["Cache-Control"] =
+    "no-store, no-cache, must-revalidate, proxy-revalidate";
   // response.headers.set['Cache-Control'] = 'public, max-age=0, s-maxage=1'
 
   // SECURITY HEADERS

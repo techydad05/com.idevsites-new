@@ -7,9 +7,9 @@
    import Pagination from '$lib/components/Pagination.svelte'
 
    export let data: PageData
-//console.log(data.user)
+console.log(data.user)
    $: ({ id, email, first_name, last_name, phone, billing_address_id, shipping_addresses, orders } = data.user)
-   $: orders.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+   $: orders?.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
    $: currentPage = data?.currentPage || 1
    let opp = 10 // orders per page
    let processing = false
