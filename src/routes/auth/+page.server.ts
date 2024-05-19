@@ -37,6 +37,7 @@ export const load: PageServerLoad = async ({ locals, url, cookies }) => {
 export const actions: Actions = {
   login: async ({ request, locals, cookies }) => {
     const form = await superValidate(request, loginPostReq, { id: "login" });
+    console.log("form:", form);
     if (!form.valid)
       return message(form, "Something went wrong", { status: 500 }); // this shouldn't happen because of client-side validation
     // If Turnstile public key is not set in env, the token sent by form will be 'no-token-required'
