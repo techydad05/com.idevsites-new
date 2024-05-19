@@ -1,7 +1,6 @@
 import type { LayoutServerLoad } from './$types'
 
 export const load: LayoutServerLoad = async function ({ locals }) {
-   console.log("locals in layout.server:", locals);
    return {
       // locals.user and locals.cart are set in hooks.server.js
       user: locals.user, 
