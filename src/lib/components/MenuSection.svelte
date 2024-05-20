@@ -22,9 +22,10 @@
         singleItem = product;
     };
 
+    // TODO: figure out why this is pinging server every 6 seconds??
     const filterProducts = (category) => {
         if (category === "") {
-            console.log("loading storeData.products");
+            // console.log("loading storeData.products");
             return storeData.products;
         } else {
             console.log("loading currentProducts");
