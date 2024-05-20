@@ -51,6 +51,8 @@ export const actions: Actions = {
         );
       }
     }
+    console.log("locals:", locals);
+    console.log("cookies:", cookies);
     if (
       await medusa.login(locals, cookies, form.data.email, form.data.password)
     ) {
