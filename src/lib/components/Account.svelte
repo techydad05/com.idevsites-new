@@ -13,7 +13,10 @@
    const logout = async () => {
       const formData = new FormData() // The POST request fails without a body
       const res = await fetch('/auth?/logout', { method: 'POST', body: formData })
-      if (res.ok) goto('/auth')
+      if (res.ok) {
+         user = null;
+         goto('/auth')
+      }
    } 
 </script>
 {#if user}

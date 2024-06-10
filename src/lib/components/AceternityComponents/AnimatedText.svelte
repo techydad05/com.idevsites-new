@@ -1,6 +1,4 @@
 <script>
-    import postcss from "postcss";
-
     export let text = "";
 </script>
 <!-- <div class="grid"></div>

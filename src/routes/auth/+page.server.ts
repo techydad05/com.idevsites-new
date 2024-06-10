@@ -62,6 +62,7 @@ export const actions: Actions = {
     }
   },
   logout: async ({ locals, cookies }) => {
+    console.log("locals:", locals);
     if (await medusa.logout(locals, cookies)) {
       throw redirect(302, "/");
     } else throw error(500, "server error");

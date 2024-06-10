@@ -2,7 +2,7 @@
     import { Slidy } from "@slidy/svelte";
     import "@slidy/svelte/dist/slidy.css";
     import { backIn } from "svelte/easing";
-    import NeonSigns from "./NeonSigns.svelte";
+    import NeonSigns from "./AceternityComponents/NeonSigns.svelte";
     import { scrollIntoView } from "../utils";
     const Plugins = import("@slidy/plugins");
     export let items = [];
