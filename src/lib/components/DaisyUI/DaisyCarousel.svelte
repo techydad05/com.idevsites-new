@@ -34,32 +34,35 @@
     $: animation, showSlide(currentSlide);
   </script>
   
-  <div class="carousel w-full relative">
-    {#each slides as slide, i}
-      <div class="carousel-item w-full hidden">
-        <div
-          class="flex flex-col items-center bg-white p-6 rounded-lg shadow-lg max-w-xl mx-auto testimonial-text"
-        >
-          <img class="h-16 w-16 rounded-full mb-4" src={slide.img} alt="User" />
-          <div class="text-center">
-            <p class="text-lg font-semibold mb-1">{slide.name}</p>
-            <p class="text-gray-500">{slide.text}</p>
+  <div class="relative">
+    <div class="carousel w-full relative">
+        {#each slides as slide, i}
+          <div class="carousel-item w-full hidden">
+            <div
+              class="flex flex-col items-center bg-white p-6 rounded-lg shadow-lg max-w-xl mx-auto"
+            >
+              <img class="h-16 w-16 rounded-full mb-4" src={slide.img} alt="User" />
+              <div class="text-center">
+                <p class="text-lg font-semibold mb-1">{slide.name}</p>
+                <p class="text-gray-500">{slide.text}</p>
+              </div>
+            </div>
           </div>
-        </div>
+        {/each}
+        
       </div>
-    {/each}
-    <div class="flex w-full justify-between absolute top-1/2 transform -translate-y-1/2">
-      <button
-        on:click={prevSlide}
-        class="btn btn-circle btn-primary"
-        >❮</button
-      >
-      <button
-        on:click={nextSlide}
-        class="btn btn-circle btn-primary"
-        >❯</button
-      >
-    </div>
+      <div class="flex w-full justify-between absolute transform -translate-y-1/2">
+        <button
+          on:click={prevSlide}
+          class="btn btn-circle btn-primary"
+          >❮</button
+        >
+        <button
+          on:click={nextSlide}
+          class="btn btn-circle btn-primary"
+          >❯</button
+        >
+      </div>
   </div>
   <!-- <div class="flex justify-center w-full py-2 gap-2">
     {#each slides as _, i}

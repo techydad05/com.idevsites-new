@@ -4,7 +4,10 @@
   import { page } from "$app/stores";
   import NavBar from "$lib/components/NavBar.svelte";
   import Footer from "$lib/components/Footer.svelte";
+  // remove this maybe?
   import Toaster from "$lib/components/Toaster.svelte";
+  // ^
+  import ToastContainer from "$src/lib/components/DaisyUI/DaisyToast/ToastContainer.svelte";
   export let data: PageData;
   const nakedPaths = ["/auth", "/checkout", "/sitemap.xml"];
   $: naked = nakedPaths.includes($page?.url?.pathname);
@@ -27,9 +30,11 @@
     // Return it as part of every page's data
     return { props: { login } };
   }
+
 </script>
 
 <div>
+  <ToastContainer />
   <Toaster />
   {#if naked}
     <slot />

@@ -70,6 +70,46 @@
       </div>
     </div>
   </div>
+  <svg width="300" height="100" viewBox="0 0 300 100" xmlns="http://www.w3.org/2000/svg">
+   <text x="50" y="50" class="text">
+     <tspan id="morphText">WELCOME</tspan>
+     <animate
+       attributeName="opacity"
+       values="1;0;0;0;0;1;1"
+       keyTimes="0;0.2;0.4;0.6;0.8;0.9;1"
+       dur="8s"
+       repeatCount="indefinite"
+       fill="freeze"
+     />
+     <set
+       attributeName="visibility"
+       to="hidden"
+       begin="4s"
+       dur="4s"
+       fill="freeze"
+     />
+     <set
+       attributeName="visibility"
+       to="visible"
+       begin="8s"
+       dur="4s"
+       fill="freeze"
+     />
+   </text>
+ 
+   <text x="50" y="50" class="text hidden" id="seeMoreText">
+     SEE MORE
+   </text>
+ 
+   <animate
+     href="#morphText"
+     attributeName="textLength"
+     values="WELCOME;SEE MORE"
+     keyTimes="0;1"
+     dur="8s"
+     repeatCount="indefinite"
+   />
+ </svg>
 
   <!-- Features Section -->
   <div class="p-10 bg-base-200">
@@ -105,7 +145,8 @@
     </h2>
     <div class="flex flex-col">
       <div class="p-10 bg-base-200">
-        <div class="mb-5">
+        <div class="mb-5 relative">
+          <!-- svelte-ignore a11y-label-has-associated-control -->
           <label class="block text-lg font-semibold mb-2"
             >Select Animation:</label
           >
@@ -118,7 +159,9 @@
             {/each}
           </select>
           </div>
-         <Carousel {slides} animation={selectedAnimation} />
+          <div class="relative">
+             <Carousel {slides} animation={selectedAnimation} />
+          </div>
       </div>
     </div>
   </div>
@@ -126,29 +169,29 @@
   <footer class="footer p-10 bg-base-200 text-base-content">
     <div>
       <span class="footer-title">Services</span>
-      <a class="link link-hover">Branding</a>
-      <a class="link link-hover">Design</a>
-      <a class="link link-hover">Marketing</a>
-      <a class="link link-hover">Advertisement</a>
+      <a class="link link-hover" href="#branding">Branding</a>
+      <a class="link link-hover" href="#design">Design</a>
+      <a class="link link-hover" href="#marketing">Marketing</a>
+      <a class="link link-hover" href="#advertisement">Advertisement</a>
     </div>
     <div>
       <span class="footer-title">Company</span>
-      <a class="link link-hover">About us</a>
-      <a class="link link-hover">Contact</a>
-      <a class="link link-hover">Jobs</a>
-      <a class="link link-hover">Press kit</a>
+      <a class="link link-hover" href="#about-us">About us</a>
+      <a class="link link-hover" href="#contact">Contact</a>
+      <a class="link link-hover" href="#jobs">Jobs</a>
+      <a class="link link-hover" href="#press-kit">Press kit</a>
     </div>
     <div>
       <span class="footer-title">Legal</span>
-      <a class="link link-hover">Terms of use</a>
-      <a class="link link-hover">Privacy policy</a>
-      <a class="link link-hover">Cookie policy</a>
+      <a class="link link-hover" href="#terms-of-use">Terms of use</a>
+      <a class="link link-hover" href="#privacy-policy">Privacy policy</a>
+      <a class="link link-hover" href="#cookie-policy">Cookie policy</a>
     </div>
   </footer>
 </div>
 
-<!-- <Collection products={data.products} />
-{#each data.products as product}
+<Collection products={data.products} />
+<!-- {#each data.products as product}
    <div>
       <h2>{product.title}</h2>
       <p>{product.description}</p>
@@ -156,4 +199,3 @@
 {:else}
    No products found.
 {/each} -->
->
