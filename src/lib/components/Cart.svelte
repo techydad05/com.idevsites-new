@@ -25,9 +25,7 @@
     <span class="sr-only">Close cart</span>
     <ShoppingCart class="text-primary h-10 w-10" />
     {#if count > 0}
-      <span class="z-50 absolute top-3 right-2 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-lime-600 rounded-full">
-        {count}
-      </span>
+      <span class="badge badge-primary absolute top-3 right-2">{count}</span>
     {/if}
   </button>
 {:else}
@@ -35,9 +33,7 @@
     <span class="sr-only">View cart</span>
     <ShoppingCart class="text-primary h-10 w-10" />
     {#if count > 0}
-      <span class="z-50 absolute top-3 right-2 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-lime-600 rounded-full">
-        {count}
-      </span>
+      <span class="badge badge-primary absolute top-3 right-2">{count}</span>
     {/if}
   </button>
 {/if}
@@ -45,50 +41,36 @@
 <div use:portalled>
   {#if $open}
     <div {...$overlay} use:overlay class="fixed inset-0 z-20 bg-black/50" transition:fade={{ duration: 150 }}></div>
-    <div {...$content} use:content id="cart" class="overflow-auto fixed right-0 top-[20vh] z-40 w-full h-full pb-0 mb-0 sm:w-4/5 md:w-2/3 lg:w-2/3 xl:w-1/2 bg-white p-[25px] shadow-lg focus:outline-none" transition:fly={{ x: "100%", duration: 300, opacity: 1 }}>
-      <!-- <button {...$close} use:close class="btn btn-ghost">
-        <X class="text-gray-800 h-10 w-10" />
-      </button> -->
-      <div class="px-8 sm:px-12">
-        <h2 {...$title} use:title class="mb-6 text-center text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-          Shopping Cart
+    <div {...$content} use:content id="cart" class="overflow-auto fixed right-0 top-[20vh] z-40 w-full h-[80vh] pb-0 mb-0 sm:w-4/5 md:w-2/3 lg:w-2/3 xl:w-1/2 bg-base-100 p-6 shadow-2xl rounded-lg focus:outline-none" transition:fly={{ x: "100%", duration: 300, opacity: 1 }}>
+      <div class="px-4 sm:px-8">
+        <h2 {...$title} use:title class="mb-6 text-center text-4xl font-bold tracking-tight text-primary">
+          Your Cart
         </h2>
-        <ul role="list" class="divide-y divide-gray-200 border-t border-gray-200">
+        <ul role="list" class="space-y-4">
           {#each items as item, i}
-            <li class="flex py-6">
-              <a data-sveltekit-reload href={`/product/${item.variant.product.handle}?variant=${item.variant_id}`}>
-                <div class="cursor-pointer flex-shrink-0">
-                  <img src={item.thumbnail} alt={item.description} class="h-24 w-auto rounded-md object-cover object-center sm:h-32 sm:w-auto" />
-                </div>
+            <li class="card card-bordered shadow-md flex p-4">
+              <a data-sveltekit-reload href={`/product/${item.variant.product.handle}?variant=${item.variant_id}`} class="flex-shrink-0">
+                <img src={item.thumbnail} alt={item.description} class="h-24 w-24 rounded-md object-cover" />
               </a>
-              <div class="m-2 flex flex-1 flex-col sm:ml-6">
-                <div>
-                  <div class="flex justify-between">
-                    <a data-sveltekit-reload href={`/product/${item.variant.product.handle}?variant=${item.variant_id}`} class="cursor-pointer text-sm">
-                      <div class="font-medium text-gray-700 hover:text-gray-800">
-                        {item.title}
-                      </div>
-                      <p class="mt-1 text-sm text-gray-500">
-                        {item.description}
-                      </p>
-                    </a>
-                    <div>
-                      <p class="ml-4 text-sm font-medium text-gray-900">
-                        {formatPrice(item.unit_price)}
-                      </p>
-                      <p class="ml-4 text-sm text-gray-900 text-right">
-                        Qty: {item.quantity}
-                      </p>
-                    </div>
+              <div class="ml-4 flex flex-1 flex-col justify-between">
+                <div class="flex justify-between">
+                  <a data-sveltekit-reload href={`/product/${item.variant.product.handle}?variant=${item.variant_id}`} class="text-lg font-medium text-primary hover:text-primary-focus">
+                    {item.title}
+                  </a>
+                  <div>
+                    <p class="text-lg font-medium text-secondary">
+                      {formatPrice(item.unit_price)}
+                    </p>
+                    <p class="text-sm text-secondary">Qty: {item.quantity}</p>
                   </div>
                 </div>
-                <div class="mt-4 flex flex-1 items-end justify-between">
+                <div class="mt-4 flex items-center justify-between">
                   <form action="/cart?/update" method="post" use:enhance={() => {
                     return async ({ result }) => {
                       if (result.type === "success") invalidateAll();
                     };
                   }}>
-                    <select name="quantity" class="text-sm font-medium text-gray-900 rounded-lg focus:ring-gray-700 focus:border-none" on:change={async (e) => {
+                    <select name="quantity" class="select select-secondary select-sm w-full h-12 max-w-xs" on:change={async (e) => {
                       const form = e.target.closest("form");
                       const formData = new FormData(form);
                       const result = await fetch(form.action, {
@@ -117,52 +99,51 @@
                         });
                     };
                   }}>
-                    <div class="ml-4 relative">
-                      <div class:hidden={!confirming} class="absolute right-[30px] bottom-[-80%]">
-                        <h3 class="w-full text-primary-content font-bold">Confirm?</h3>
-                        <div class="flex justify-between">
-                          <button class="btn btn-small btn-primary">
-                            <Check />
+                    <div class="ml-4">
+                      {#if confirming === item.id}
+                        <div class="flex space-x-2">
+                          <button type="button" class="btn btn-sm btn-success" on:click={() => removeItemForm.submit()}>
+                            <Check class="h-5 w-5" />
                           </button>
-                          <button on:click|preventDefault={(e) => (confirming = false)} class="btn btn-small btn-primary">
-                            <X />
+                          <button type="button" class="btn btn-sm btn-error" on:click={() => confirming = false}>
+                            <X class="h-5 w-5" />
                           </button>
                         </div>
-                      </div>
-                      <button type="submit" on:click|preventDefault={(e) => {
-                        confirming = !confirming;
-                      }} class="text-sm font-medium text-gray-500 hover:text-gray-400">
-                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                          <path fill-rule="evenodd" d="M8.75 1A2.75 2.75 0 006 3.75v.443c-.795.077-1.584.176-2.365.298a.75.75 0 10.23 1.482l.149-.022.841 10.518A2.75 2.75 0 007.596 19h4.807a2.75 2.75 0 002.742-2.53l.841-10.52.149.023a.75.75 0 00.23-1.482A41.03 41.03 0 0014 4.193V3.75A2.75 2.75 0 0011.25 1h-2.5zM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4zM8.58 7.72a.75.75 0 00-1.5.06l.3 7.5a.75.75 0 101.5-.06l-.3-7.5zm4.34.06a.75.75 0 10-1.5-.06l-.3 7.5a.75.75 0 101.5.06l.3-7.5z" clip-rule="evenodd" />
-                        </svg>
-                      </button>
+                      {:else}
+                        <button type="button" on:click={() => confirming = item.id} class="btn btn-sm btn-outline btn-error">
+                          <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M8.75 1A2.75 2.75 0 006 3.75v.443c-.795.077-1.584.176-2.365.298a.75.75 0 10.23 1.482l.149-.022.841 10.518A2.75 2.75 0 007.596 19h4.807a2.75 2.75 0 002.742-2.53l.841-10.52.149.023a.75.75 0 00.23-1.482A41.03 41.03 0 0014 4.193V3.75A2.75 2.75 0 0011.25 1h-2.5zM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4zM8.58 7.72a.75.75 0 00-1.5.06l.3 7.5a.75.75 0 101.5-.06l-.3-7.5zm4.34.06a.75.75 0 10-1.5-.06l-.3 7.5a.75.75 0 101.5.06l.3-7.5z" clip-rule="evenodd" />
+                          </svg>
+                        </button>
+                      {/if}
                     </div>
                     <input type="hidden" name="itemId" value={item.id} />
                   </form>
                 </div>
               </div>
             </li>
-          {:else}
-            <div class="my-6">Cart is empty</div>
           {/each}
+          {#if items.length === 0}
+            <li class="text-center text-lg">Your cart is empty.</li>
+          {/if}
         </ul>
-        <section aria-labelledby="summary-heading" class="border-t border-gray-200 bg-white sticky bottom-0 py-6">
+        <section aria-labelledby="summary-heading" class="border-t border-gray-200 bg-base-200 rounded-lg p-6 mt-6 shadow-inner mb-5">
           {#if items.length > 0}
             <h2 id="summary-heading" class="sr-only">Order summary</h2>
             <div>
               <dl class="space-y-4">
                 <div class="flex items-center justify-between">
-                  <dt class="ml-2 text-base font-medium text-gray-900">Subtotal</dt>
-                  <dd class="ml-4 mr-2 text-base font-medium text-gray-900">{formatPrice(total)}</dd>
+                  <dt class="text-lg font-medium">Subtotal</dt>
+                  <dd class="text-lg font-medium">{formatPrice(total)}</dd>
                 </div>
               </dl>
-              <p class="ml-2 mt-1 text-sm text-gray-500">Shipping and taxes will be calculated at checkout.</p>
+              <p class="mt-1 text-md">Shipping and taxes will be calculated at checkout.</p>
             </div>
             <form action="/checkout">
-              <button use:close type="submit" class="btn btn-primary my-4 w-full">Checkout</button>
+              <button use:close type="submit" class="btn btn-primary w-full mt-4">Proceed to Checkout</button>
             </form>
           {/if}
-          <button {...$close} use:close class="w-full text-center font-medium text-gray-800 hover:text-gray-500">
+          <button {...$close} use:close class="btn btn-link text-center w-full mt-4 text-secondary">
             &larr; Continue Shopping
           </button>
         </section>
@@ -170,3 +151,14 @@
     </div>
   {/if}
 </div>
+
+<style>
+  .masonry-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 16px;
+  }
+  .masonry-item {
+    break-inside: avoid;
+  }
+</style>

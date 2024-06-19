@@ -61,7 +61,7 @@
     ></div>
     <div class="hero-content text-center text-neutral-content">
       <div class="max-w-md mt-24">
-        <h1 class="mb-5 text-6xl font-bold">Welcome to MyWebsite</h1>
+        <h1 class="mb-5 text-6xl font-bold">Welcome to My Website</h1>
         <p class="mb-5 text-xl">
           Your one-stop solution for all your tech needs. Join us and explore
           the endless possibilities.
@@ -70,46 +70,6 @@
       </div>
     </div>
   </div>
-  <svg width="300" height="100" viewBox="0 0 300 100" xmlns="http://www.w3.org/2000/svg">
-   <text x="50" y="50" class="text">
-     <tspan id="morphText">WELCOME</tspan>
-     <animate
-       attributeName="opacity"
-       values="1;0;0;0;0;1;1"
-       keyTimes="0;0.2;0.4;0.6;0.8;0.9;1"
-       dur="8s"
-       repeatCount="indefinite"
-       fill="freeze"
-     />
-     <set
-       attributeName="visibility"
-       to="hidden"
-       begin="4s"
-       dur="4s"
-       fill="freeze"
-     />
-     <set
-       attributeName="visibility"
-       to="visible"
-       begin="8s"
-       dur="4s"
-       fill="freeze"
-     />
-   </text>
- 
-   <text x="50" y="50" class="text hidden" id="seeMoreText">
-     SEE MORE
-   </text>
- 
-   <animate
-     href="#morphText"
-     attributeName="textLength"
-     values="WELCOME;SEE MORE"
-     keyTimes="0;1"
-     dur="8s"
-     repeatCount="indefinite"
-   />
- </svg>
 
   <!-- Features Section -->
   <div class="p-10 bg-base-200">

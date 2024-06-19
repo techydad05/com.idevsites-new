@@ -9,7 +9,7 @@
     let slidyitem = items[0];
 </script>
 
-<div class="home-carousel flex-1 h-[80svh] mt-[20vh] relative">
+<div class="home-carousel flex-1 h-full relative">
     {#await Plugins}
         <div class="flex w-full h-full justify-center items-center">
             <span class="loading loading-ring w-14"></span>

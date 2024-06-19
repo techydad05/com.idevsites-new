@@ -30,7 +30,7 @@
     // Return it as part of every page's data
     return { props: { login } };
   }
-
+  let h;
 </script>
 
 <div>
@@ -40,9 +40,7 @@
     <slot />
   {:else}
     <NavBar bind:user bind:cart bind:count />
-    <div class="mt-[20vh]">
-      <slot />
-    </div>
+    <slot />
     <Footer />
   {/if}
 </div>
