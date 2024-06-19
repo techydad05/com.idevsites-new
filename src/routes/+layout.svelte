@@ -40,7 +40,9 @@
     <slot />
   {:else}
     <NavBar bind:user bind:cart bind:count />
-    <slot />
+    <div class="mt-[20vh]">
+      <slot />
+    </div>
     <Footer />
   {/if}
 </div>

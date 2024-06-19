@@ -3,7 +3,7 @@
   import Collection from "$lib/components/Collection.svelte";
   // import { getVerticalScrollPercentage } from "$lib/utils";
   export let data: PageData;
-  import Carousel from "$lib/components/DaisyUI/DaisyCarousel.svelte";
+  import DaisyCarousel from "$lib/components/DaisyUI/DaisyCarousel.svelte";
 
   let selectedAnimation = "slideInLeft";
   const animations = [
@@ -43,7 +43,7 @@
       st = "scrollTop",
       sh = "scrollHeight";
     scrolled = ((h[st] || b[st]) / ((h[sh] || b[sh]) - h.clientHeight)) * 100;
-    console.log(scrolled);
+    // console.log(scrolled);
     return scrolled;
   }
 </script>
@@ -160,13 +160,13 @@
           </select>
           </div>
           <div class="relative">
-             <Carousel {slides} animation={selectedAnimation} />
+             <DaisyCarousel {slides} animation={selectedAnimation} />
           </div>
       </div>
     </div>
   </div>
   <!-- Footer -->
-  <footer class="footer p-10 bg-base-200 text-base-content">
+  <!-- <footer class="footer p-10 bg-base-200 text-base-content">
     <div>
       <span class="footer-title">Services</span>
       <a class="link link-hover" href="#branding">Branding</a>
@@ -187,7 +187,7 @@
       <a class="link link-hover" href="#privacy-policy">Privacy policy</a>
       <a class="link link-hover" href="#cookie-policy">Cookie policy</a>
     </div>
-  </footer>
+  </footer> -->
 </div>
 
 <Collection products={data.products} />

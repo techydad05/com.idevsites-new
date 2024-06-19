@@ -1,15 +1,17 @@
 <script lang="ts">
-   export let product: any
-</script>
+  import { formatPrice } from "../utils";
 
-<a href="/product/{product.handle}" class="group">
-<div class="overflow-hidden rounded-lg">
-      <img alt={product.title} src={product.thumbnail} class="mx-auto h-80 w-auto object-center group-hover:opacity-75">
-</div>
-<div class="flex">
-   <div class="mx-auto">
-      <h3 class="mt-4 text-lg font-bold text-gray-700">{product.title}</h3>
-   </div>
-   <p class="mt-1 text-lg font-medium text-gray-900"></p>
-</div>
+   export let product: any;
+ </script>
+ 
+ <a href="/product/{product.handle}" class="group block p-4 border rounded-lg bg-[#f7f7fa] transition">
+  <div class="rounded-lg overflow-hidden">
+    <img alt={product.title} src={product.thumbnail} class="mx-auto h-80 w-auto object-center transition-transform duration-300 ease-in-out group-hover:scale-150" />
+  </div>
+  <div class="text-black flex justify-between items-center mt-4">
+    <h3 class="text-lg font-bold text-gray-700">{product.title}</h3>
+    <p class="text-lg font-medium text-gray-900">{formatPrice(product.variants[0].prices[1].amount)}</p>
+  </div>
 </a>
+
+ 

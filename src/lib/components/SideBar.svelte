@@ -32,7 +32,7 @@
     <div
       {...$content}
       use:content
-      class="overflow-auto fixed left-0 top-0 z-[151] h-screen w-full max-w-[300px] bg-white shadow-lg focus:outline-none"
+      class="overflow-auto fixed left-0 top-[20vh] z-[151] h-screen w-full max-w-[300px] bg-white shadow-lg focus:outline-none"
       transition:fly={{ x: "-100%", duration: 300, opacity: 1 }}
     >
       <div

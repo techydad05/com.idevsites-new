@@ -35,7 +35,7 @@
   </script>
   
   <div class="relative">
-    <div class="carousel w-full relative">
+    <div class="carousel w-full">
         {#each slides as slide, i}
           <div class="carousel-item w-full hidden">
             <div
@@ -51,15 +51,15 @@
         {/each}
         
       </div>
-      <div class="flex w-full justify-between absolute transform -translate-y-1/2">
+      <div class="flex w-full justify-between inset-0 absolute m-auto h-min">
         <button
           on:click={prevSlide}
-          class="btn btn-circle btn-primary"
+          class="btn btn-circle btn-primary -translate-x-7"
           >❮</button
         >
         <button
           on:click={nextSlide}
-          class="btn btn-circle btn-primary"
+          class="btn btn-circle btn-primary translate-x-7"
           >❯</button
         >
       </div>

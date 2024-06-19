@@ -8,11 +8,12 @@
   export let user: {};
   export let cart: {};
   export let count: number;
+  let header;
 
   let showThemeChange = false;
 </script>
 
-<div class="navbar bg-base-100 fixed top-0 z-30 h-[20vh] shadow-lg">
+<div bind:this={header} class="navbar bg-base-100 fixed top-0 z-[50] h-[20vh] shadow-lg">
   <!-- svelte-ignore a11y-no-static-element-interactions -->
   <div
     on:dblclick={() => (showThemeChange = !showThemeChange)}
@@ -77,7 +78,6 @@
       <SideBar {user} />
     </div>
   </div>
-
   <!-- maybe change to this one? -->
   <!-- <div
      class="navbar bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 shadow-lg"

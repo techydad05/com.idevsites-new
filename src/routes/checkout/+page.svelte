@@ -8,21 +8,15 @@
   import { enhance } from "$app/forms";
   import { formatPrice } from "$lib/utils";
   import { Turnstile } from "sveltekit-turnstile";
-  import {
-    Payment,
-    Address,
-    stripeClient,
-    stripeElements,
-  } from "sveltekit-stripe";
+  import { Payment, Address, stripeClient, stripeElements } from "sveltekit-stripe";
 
   export let data: PageData;
   let user = data.user;
   let cart = data.cart;
-  
+
   $: items = data.cart.items || [];
-  let token: string =
-  PUBLIC_TURNSTILE_SITE_KEY === "" ? "no-token-required" : "";
-  
+  let token: string = PUBLIC_TURNSTILE_SITE_KEY === "" ? "no-token-required" : "";
+
   let clientSecret: string;
   let shippingOptions: any[];
   let shippingOptionId: string;
@@ -87,8 +81,6 @@
       country_code: value.address.country.toLowerCase(),
     };
     let newAddress = true;
-    // if no first_name, this must be coming from stripe, so address is not new.
-    // sometimes stripe sends full name despite setting cause who knows why
     if (!address.first_name) {
       newAddress = false;
       let { firstName, lastName } = splitName(value.name);
@@ -101,7 +93,7 @@
         }
       }
     }
-    address.phone = value.phone; // add after to not break the comparison above
+    address.phone = value.phone;
     if (newAddress) {
       let success = await fetch("/checkout/save-address", {
         method: "POST",
@@ -130,14 +122,6 @@
       .then((res) => res.json())
       .catch(() => false);
   };
-
-  // const savePaymentMethod = async (id) => {
-  // 	let form = new FormData()
-  // 	form.append('payment_method_id', id)
-  // 	return await fetch('/checkout/payment-method', { method: 'POST', body: form })
-  // 	.then(res => res.json())
-  // 	.catch(() => false)
-  // }
 
   const startCheckout = async (token: string) => {
     try {
@@ -185,12 +169,8 @@
 {#if errorMessage}
 <p>{errorMessage}</p>
 {:else if success}
-  <main
-    class="lg:flex lg:min-h-full lg:flex-row-reverse lg:max-h-screen lg:overflow-hidden"
-  >
-    <section
-      class="flex-auto px-4 pb-16 pt-12 sm:px-6 sm:pt-16 lg:px-8 lg:pb-4 lg:pt-0"
-    >
+  <main class="lg:flex lg:min-h-full lg:flex-row-reverse lg:max-h-screen lg:overflow-hidden">
+    <section class="flex-auto px-4 pb-16 pt-12 sm:px-6 sm:pt-16 lg:px-8 lg:pb-4 lg:pt-0">
       <div class="mx-auto max-w-lg">
         <!-- Logo on thank you screen -->
         <div class="py-10 lg:flex">
@@ -206,7 +186,7 @@
         <p>Thank you for your order!</p>
         <p>
           Your order number is <a
-            class="font-bold text-lime-600"
+            class="font-bold text-primary"
             href={`/account/order/${order.id}`}>{order.display_id}</a
           >
         </p>
@@ -226,9 +206,7 @@
     }}
   />
 {:else if !loading}
-  <main
-    class="lg:flex lg:min-h-full lg:flex-row-reverse lg:max-h-screen lg:overflow-hidden"
-  >
+  <main class="lg:flex lg:min-h-full lg:flex-row-reverse lg:max-h-screen lg:overflow-hidden">
     <h1 class="sr-only">Checkout</h1>
 
     <!-- Logo on sm screen -->
@@ -246,7 +224,7 @@
     </div>
 
     <!-- Order Summary -->
-    <section class="w-full flex-col lg:max-w-md bg-gray-50 p-6 overflow-auto">
+    <section class="w-full flex-col lg:max-w-md bg-base-200 p-6 overflow-auto">
       <h2 id="summary-heading" class="sr-only">Order summary</h2>
       <div class="mx-auto max-w-lg">
         <!-- Mobile order summary toggle -->
@@ -257,7 +235,7 @@
           <button
             on:click={toggleOrderSummary}
             type="button"
-            class="font-medium text-indigo-600 hover:text-indigo-500"
+            class="font-medium text-primary"
           >
             {#if orderSummaryOpen}
               Hide full summary
@@ -274,7 +252,7 @@
                 <img
                   src={item.thumbnail}
                   alt="item.description"
-                  class="h-28 w-auto flex-none rounded-md bg-gray-200 object-cover object-center"
+                  class="h-28 w-auto flex-none rounded-md bg-base-200 object-cover object-center"
                 />
                 <div class="flex flex-col justify-between space-y-4 my-auto">
                   <div class="space-y-1 text-sm font-medium">
@@ -301,11 +279,11 @@
                 type="text"
                 id="discount-code-mobile"
                 name="discount-code-mobile"
-                class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                class="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
               />
               <button
                 type="submit"
-                class="rounded-md bg-gray-200 px-4 text-sm font-medium text-gray-600 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
+                class="rounded-md bg-base-200 px-4 text-sm font-medium text-gray-600 hover:bg-base-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-base-200"
                 >Apply</button
               >
             </div>
@@ -321,7 +299,7 @@
                 <dt class="flex">
                   Discount
                   <span
-                    class="ml-2 rounded-full bg-gray-200 px-2 py-0.5 text-xs tracking-wide text-gray-600"
+                    class="ml-2 rounded-full bg-base-200 px-2 py-0.5 text-xs tracking-wide text-gray-600"
                     >{cart.discounts[0]}</span
                   >
                 </dt>
@@ -342,9 +320,7 @@
             </div>
           </dl>
 
-          <p
-            class="py-6 flex items-center justify-between border-t border-gray-200 text-sm font-medium text-gray-900"
-          >
+          <p class="py-6 flex items-center justify-between border-t border-gray-200 text-sm font-medium text-gray-900">
             <span class="text-base">Total</span>
             <span class="text-base">{formatPrice(cart?.total)}</span>
           </p>
@@ -377,7 +353,6 @@
             if (processing) cancel();
             processing = true;
 
-            // capture shipping address
             const { complete, value } = await addressContainer.getValue();
             if (complete) {
               cart = await saveAddress(value);
@@ -390,7 +365,6 @@
               }
             }
 
-            // capture final shipping method
             cart = await saveShippingOption(shippingOptionId);
             if (!cart) {
               errorMessage =
@@ -400,7 +374,6 @@
               cancel();
             }
 
-            // confirm payment
             const stripeResponse = await $stripeClient.confirmPayment({
               elements: $stripeElements,
               redirect: "if_required",
@@ -433,7 +406,7 @@
             }}
             name="shippingOptionId"
             required="required"
-            class="block w-full rounded-md border-gray-200 shadow-sm focus:border-blue-300 focus:ring-blue-300 text-gray-600 py-3"
+            class="block w-full rounded-md border-base-300 shadow-sm focus:border-primary focus:ring-primary text-gray-600 py-3"
           >
             {#each shippingOptions as shippingOption}
               <option value={shippingOption.id}
@@ -448,7 +421,7 @@
           <button
             disabled={processing}
             type="submit"
-            class="w-full items-center justify-center rounded-md border border-transparent bg-lime-600 px-5 py-3 text-base font-medium text-white hover:bg-lime-700"
+            class="w-full items-center justify-center rounded-md border border-transparent bg-primary px-5 py-3 text-base font-medium text-white hover:bg-primary-focus"
           >
             {#if processing}
               Processing...{:else}
