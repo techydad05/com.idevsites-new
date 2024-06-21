@@ -8,14 +8,20 @@
   import { enhance } from "$app/forms";
   import { formatPrice } from "$lib/utils";
   import { Turnstile } from "sveltekit-turnstile";
-  import { Payment, Address, stripeClient, stripeElements } from "sveltekit-stripe";
+  import {
+    Payment,
+    Address,
+    stripeClient,
+    stripeElements,
+  } from "sveltekit-stripe";
 
   export let data: PageData;
   let user = data.user;
   let cart = data.cart;
 
   $: items = data.cart.items || [];
-  let token: string = PUBLIC_TURNSTILE_SITE_KEY === "" ? "no-token-required" : "";
+  let token: string =
+    PUBLIC_TURNSTILE_SITE_KEY === "" ? "no-token-required" : "";
 
   let clientSecret: string;
   let shippingOptions: any[];
@@ -153,6 +159,10 @@
     if ((token = "no-token-required")) {
       await startCheckout(token);
     }
+    // TRYING TO FIGURE OUT HOW TO STYLE THE LABELS IN FORM TO COLOR WHITE
+    // 
+    // 
+    // 
   });
 </script>
 
@@ -167,21 +177,21 @@
   </p>
 </noscript>
 {#if errorMessage}
-<p>{errorMessage}</p>
+  <p>{errorMessage}</p>
 {:else if success}
-  <main class="lg:flex lg:min-h-full lg:flex-row-reverse lg:max-h-screen lg:overflow-hidden">
-    <section class="flex-auto px-4 pb-16 pt-12 sm:px-6 sm:pt-16 lg:px-8 lg:pb-4 lg:pt-0">
+  <main
+    class="lg:flex lg:min-h-full lg:flex-row-reverse lg:max-h-screen lg:overflow-hidden"
+  >
+    <section
+      class="flex-auto px-4 pb-16 pt-12 sm:px-6 sm:pt-16 lg:px-8 lg:pb-4 lg:pt-0"
+    >
       <div class="mx-auto max-w-lg">
         <!-- Logo on thank you screen -->
         <div class="py-10 lg:flex">
           <span class="sr-only">{PUBLIC_SITE_NAME}</span>
-          <a href="/"
-            ><img
-              src="/logo.png"
-              alt={PUBLIC_SITE_NAME}
-              class="h-14 w-auto"
-            /></a
-          >
+          <a href="/" class="logo btn btn-ghost text-xl normal-case m-2">
+            <img src="/svelte_logo.png" alt="" class="h-[inherit]" />
+          </a>
         </div>
         <p>Thank you for your order!</p>
         <p>
@@ -198,7 +208,7 @@
   <p>Your cart is empty.</p>
 {:else if !token}
   <Turnstile
-    theme="light"
+    theme="dark"
     siteKey={PUBLIC_TURNSTILE_SITE_KEY}
     on:turnstile-callback={async (e) => {
       token = e.detail.token;
@@ -206,20 +216,18 @@
     }}
   />
 {:else if !loading}
-  <main class="lg:flex lg:min-h-full lg:flex-row-reverse lg:max-h-screen lg:overflow-hidden">
+  <main
+    class="lg:flex lg:min-h-full lg:flex-row-reverse lg:max-h-screen lg:overflow-hidden"
+  >
     <h1 class="sr-only">Checkout</h1>
 
     <!-- Logo on sm screen -->
     <div class="px-4 py-6 sm:px-6 lg:hidden">
       <div class="mx-auto flex max-w-lg">
         <span class="sr-only">{PUBLIC_SITE_NAME}</span>
-        <a href="/"
-          ><img
-            src="/logo.png"
-            class="mx-auto h-14 w-auto"
-            alt={PUBLIC_SITE_NAME}
-          /></a
-        >
+        <a href="/" class="logo btn btn-ghost text-xl normal-case m-2">
+          <img src="/svelte_logo.png" alt="" class="h-[inherit]" />
+        </a>
       </div>
     </div>
 
@@ -229,7 +237,7 @@
       <div class="mx-auto max-w-lg">
         <!-- Mobile order summary toggle -->
         <div class="lg:hidden flex items-center justify-between">
-          <h2 id="order-heading" class="text-lg font-medium text-gray-900">
+          <h2 id="order-heading" class="text-lg font-medium text-neutral-100">
             Your Order
           </h2>
           <button
@@ -254,14 +262,16 @@
                   alt="item.description"
                   class="h-28 w-auto flex-none rounded-md bg-base-200 object-cover object-center"
                 />
-                <div class="flex flex-col justify-between space-y-4 my-auto">
+                <div
+                  class="flex flex-col justify-between space-y-4 my-auto text-secondary"
+                >
                   <div class="space-y-1 text-sm font-medium">
-                    <h3 class="text-gray-900">{item.title}</h3>
-                    <p class="text-gray-900">{item.description}</p>
-                    <p class="text-gray-500">
+                    <h3 class="">{item.title}</h3>
+                    <p class="">{item.description}</p>
+                    <p class="">
                       Price: {formatPrice(item.unit_price)}
                     </p>
-                    <p class="text-gray-500">Quantity: {item.quantity}</p>
+                    <p>Quantity: {item.quantity}</p>
                   </div>
                 </div>
               </li>
@@ -269,9 +279,7 @@
           </ul>
 
           <form class="hidden mt-10">
-            <label
-              for="discount-code-mobile"
-              class="block text-sm font-medium text-gray-700"
+            <label for="discount-code-mobile" class="block text-sm font-medium"
               >Discount code</label
             >
             <div class="mt-1 flex space-x-4">
@@ -283,44 +291,46 @@
               />
               <button
                 type="submit"
-                class="rounded-md bg-base-200 px-4 text-sm font-medium text-gray-600 hover:bg-base-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-base-200"
+                class="rounded-md bg-base-200 px-4 text-sm font-medium hover:bg-base-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-base-200"
                 >Apply</button
               >
             </div>
           </form>
 
-          <dl class="py-6 space-y-6 text-sm font-medium text-gray-500">
+          <dl class="py-6 space-y-6 text-sm font-medium">
             <div class="flex justify-between">
               <dt>Subtotal</dt>
-              <dd class="text-gray-900">{formatPrice(cart?.subtotal)}</dd>
+              <dd class="">{formatPrice(cart?.subtotal)}</dd>
             </div>
             {#if cart?.discount_total}
               <div class="flex justify-between">
                 <dt class="flex">
                   Discount
                   <span
-                    class="ml-2 rounded-full bg-base-200 px-2 py-0.5 text-xs tracking-wide text-gray-600"
+                    class="ml-2 rounded-full bg-base-200 px-2 py-0.5 text-xs tracking-wide"
                     >{cart.discounts[0]}</span
                   >
                 </dt>
-                <dd class="text-gray-900">
+                <dd class="">
                   {formatPrice(cart.discount_total)}
                 </dd>
               </div>
             {/if}
             <div class="flex justify-between">
               <dt>Taxes</dt>
-              <dd class="text-gray-900">{formatPrice(cart?.tax_total)}</dd>
+              <dd class="">{formatPrice(cart?.tax_total)}</dd>
             </div>
             <div class="flex justify-between">
               <dt>Shipping</dt>
-              <dd class="text-gray-900">
+              <dd class="">
                 {formatPrice(cart?.shipping_methods[0]?.price)}
               </dd>
             </div>
           </dl>
 
-          <p class="py-6 flex items-center justify-between border-t border-gray-200 text-sm font-medium text-gray-900">
+          <p
+            class="py-6 flex items-center justify-between border-t border-gray-200 text-sm font-medium"
+          >
             <span class="text-base">Total</span>
             <span class="text-base">{formatPrice(cart?.total)}</span>
           </p>
@@ -337,13 +347,9 @@
         <!-- Logo on lg screen -->
         <div class="hidden py-10 lg:flex">
           <span class="sr-only">{PUBLIC_SITE_NAME}</span>
-          <a href="/"
-            ><img
-              src="/logo.png"
-              alt={PUBLIC_SITE_NAME}
-              class="h-14 w-auto"
-            /></a
-          >
+          <a href="/" class="logo btn btn-ghost text-xl normal-case m-2">
+            <img src="/svelte_logo.png" alt="" class="h-[inherit]" />
+          </a>
         </div>
 
         <form
@@ -421,7 +427,7 @@
           <button
             disabled={processing}
             type="submit"
-            class="w-full items-center justify-center rounded-md border border-transparent bg-primary px-5 py-3 text-base font-medium text-white hover:bg-primary-focus"
+            class="w-full items-center justify-center rounded-md border border-transparent bg-primary px-5 py-3 text-base font-medium text-neutral-100 hover:bg-primary-focus"
           >
             {#if processing}
               Processing...{:else}
@@ -429,9 +435,9 @@
             {/if}
           </button>
 
-          <p class="flex justify-center text-sm font-medium text-gray-500">
+          <p class="flex justify-center text-sm font-medium">
             <svg
-              class="mr-1.5 h-5 w-5 text-gray-400"
+              class="mr-1.5 h-5 w-5"
               aria-hidden="true"
               viewBox="0 0 20 20"
               fill="currentColor"
