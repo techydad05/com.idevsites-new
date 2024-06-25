@@ -26,7 +26,7 @@ const config = {
       directives: {
         'script-src': ['https://cdn.jsdelivr.net','self', process.env.ORIGIN || "", 'https://challenges.cloudflare.com', 'https://js.stripe.com'],
         'frame-src': ['self', process.env.ORIGIN || "", 'https://challenges.cloudflare.com', 'https://js.stripe.com'],
-        'img-src': ['https://medusa-public-images.s3.eu-west-1.amazonaws.com','https://fastly.picsum.photos','https://picsum.photos','self', process.env.ORIGIN || "", 'data:', process.env.PUBLIC_IMAGE_BASE_URL || "", 'https://challenges.cloudflare.com', 'https://js.stripe.com']
+        'img-src': ['https://placeimg.com','https://medusa-public-images.s3.eu-west-1.amazonaws.com','https://fastly.picsum.photos','https://picsum.photos','self', process.env.ORIGIN || "", 'data:', process.env.PUBLIC_IMAGE_BASE_URL || "", 'https://challenges.cloudflare.com', 'https://js.stripe.com']
       }
     }
   },

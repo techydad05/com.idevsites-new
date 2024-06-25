@@ -33,7 +33,7 @@
   let h;
 </script>
 
-<div>
+<div class="mt-[20vh]">
   <ToastContainer />
   <Toaster />
   {#if naked}
