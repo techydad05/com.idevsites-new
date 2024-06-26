@@ -4,6 +4,8 @@
   // import { getVerticalScrollPercentage } from "$lib/utils";
   export let data: PageData;
   import DaisyCarousel from "$lib/components/DaisyUI/DaisyCarousel.svelte";
+  // console.log("data:", data);
+  
 
   let selectedAnimation = "slideInLeft";
   const animations = [

@@ -26,6 +26,11 @@
   };
 
   const handleSubmit = async () => {
+    const target = document.getElementById("responseTarget");
+    if (target) {
+      target.innerHTML = `<span class="loading loading-ring loading-lg"></span>
+`;
+    }
     await getGPTResponse(userPrompt);
   };
 

@@ -1,9 +1,11 @@
 // src/lib/db.js
-import { Pool } from 'pg';
-import { env } from '$env/dynamic/private';
+import pkg from "pg";
+const { Pool } = pkg;
+import { DATABASE_URL } from "$env/static/private";
+console.log("POOL::", Pool);
 
 const pool = new Pool({
-  connectionString: env.DATABASE_URL
+  connectionString: DATABASE_URL,
 });
 
 export const query = (text, params) => pool.query(text, params);

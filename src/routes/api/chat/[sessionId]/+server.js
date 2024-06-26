@@ -12,6 +12,7 @@ export async function GET({ params }) {
 
     return json(res.rows);
   } catch (err) {
+    // @ts-ignore
     return json({ error: err.message }, { status: 500 });
   }
 }
