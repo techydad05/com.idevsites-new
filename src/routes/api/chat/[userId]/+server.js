@@ -3,6 +3,7 @@ import { query } from '$lib/db';
 
 export async function GET({ params }) {
   const { userId } = params;
+  console.log("params:", params);
 
   try {
     const res = await query(

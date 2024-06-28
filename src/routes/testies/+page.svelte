@@ -8,9 +8,10 @@
   </div> -->
 <script>
   import OpenAiComponent from "$src/lib/components/openai/OpenAIComponent.svelte";
+  export let data;
 </script>
 
-<OpenAiComponent />
+<OpenAiComponent user={data.user} />
 
 <div class="container mx-auto p-4">
   <h1 class="text-2xl font-bold mb-4">GPT 4o</h1>

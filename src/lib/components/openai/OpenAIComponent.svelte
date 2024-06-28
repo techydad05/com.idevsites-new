@@ -1,3 +1,15 @@
+<!-- <script context="module" lang="ts">
+  export async function load({ locals }) {
+    const user = locals.user;
+
+    if (!user) {
+      throw redirect(302, '/auth');
+    }
+
+    return { user };
+  }
+</script> -->
+
 <script lang="ts">
   import { onMount } from "svelte";
   // figure out what store is for 
@@ -13,10 +25,6 @@
   let chatHistory = writable([]);
   
   export let user;
-  export let data;
-  console.log("DATA:", data);
-  console.log("USER:", user);
-  
 
   const checkTargetPresence = () => {
     const targetDiv = document.getElementById("responseTarget");
@@ -85,6 +93,7 @@
   };
 
   const fetchChatHistory = async () => {
+    // work on this part
     const response = await fetch(`/api/chat/${user.id}`);
     const data = await response.json();
     console.log(data);
@@ -125,9 +134,10 @@
     ></textarea>
     <button on:click={handleSubmit} class="btn btn-secondary mt-2">Submit</button>
     <div class="chat-history mt-4">
-      {#each $chatHistory as { userMessage, botResponse }}
-        <p><strong>You:</strong> {userMessage}</p>
-        <p><strong>Bot:</strong> {@html botResponse}</p>
+      {#each $chatHistory as { user_message, bot_response }}
+        <p><strong>You:</strong> {user_message}</p>
+        <p><strong>Bot:</strong> {@html bot_response}</p>
+        <hr class="my-4">
       {/each}
     </div>
   </div>
