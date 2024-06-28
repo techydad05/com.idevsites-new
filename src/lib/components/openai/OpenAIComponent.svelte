@@ -1,4 +1,6 @@
-<!-- <script context="module" lang="ts">
+<script context="module" lang="ts">
+  import { redirect } from '@sveltejs/kit';
+
   export async function load({ locals }) {
     const user = locals.user;
 
@@ -8,16 +10,15 @@
 
     return { user };
   }
-</script> -->
+</script>
 
 <script lang="ts">
   import { onMount } from "svelte";
-  // figure out what store is for 
   import { writable } from "svelte/store";
-  //
 
   let userPrompt = "";
   let responseMessage = "";
+  let responseImage = "";
   let isVisible = false;
   let isDragging = false;
   let offset = { x: 0, y: 0 };
@@ -40,7 +41,12 @@
   };
 
   const handleSubmit = async () => {
-    await getGPTResponse(userPrompt);
+    const inputPrompt = userPrompt.trim();
+    if (inputPrompt.startsWith("image:")) {
+      await getImageResponse(inputPrompt.replace("image:", "").trim());
+    } else {
+      await getGPTResponse(inputPrompt);
+    }
   };
 
   async function getGPTResponse(inputPrompt) {
@@ -58,6 +64,24 @@
       updateChatHistory(inputPrompt, data.response);
     } else {
       responseMessage = "Error fetching GPT response";
+    }
+  }
+
+  async function getImageResponse(inputPrompt) {
+    const response = await fetch("/api/dalle", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ prompt: inputPrompt }),
+    });
+    const data = await response.json();
+    if (data.image_url) {
+      responseImage = data.image_url;
+      insertHTML(`<img src="${responseImage}" alt="Generated Image">`);
+      updateChatHistory(inputPrompt, `<img src="${responseImage}" alt="Generated Image">`);
+    } else {
+      responseMessage = "Error fetching image response";
     }
   }
 
@@ -93,11 +117,13 @@
   };
 
   const fetchChatHistory = async () => {
-    // work on this part
-    const response = await fetch(`/api/chat/${user.id}`);
-    const data = await response.json();
-    console.log(data);
-    chatHistory.set(data);
+    if (user) {
+      const response = await fetch(`/api/chat/${user.id}`);
+      const data = await response.json();
+      chatHistory.set(data);
+    } else {
+      console.error('User is not defined');
+    }
   };
 
   onMount(() => {    
@@ -135,10 +161,10 @@
     <button on:click={handleSubmit} class="btn btn-secondary mt-2">Submit</button>
     <div class="chat-history mt-4">
       {#each $chatHistory as { user_message, bot_response }}
-        <p><strong>You:</strong> {user_message}</p>
+        <p><strong>You:</strong> {user_message }</p>
         <p><strong>Bot:</strong> {@html bot_response}</p>
         <hr class="my-4">
-      {/each}
+        {/each}
     </div>
   </div>
 </div>
