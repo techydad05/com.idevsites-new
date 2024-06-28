@@ -1,7 +1,8 @@
-<script>
+<script lang="ts">
   import { onMount } from "svelte";
+  // figure out what store is for 
   import { writable } from "svelte/store";
-  import { v4 as uuidv4 } from 'uuid';
+  //
 
   let userPrompt = "";
   let responseMessage = "";
@@ -10,7 +11,12 @@
   let offset = { x: 0, y: 0 };
   let isTargetPresent = false;
   let chatHistory = writable([]);
-  let sessionId = uuidv4(); // Unique session ID for each user session
+  
+  export let user;
+  export let data;
+  console.log("DATA:", data);
+  console.log("USER:", user);
+  
 
   const checkTargetPresence = () => {
     const targetDiv = document.getElementById("responseTarget");
@@ -26,11 +32,6 @@
   };
 
   const handleSubmit = async () => {
-    const target = document.getElementById("responseTarget");
-    if (target) {
-      target.innerHTML = `<span class="loading loading-ring loading-lg"></span>
-`;
-    }
     await getGPTResponse(userPrompt);
   };
 
@@ -40,13 +41,13 @@
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ prompt: inputPrompt, sessionId }),
+      body: JSON.stringify({ prompt: inputPrompt }),
     });
     const data = await response.json();
     if (data.response) {
       responseMessage = data.response;
       insertHTML(responseMessage);
-      updateChatHistory(inputPrompt, responseMessage);
+      updateChatHistory(inputPrompt, data.response);
     } else {
       responseMessage = "Error fetching GPT response";
     }
@@ -84,12 +85,13 @@
   };
 
   const fetchChatHistory = async () => {
-    const response = await fetch(`/api/chat/${sessionId}`);
+    const response = await fetch(`/api/chat/${user.id}`);
     const data = await response.json();
+    console.log(data);
     chatHistory.set(data);
   };
 
-  onMount(() => {
+  onMount(() => {    
     document.addEventListener("mouseup", handleDragEnd);
     document.addEventListener("mousemove", handleDrag);
     checkTargetPresence();
@@ -122,7 +124,7 @@
       class="textarea textarea-bordered w-full mt-4"
     ></textarea>
     <button on:click={handleSubmit} class="btn btn-secondary mt-2">Submit</button>
-    <div class="chat-history mt-4 max-w-[250px]">
+    <div class="chat-history mt-4">
       {#each $chatHistory as { userMessage, botResponse }}
         <p><strong>You:</strong> {userMessage}</p>
         <p><strong>Bot:</strong> {@html botResponse}</p>
