@@ -162,7 +162,7 @@
     <div class="chat-history mt-4">
       {#each $chatHistory as { user_message, bot_response }}
         <p><strong>You:</strong> {user_message }</p>
-        <p><strong>Bot:</strong> {@html bot_response}</p>
+        <p><strong>Bot:</strong> {@html bot_response.replace(/<\/?(html|head|body|meta|link|title)[^>]*>/gi, '')}</p>
         <hr class="my-4">
         {/each}
     </div>
