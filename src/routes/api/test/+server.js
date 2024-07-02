@@ -1,4 +1,4 @@
-import { query } from '$lib/db';
+import { query } from '$src/lib/server/db';
 
 export async function POST({ request }) {
   const { name, value } = await request.json();

@@ -52,17 +52,17 @@
 
 <svelte:window on:scroll={() => getScrollPercent()} />
 
-<div class="min-h-screen flex flex-col">
+<div class="flex flex-col">
   <!-- Hero Section -->
   <div
-    class="hero min-h-screen"
+    class="hero min-h-[80vh]"
     style="background-image: url('https://picsum.photos');"
   >
     <div
       class="hero-overlay bg-opacity-70 bg-gradient-to-r from-purple-900 to-red-900"
     ></div>
     <div class="hero-content text-center text-neutral-content">
-      <div class="max-w-md mt-24">
+      <div class="max-w-md">
         <h1 class="mb-5 text-6xl font-bold">Welcome to My Website</h1>
         <p class="mb-5 text-xl">
           Your one-stop solution for all your tech needs. Join us and explore

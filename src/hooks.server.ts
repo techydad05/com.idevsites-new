@@ -4,7 +4,7 @@ import medusa from "$lib/server/medusa";
 export const handle: Handle = async ({ event, resolve }) => {
   // MEDUSA SESSION MIDDLEWARE
   // Sets locals.user and locals.cart if they are found.
-  console.log("handlerequest::", await medusa.handleRequest(event));
+  // console.log("handlerequest::", await medusa.handleRequest(event));
   
   event = await medusa.handleRequest(event).then((d) => {
     if (d.locals.user) {
@@ -13,7 +13,7 @@ export const handle: Handle = async ({ event, resolve }) => {
     return d;
   });
   const response = await resolve(event); 
-  console.log("response", response);
+  // console.log("response", response);
   
 
   // CACHE CONTROL

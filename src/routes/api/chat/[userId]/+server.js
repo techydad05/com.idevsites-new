@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import { query } from '$lib/db';
+import { query } from '$src/lib/server/db';
 
 export async function GET({ params }) {
   const { userId } = params;
