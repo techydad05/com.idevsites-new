@@ -2,6 +2,7 @@
   // @ts-nocheck
   import { onMount } from "svelte";
   import { writable } from "svelte/store";
+  import { Square } from "lucide-svelte";
 
   export let data;
   let user = data.user;
@@ -12,20 +13,7 @@
   let responseMessage = "";
   let messages = writable([]);
   let chatSessions = writable([]);
-  let selectedModel = "text-davinci-003"; // or any default model you are using
-
-  const fetchAllSessions = async () => {
-    const response = await fetch("/gpt", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ action: "getAllSessions", userId }),
-    });
-    const data = await response.json();
-    console.log("allsess:", data);
-    chatSessions.set(data.sessions);
-  };
+  let selectedModel = "gpt-4o"; // or any default model you are using
 
   const fetchMostRecentSession = async () => {
     const response = await fetch("/gpt", {
@@ -37,9 +25,8 @@
     });
     const data = await response.json();
     console.log("recentsess:", data);
-
     sessionId = data.recentSession.id;
-    await getSessionMessages();
+    await getSessionMessages(sessionId);
   };
 
   const getSessionMessages = async () => {
@@ -51,11 +38,37 @@
       body: JSON.stringify({ action: "getSessionMessages", sessionId }),
     });
     const data = await response.json();
-    console.log("messages:", data);
     messages.set(data.messages);
+    return data.messages;
+  };
+
+  const getAllSessionsWithMessages = async () => {
+    const response = await fetch("/gpt", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ action: "getAllSessionsWithMessages", userId }),
+    });
+    const data = await response.json();
+    chatSessions.set(data.sessionsWithMessages);
+  };
+
+  const formatMessagesForBot = (messages) => {
+    let chatArr = [];
+    messages.forEach((c) => {
+      chatArr.push({ role: "user", content: c.user_prompt });
+      chatArr.push({ role: "assistant", content: c.bot_response });
+    });
+    return chatArr;
   };
 
   const getGPTResponse = async (inputPrompt) => {
+    let chatHistory = await getSessionMessages();
+    chatHistory = formatMessagesForBot(chatHistory);
+
+    chatHistory.push({ role: "user", content: inputPrompt})
+    // const fullPrompt = chatHistory + "\n" + inputPrompt;
     const response = await fetch("/api/gpt", {
       method: "POST",
       headers: {
@@ -64,7 +77,7 @@
       body: JSON.stringify({
         prompt: inputPrompt,
         model: selectedModel,
-        sessionId: sessionId,
+        messages: chatHistory,
       }),
     });
     if (!response.ok) {
@@ -101,9 +114,59 @@
       ]);
       userPrompt = "";
       await getSessionMessages(); // Ensure messages are refreshed after saving
+
+      // Generate and update the session title
+      const title = await generateSessionTitle();
+      updateSessionTitle(title);
     } catch (error) {
       console.error("Error saving message:", error);
     }
+  };
+
+  const generateSessionTitle = async (sessId) => {
+    const response = await fetch("/gpt", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ action: "generateTitle", sessId }),
+    });
+    const data = await response.json();
+    return data.title;
+  };
+
+  //   const updateSessionTitle = async (title) => {
+  //     await fetch("/gpt", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         action: "updateSessionTitle",
+  //         sessionId,
+  //         title,
+  //       }),
+  //     });
+  //   };
+
+  const deleteSession = async (sessId) => {
+    await fetch("/gpt", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        action: "deleteSession",
+        sessId,
+      }),
+    });
+
+    // Update the session title in the UI
+    chatSessions.update((sessions) =>
+      sessions.map((session) =>
+        session.id === sessionId ? { ...session, title } : session
+      )
+    );
   };
 
   const createNewSession = async () => {
@@ -120,11 +183,13 @@
   };
 
   onMount(async () => {
-    await fetchAllSessions();
     await fetchMostRecentSession();
-  });
+    await getAllSessionsWithMessages();
 
-  // Other functions and onMount
+    // WORKING ON FORMATING MESSAGES FOR BOT HISTORY FOR CONVERSATION HISTORY
+    const chatHistory = await getSessionMessages();
+    console.log("testies::", formatMessagesForBot($messages));
+  });
 </script>
 
 <div class="drawer drawer-mobile">
@@ -133,7 +198,7 @@
     <main class="flex flex-col h-full p-4">
       <div class="flex justify-between items-center mb-4">
         <select class="select select-bordered" bind:value={selectedModel}>
-          <option value="text-davinci-003">text-davinci-003</option>
+          <option value="gpt-4o">gpt-4o</option>
           <option value="text-curie-001">text-curie-001</option>
           <!-- Add more models as needed -->
         </select>
@@ -144,7 +209,7 @@
       <div
         class="chat-box flex-grow overflow-y-auto p-4 bg-base-200 rounded-lg"
       >
-        {#each [...$messages].reverse() as message}
+        {#each $messages as message}
           <div class="chat chat-start">
             <div class="chat-bubble">
               <p>{@html message.bot_response}</p>
@@ -171,15 +236,40 @@
   </div>
   <aside class="drawer-side">
     <label for="drawer" class="drawer-overlay"></label>
-    <div class="menu p-4 w-80 bg-base-100 text-base-content">
+    <div class="menu p-4 w-80 bg-base-100 text-base-content mt-[20vh]">
       <button class="btn btn-primary mb-4" on:click={createNewSession}
         >New Session</button
       >
       <ul>
         {#each $chatSessions as session}
-          <li>
+          <li class="relative">
+            <button
+              on:click={deleteSession(session.id)}
+              class="absolute top-0 right-0"
+              ><svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-square-x absolute right-0 top-0"
+                ><rect width="18" height="18" x="3" y="3" rx="2" ry="2" /><path
+                  d="m15 9-6 6"
+                /><path d="m9 9 6 6" /></svg
+              ></button
+            >
             <a class="menu-item" on:click={() => handleSessionClick(session)}>
-              {session.id}
+              {session.id} - {#await generateSessionTitle(session.id)}
+                <span class="loading loading-ring loading-lg"></span>
+              {:then { content }}
+                <div class="truncate w-3/4">
+                  {content}
+                </div>
+              {/await}
             </a>
           </li>
         {/each}

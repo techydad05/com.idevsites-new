@@ -1,6 +1,6 @@
 // // @ts-nocheck
-// import { redirect } from "@sveltejs/kit";
 // import medusa from "$lib/server/medusa";
+// import { redirect } from "@sveltejs/kit";
 
 // export async function load({ locals }) {
 //   const user = locals.user;

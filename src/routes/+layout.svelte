@@ -30,7 +30,7 @@
     // Return it as part of every page's data
     return { props: { login } };
   }
-  let h;
+  // let h;
 </script>
 
 <div class="mt-[20vh]">

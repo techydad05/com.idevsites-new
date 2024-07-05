@@ -47,14 +47,14 @@
               <X />
             </button>
           </div>
-          <div class="flex flex-col">
-            <NavLinks />
+          <div class="links flex flex-col">
+            <NavLinks close={close}/>
             {#if user}
               <a href="/account" use:close class="btn btn-secondary mb-2"
                 >Your Profile</a
               >
               <form action="/auth?/logout" method="POST">
-                <button type="submit" class="btn btn-secondary w-full"
+                <button type="submit" use:close class="btn btn-secondary w-full"
                   >Sign Out</button
                 >
               </form>

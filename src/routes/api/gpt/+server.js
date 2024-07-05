@@ -7,7 +7,7 @@ const openai = new OpenAI({
 });
 
 export async function POST({ request }) {
-  const { prompt, model, sessionId } = await request.json();
+  const { prompt, model, messages } = await request.json();
 
   if (!prompt || !model) {
     return json({ error: "Invalid request" }, { status: 400 });
@@ -15,8 +15,8 @@ export async function POST({ request }) {
 
   try {
     const response = await openai.chat.completions.create({
-      model: model === "GPT-3" ? "text-davinci-003" : "gpt-4",
-      messages: [{ role: "user", content: prompt }],
+      model: model,
+      messages,
     });
 
     return json({ response: response.choices[0].message.content });
