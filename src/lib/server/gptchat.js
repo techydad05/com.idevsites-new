@@ -31,6 +31,7 @@ export const getMostRecentSession = async (userId) => {
 };
 
 export const saveMessage = async (sessionId, userPrompt, botResponse) => {
+    console.log("BOT RESPONSE::", Array.isArray(botResponse));
   await query(
     "INSERT INTO messages (session_id, user_prompt, bot_response) VALUES ($1, $2, $3)",
     [sessionId, userPrompt, botResponse]

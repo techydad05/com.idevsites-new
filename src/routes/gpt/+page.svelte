@@ -38,6 +38,7 @@
       body: JSON.stringify({ action: "getSessionMessages", sessionId }),
     });
     const data = await response.json();
+    console.log("data:", data);
     messages.set(data.messages);
     return data.messages;
   };
@@ -66,9 +67,7 @@
   const getGPTResponse = async (inputPrompt) => {
     let chatHistory = await getSessionMessages();
     chatHistory = formatMessagesForBot(chatHistory);
-
-    chatHistory.push({ role: "user", content: inputPrompt})
-    // const fullPrompt = chatHistory + "\n" + inputPrompt;
+    chatHistory.push({ role: "user", content: inputPrompt });
     const response = await fetch("/api/gpt", {
       method: "POST",
       headers: {
@@ -86,12 +85,31 @@
     const data = await response.json();
     return data.response;
   };
+  const getDalleResponse = async (inputPrompt) => {
+    const response = await fetch("/api/dalle", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userPrompt: inputPrompt,
+      }),
+    });
+    if (!response.ok) {
+      throw new Error("Failed to get GPT response");
+    }
+    const data = await response.json();
+    return data.response;
+  };
 
   const saveMessage = async () => {
     try {
       // Get the GPT response first
-      const botResponse = await getGPTResponse(userPrompt);
+      let botResponse = !userPrompt.startsWith("image:")
+        ? await getGPTResponse(userPrompt)
+        : await getDalleResponse(userPrompt);
 
+      console.log("botresponse:", botResponse);
       // Save the user prompt and GPT response to the database
       await fetch("/gpt", {
         method: "POST",
@@ -112,12 +130,13 @@
         { role: "user", content: userPrompt },
         { role: "bot", content: botResponse },
       ]);
+
       userPrompt = "";
       await getSessionMessages(); // Ensure messages are refreshed after saving
 
       // Generate and update the session title
-      const title = await generateSessionTitle();
-      updateSessionTitle(title);
+      //   const title = await generateSessionTitle();
+      //   updateSessionTitle(title);
     } catch (error) {
       console.error("Error saving message:", error);
     }
@@ -185,10 +204,9 @@
   onMount(async () => {
     await fetchMostRecentSession();
     await getAllSessionsWithMessages();
-
     // WORKING ON FORMATING MESSAGES FOR BOT HISTORY FOR CONVERSATION HISTORY
-    const chatHistory = await getSessionMessages();
-    console.log("testies::", formatMessagesForBot($messages));
+    // const chatHistory = await getSessionMessages();
+    // console.log("testies::", formatMessagesForBot($messages));
   });
 </script>
 
@@ -209,15 +227,19 @@
       <div
         class="chat-box flex-grow overflow-y-auto p-4 bg-base-200 rounded-lg"
       >
-        {#each $messages as message}
+        {#each $messages as { bot_response, user_prompt }}
           <div class="chat chat-start">
             <div class="chat-bubble">
-              <p>{@html message.bot_response}</p>
+              {#if bot_response?.startsWith("http")}
+                <img src={bot_response} class="w-full h-auto" alt="" />
+              {:else}
+                <p>{@html bot_response}</p>
+              {/if}
             </div>
           </div>
           <div class="chat chat-end">
             <div class="chat-bubble">
-              <p>{@html message.user_prompt}</p>
+              <p>{@html user_prompt}</p>
             </div>
           </div>
         {/each}
