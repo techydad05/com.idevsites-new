@@ -7,9 +7,9 @@ const openai = new OpenAI({
 });
 
 export async function POST({ request }) {
-  const { prompt, model, messages } = await request.json();
+  const { model, messages } = await request.json();
 
-  if (!prompt || !model) {
+  if (!model) {
     return json({ error: "Invalid request" }, { status: 400 });
   }
 
@@ -18,7 +18,7 @@ export async function POST({ request }) {
       model: model,
       messages,
     });
-
+    console.log("Response:", response);
     return json({ response: response.choices[0].message.content });
   } catch (error) {
     console.error("OpenAI API Error:", error);

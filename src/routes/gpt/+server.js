@@ -39,7 +39,7 @@ export async function POST({ request }) {
       return json({ sessionsWithMessages });
 
     case "getMostRecentSession":
-      const recentSession = await getMostRecentSession(data.userId);
+      const recentSession = await getMostRecentSession(data.userId) ? await getMostRecentSession(data.userId) : await createSession(data.userId);
       return json({ recentSession });
 
     case "generateTitle":
@@ -48,8 +48,8 @@ export async function POST({ request }) {
       return json({ title });
 
     case "deleteSession":
-        const response = await deleteSession(data.sessId);
-        console.log("delete response:", response);
+      const response = await deleteSession(data.sessId);
+      console.log("delete response:", response);
 
     default:
       return json({ error: "Invalid action" }, { status: 400 });

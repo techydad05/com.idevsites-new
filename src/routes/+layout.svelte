@@ -9,7 +9,7 @@
   // ^
   import ToastContainer from "$src/lib/components/DaisyUI/DaisyToast/ToastContainer.svelte";
   export let data: PageData;
-  const nakedPaths = ["/auth", "/checkout", "/sitemap.xml"];
+  const nakedPaths = ["/testies", "/auth", "/checkout", "/sitemap.xml"];
   $: naked = nakedPaths.includes($page?.url?.pathname);
   $: user = data?.user;
   $: cart = data?.cart;
@@ -33,14 +33,14 @@
   // let h;
 </script>
 
-<div class="mt-[20vh]">
-  <ToastContainer />
-  <Toaster />
-  {#if naked}
-    <slot />
-  {:else}
+<ToastContainer />
+<Toaster />
+{#if naked}
+  <slot />
+{:else}
+  <div class="mt-[20vh]">
     <NavBar bind:user bind:cart bind:count />
     <slot />
     <Footer />
-  {/if}
-</div>
+  </div>
+{/if}

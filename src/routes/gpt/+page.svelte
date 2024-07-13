@@ -64,17 +64,38 @@
     return chatArr;
   };
 
+  const extractAfterKeyword = (str, keyword) => {
+    const parts = str.split(keyword);
+    if (parts.length <= 1) {
+      return null; // or return an empty string, or throw an error, depending on your needs
+    }
+    return parts[1];
+  };
+
   const getGPTResponse = async (inputPrompt) => {
     let chatHistory = await getSessionMessages();
+    // working on doing this more streamlined..
+    const parts = inputPrompt.split("image:::");
+    const isImage = parts.length > 1;
+    console.log("is image:", isImage);
     chatHistory = formatMessagesForBot(chatHistory);
-    chatHistory.push({ role: "user", content: inputPrompt });
+    if (isImage) {
+      chatHistory.push({
+        role: "user",
+        content: [
+          { type: "text", text: parts[0] },
+          { type: "image_url", image_url: { url: parts[1] } },
+        ],
+      });
+    } else {
+      chatHistory.push({ role: "user", content: inputPrompt });
+    }
     const response = await fetch("/api/gpt", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        prompt: inputPrompt,
         model: selectedModel,
         messages: chatHistory,
       }),
@@ -133,10 +154,6 @@
 
       userPrompt = "";
       await getSessionMessages(); // Ensure messages are refreshed after saving
-
-      // Generate and update the session title
-      //   const title = await generateSessionTitle();
-      //   updateSessionTitle(title);
     } catch (error) {
       console.error("Error saving message:", error);
     }
@@ -153,20 +170,6 @@
     const data = await response.json();
     return data.title;
   };
-
-  //   const updateSessionTitle = async (title) => {
-  //     await fetch("/gpt", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         action: "updateSessionTitle",
-  //         sessionId,
-  //         title,
-  //       }),
-  //     });
-  //   };
 
   const deleteSession = async (sessId) => {
     await fetch("/gpt", {
@@ -204,20 +207,16 @@
   onMount(async () => {
     await fetchMostRecentSession();
     await getAllSessionsWithMessages();
-    // WORKING ON FORMATING MESSAGES FOR BOT HISTORY FOR CONVERSATION HISTORY
-    // const chatHistory = await getSessionMessages();
-    // console.log("testies::", formatMessagesForBot($messages));
   });
 </script>
 
-<div class="drawer drawer-mobile">
+<div class="drawer drawer-mobile pb-[20vh]">
   <input id="drawer" type="checkbox" class="drawer-toggle" />
   <div class="drawer-content flex flex-col">
     <main class="flex flex-col h-full p-4">
       <div class="flex justify-between items-center mb-4">
         <select class="select select-bordered" bind:value={selectedModel}>
           <option value="gpt-4o">gpt-4o</option>
-          <option value="text-curie-001">text-curie-001</option>
           <!-- Add more models as needed -->
         </select>
         <label for="drawer" class="btn btn-secondary drawer-button">
@@ -231,7 +230,7 @@
           <div class="chat chat-start">
             <div class="chat-bubble">
               {#if bot_response?.startsWith("http")}
-                <img src={bot_response} class="w-full h-auto" alt="" />
+                <img src={bot_response} class="w-1/2 h-auto" alt="" />
               {:else}
                 <p>{@html bot_response}</p>
               {/if}
@@ -243,16 +242,6 @@
             </div>
           </div>
         {/each}
-      </div>
-      <div class="mt-4">
-        <textarea
-          class="textarea textarea-bordered w-full"
-          bind:value={userPrompt}
-          placeholder="Enter your message"
-        ></textarea>
-        <button class="btn btn-primary mt-2 w-full" on:click={saveMessage}
-          >Send</button
-        >
       </div>
     </main>
   </div>
@@ -298,6 +287,16 @@
       </ul>
     </div>
   </aside>
+</div>
+<div class="fixed bottom-4 w-full bg-base-100 p-4 h-[20vh]">
+  <textarea
+    class="textarea textarea-bordered w-full"
+    bind:value={userPrompt}
+    placeholder="Enter your message"
+  ></textarea>
+  <button class="btn btn-primary mt-2 w-full" on:click={saveMessage}
+    >Send</button
+  >
 </div>
 
 <!-- <script lang="ts">
@@ -510,8 +509,8 @@
 </style> -->
 
 <style>
-  .chat-box {
+  /* .chat-box {
     max-height: 70vh;
     overflow-y: auto;
-  }
+  } */
 </style>

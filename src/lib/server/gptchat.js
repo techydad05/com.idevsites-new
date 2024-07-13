@@ -54,7 +54,7 @@ export const getAllSessionsWithMessages = async (userId) => {
 
 export const getSessionMessages = async (sessionId) => {
   const result = await query(
-    "SELECT user_prompt, bot_response FROM messages WHERE session_id = $1",
+    "SELECT user_prompt, bot_response FROM messages WHERE session_id = $1 ORDER BY created_at DESC",
     [sessionId]
   );
   return result.rows;
