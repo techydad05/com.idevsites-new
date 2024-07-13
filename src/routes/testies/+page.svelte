@@ -145,7 +145,7 @@
         </div>
       </form>
       <div class="lg:w-1/2 text-center">
-        <h3 class="text-2xl font-bold my-4">Follow Me</h3>
+        <h3 class="text-2xl font-bold my-4">Follow Me!</h3>
         <div class="flex space-x-4 justify-center">
           <a href="#" class="text-2xl hover:text-primary"><Facebook /></a>
           <a href="#" class="text-2xl hover:text-primary"><Twitter /></a>
