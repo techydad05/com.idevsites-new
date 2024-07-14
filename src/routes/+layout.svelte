@@ -9,7 +9,8 @@
   // ^
   import ToastContainer from "$src/lib/components/DaisyUI/DaisyToast/ToastContainer.svelte";
   export let data: PageData;
-  const nakedPaths = ["/testies", "/auth", "/checkout", "/sitemap.xml"];
+  // todo: change this into allowed paths maybe?
+  const nakedPaths = ["/christian", "/testies", "/auth", "/checkout", "/sitemap.xml"];
   $: naked = nakedPaths.includes($page?.url?.pathname);
   $: user = data?.user;
   $: cart = data?.cart;

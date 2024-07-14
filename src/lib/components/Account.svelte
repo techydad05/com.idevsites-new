@@ -2,6 +2,7 @@
    import { UserCircle2 } from 'lucide-svelte'
    import { createDropdownMenu } from '@melt-ui/svelte'
    import { goto } from '$app/navigation'
+  import NavLinks from './NavLinks.svelte';
    export let user: any | null = null
    const { 
       elements: { trigger, menu, item }

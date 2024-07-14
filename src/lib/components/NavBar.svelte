@@ -66,6 +66,7 @@
   <div class="navbar-center h-full justify-center">
     <!-- customization for the lure site...  -->
     <!-- <a class="h-full" href="/"><img class="h-full" src="/logo.png" alt="" /></a> -->
+     <NavLinks />
   </div>
   <div class="navbar-end">
     <div class="hidden lg:flex flex-row gap-4">
