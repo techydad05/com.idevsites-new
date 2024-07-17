@@ -1,19 +1,25 @@
 <script>
-    import Sidebar from './Sidebar.svelte';
-    import PageBuilder from './PageBuilder.svelte';
-    import Clipboard from './Clipboard.svelte';
-    import { pageElements } from './stores';
-  
-    function addElement(element) {
-      pageElements.update(elements => [...elements, element]);
-    }
-  </script>
-  
-  <div class="flex h-screen">
-    <Sidebar {addElement}/>
-    <div class="flex-grow">
-      <PageBuilder/>
-      <Clipboard/>
-    </div>
-  </div>
-  
+  import { DndContext } from '@dnd-kit/core';
+  import Draggable from './Draggable.svelte';
+  import Droppable from './Droppable.svelte';
+
+  let parent = null;
+
+  function handleDragEnd(event) {
+    const { over } = event;
+    parent = over ? over.id : null;
+  }
+</script>
+
+<DndContext on:dragend={handleDragEnd}>
+  {#if !parent}
+    <Draggable id="draggable">Go ahead, drag me.</Draggable>
+  {/if}
+  <Droppable id="droppable">
+    {#if parent === "droppable"}
+      <Draggable id="draggable">Go ahead, drag me.</Draggable>
+    {:else}
+      Drop here
+    {/if}
+  </Droppable>
+</DndContext>
