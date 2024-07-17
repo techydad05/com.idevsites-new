@@ -53,4 +53,17 @@
   
   <div use:droppable={id} bind:this={node} {style}>
     <slot />
-  </div>
+  </div><script>
+  import { useDroppable } from '@dnd-kit/core';
+
+  export let id;
+
+  const { isOver, setNodeRef } = useDroppable({ id });
+  const style = isOver
+    ? 'padding: 1rem; background-color: lightgreen; border: 1px solid #ccc;'
+    : 'padding: 1rem; background-color: lightgray; border: 1px solid #ccc;';
+</script>
+
+<div bind:this={setNodeRef} style={style}>
+  <slot></slot>
+</div>

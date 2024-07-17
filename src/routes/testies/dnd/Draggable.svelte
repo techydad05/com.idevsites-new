@@ -21,4 +21,19 @@
       cursor: grab;
     }
   </style>
-  
+  <script>
+  import { useDraggable } from '@dnd-kit/core';
+
+  export let id;
+
+  const { attributes, listeners, setNodeRef } = useDraggable({ id });
+</script>
+
+<div
+  {attributes}
+  {listeners}
+  bind:this={setNodeRef}
+  style="padding: 1rem; background-color: lightblue; border: 1px solid #ccc; cursor: grab;"
+>
+  <slot></slot>
+</div>
