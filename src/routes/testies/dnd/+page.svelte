@@ -16,7 +16,8 @@
   }
 </script>
 
-<DndContext on:dragend={handleDragEnd}>
+{#if DndContext}
+  <DndContext on:dragend={handleDragEnd}>
   {#if !parent}
     <Draggable id="draggable">Go ahead, drag me.</Draggable>
   {/if}
