@@ -46,11 +46,17 @@
         const draggableElement = event.relatedTarget;
         const dropzoneElement = event.target;
 
-        // Move the draggable element to the drop zone
-        dropzoneElement.appendChild(draggableElement);
-        draggableElement.style.transform = 'none';
-        draggableElement.setAttribute('data-x', 0);
-        draggableElement.setAttribute('data-y', 0);
+        // Set the position of the draggable element relative to the container
+        const dropRect = dropzoneElement.getBoundingClientRect();
+        const dragRect = draggableElement.getBoundingClientRect();
+        const x = dragRect.left - dropRect.left;
+        const y = dragRect.top - dropRect.top;
+
+        draggableElement.style.position = 'absolute';
+        draggableElement.style.left = `${x}px`;
+        draggableElement.style.top = `${y}px`;
+        draggableElement.setAttribute('data-x', x);
+        draggableElement.setAttribute('data-y', y);
       },
       ondropdeactivate(event) {
         event.target.classList.remove('drop-active');
