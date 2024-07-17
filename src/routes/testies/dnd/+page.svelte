@@ -23,3 +23,15 @@
     {/if}
   </Droppable>
 </DndContext>
+<script>
+  // Add any necessary script here
+</script>
+
+<style>
+  /* Add any necessary styles here */
+</style>
+
+<main>
+  <h1>DnD Page</h1>
+  <p>Welcome to the DnD page!</p>
+</main>
