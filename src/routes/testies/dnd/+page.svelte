@@ -2,6 +2,11 @@
   import { onMount } from 'svelte';
   import interact from 'interactjs';
   let minimized = false;
+  let images = [
+    { id: 1, src: "https://picsum.photos/50" },
+    { id: 2, src: "https://picsum.photos/51" },
+    { id: 3, src: "https://picsum.photos/52" }
+  ];
 
   onMount(() => {
     interact('.draggable').draggable({
@@ -40,7 +45,19 @@
         event.relatedTarget.classList.remove('can-drop');
       },
       ondrop(event) {
-        const draggableElement = event.relatedTarget;
+        const originalElement = event.relatedTarget;
+        const dropzoneElement = event.target;
+
+        // Create a copy of the image
+        const draggableElement = originalElement.cloneNode(true);
+        draggableElement.style.position = 'absolute';
+        draggableElement.style.left = `${event.dragEvent.clientX - dropzoneElement.getBoundingClientRect().left}px`;
+        draggableElement.style.top = `${event.dragEvent.clientY - dropzoneElement.getBoundingClientRect().top}px`;
+        draggableElement.setAttribute('data-x', event.dragEvent.clientX - dropzoneElement.getBoundingClientRect().left);
+        draggableElement.setAttribute('data-y', event.dragEvent.clientY - dropzoneElement.getBoundingClientRect().top);
+
+        // Append the copy to the container
+        dropzoneElement.appendChild(draggableElement);
         const dropzoneElement = event.target;
 
         // Set the position of the draggable element relative to the container
@@ -75,8 +92,8 @@
         ✖
       {/if}
     </button>
-    <img src="https://picsum.photos/50" class="draggable mt-12" />
-    <img src="https://picsum.photos/51" class="draggable mt-4" />
-    <img src="https://picsum.photos/52" class="draggable mt-4" />
+    {#each images as image (image.id)}
+      <img src={image.src} class="draggable mt-4" />
+    {/each}
   </div>
 </div>
