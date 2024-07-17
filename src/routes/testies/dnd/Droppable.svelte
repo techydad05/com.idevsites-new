@@ -9,6 +9,6 @@
     : 'padding: 16px; background-color: lightgray; border: 1px solid gray;';
 </script>
 
-<div bind:this={setNodeRef} style={style}>
+<div bind:this={setNodeRef} {style}>
   <slot />
 </div>
