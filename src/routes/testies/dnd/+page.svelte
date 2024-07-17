@@ -10,10 +10,7 @@
       listeners: {
         move: dragMoveListener,
         end(event) {
-          // Move back to the sidebar on drop
-          event.target.style.transform = 'none';
-          event.target.setAttribute('data-x', 0);
-          event.target.setAttribute('data-y', 0);
+          // Do nothing on drop end
         }
       }
     });
