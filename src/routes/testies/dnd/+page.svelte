@@ -47,12 +47,17 @@
     flex-direction: column;
     align-items: center;
     padding: 10px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    transition: transform 0.3s ease;
   }
 </style>
 
 <div class="h-screen w-screen flex relative">
-  <div class={`sidebar absolute left-0 top-0 h-full transition-transform ${minimized ? '-translate-x-full' : ''}`}>
-    <button class="btn btn-sm btn-circle absolute top-2 right-2" on:click={toggleSidebar}>
+  <div class={`sidebar ${minimized ? '-translate-x-full' : ''}`}>
+    <button class="btn btn-sm btn-circle absolute top-2 -right-8" on:click={toggleSidebar}>
       {#if minimized}
         ▶
       {:else}
