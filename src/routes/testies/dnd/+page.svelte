@@ -29,7 +29,7 @@
     {/if}
   </Droppable>
 </DndContext>
-
+{/if}
 <style>
   /* Add any necessary styles here */
 </style>
