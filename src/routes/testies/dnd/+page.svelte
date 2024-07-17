@@ -27,6 +27,36 @@
       target.setAttribute('data-x', x);
       target.setAttribute('data-y', y);
     }
+    
+    interact('.container').dropzone({
+      accept: '.draggable',
+      overlap: 0.75,
+      ondropactivate(event) {
+        event.target.classList.add('drop-active');
+      },
+      ondragenter(event) {
+        event.target.classList.add('drop-target');
+        event.relatedTarget.classList.add('can-drop');
+      },
+      ondragleave(event) {
+        event.target.classList.remove('drop-target');
+        event.relatedTarget.classList.remove('can-drop');
+      },
+      ondrop(event) {
+        const draggableElement = event.relatedTarget;
+        const dropzoneElement = event.target;
+
+        // Move the draggable element to the drop zone
+        dropzoneElement.appendChild(draggableElement);
+        draggableElement.style.transform = 'none';
+        draggableElement.setAttribute('data-x', 0);
+        draggableElement.setAttribute('data-y', 0);
+      },
+      ondropdeactivate(event) {
+        event.target.classList.remove('drop-active');
+        event.target.classList.remove('drop-target');
+      }
+    });
   });
 
   function toggleSidebar() {
@@ -40,6 +70,10 @@
     z-index: 10;
     cursor: grab;
   }
+  .container {
+    position: relative;
+  }
+  
   .sidebar {
     width: 75px;
     background-color: #333;
