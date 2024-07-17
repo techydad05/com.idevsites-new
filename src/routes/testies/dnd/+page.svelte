@@ -44,10 +44,8 @@
         const dropzoneElement = event.target;
 
         // Set the position of the draggable element relative to the container
-        const dropRect = dropzoneElement.getBoundingClientRect();
-        const dragRect = draggableElement.getBoundingClientRect();
-        const x = dragRect.left - dropRect.left;
-        const y = dragRect.top - dropRect.top;
+        const x = event.dragEvent.clientX - dropzoneElement.getBoundingClientRect().left;
+        const y = event.dragEvent.clientY - dropzoneElement.getBoundingClientRect().top;
 
         draggableElement.style.position = 'absolute';
         draggableElement.style.left = `${x}px`;
