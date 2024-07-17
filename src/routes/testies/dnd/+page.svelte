@@ -1,31 +1,69 @@
 <script>
   import { onMount } from 'svelte';
-  import { DndContext } from '@dnd-kit/core';
-  import Draggable from './Draggable.svelte';
-  import Droppable from './Droppable.svelte';
+  import interact from 'interactjs';
+  let minimized = false;
 
-  let parent = null;
+  onMount(() => {
+    interact('.draggable').draggable({
+      inertia: true,
+      autoScroll: true,
+      listeners: {
+        move: dragMoveListener,
+        end(event) {
+          // Move back to the sidebar on drop
+          event.target.style.transform = 'none';
+          event.target.setAttribute('data-x', 0);
+          event.target.setAttribute('data-y', 0);
+        }
+      }
+    });
 
-  function handleDragEnd(event) {
-    const { over } = event;
-    parent = over ? over.id : null;
+    function dragMoveListener(event) {
+      var target = event.target;
+      var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
+      var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+      target.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
+      target.setAttribute('data-x', x);
+      target.setAttribute('data-y', y);
+    }
+  });
+
+  function toggleSidebar() {
+    minimized = !minimized;
   }
 </script>
 
-{#if DndContext}
-  <DndContext on:dragend={handleDragEnd}>
-  {#if !parent}
-    <Draggable id="draggable">Go ahead, drag me.</Draggable>
-  {/if}
-  <Droppable id="droppable">
-    {#if parent === "droppable"}
-      <Draggable id="draggable">Go ahead, drag me.</Draggable>
-    {:else}
-      Drop here
-    {/if}
-  </Droppable>
-</DndContext>
-{/if}
 <style>
-  /* Add any necessary styles here */
+  .draggable {
+    position: absolute;
+    z-index: 10;
+    cursor: grab;
+  }
+  .sidebar {
+    width: 75px;
+    background-color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+  }
 </style>
+
+<div class="h-screen w-screen flex relative">
+  <div class={`sidebar absolute left-0 top-0 h-full transition-transform ${minimized ? '-translate-x-full' : ''}`}>
+    <button class="btn btn-sm btn-circle absolute top-2 right-2" on:click={toggleSidebar}>
+      {#if minimized}
+        ▶
+      {:else}
+        ✖
+      {/if}
+    </button>
+    <img src="https://picsum.photos/50" class="draggable mt-12" />
+    <img src="https://picsum.photos/51" class="draggable mt-4" />
+    <img src="https://picsum.photos/52" class="draggable mt-4" />
+  </div>
+  <div class="flex-grow bg-gray-100 p-4">
+    <div class="container h-full border-dashed border-2 border-gray-300"></div>
+  </div>
+</div>
