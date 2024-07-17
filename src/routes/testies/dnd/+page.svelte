@@ -1,5 +1,5 @@
 <script>
-  import { DndContext } from '@dnd-kit/core';
+  import DndContext from '@dnd-kit/core';
   import Draggable from './Draggable.svelte';
   import Droppable from './Droppable.svelte';
 
