@@ -3,7 +3,7 @@
 
   export let id;
 
-  const { attributes, listeners, setNodeRef } = useDraggable({ id });
+  let { attributes, listeners, setNodeRef } = useDraggable({ id });
 </script>
 
 <div
@@ -11,6 +11,6 @@
   {...listeners}
   bind:this={setNodeRef}
   style="padding: 16px; background-color: lightblue; border: 1px solid blue; cursor: grab;"
-  >
+>
   <slot />
 </div>
