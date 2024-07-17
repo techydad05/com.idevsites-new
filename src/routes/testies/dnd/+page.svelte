@@ -1,5 +1,10 @@
 <script>
-  import DndContext from '@dnd-kit/core';
+  import { onMount } from 'svelte';
+  let DndContext;
+  onMount(async () => {
+    const module = await import('@dnd-kit/core');
+    DndContext = module.DndContext;
+  });
   import Draggable from './Draggable.svelte';
   import Droppable from './Droppable.svelte';
 
