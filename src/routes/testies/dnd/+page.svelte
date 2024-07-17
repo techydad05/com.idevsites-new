@@ -58,8 +58,6 @@
 
         // Append the copy to the container
         dropzoneElement.appendChild(draggableElement);
-        const dropzoneElement = event.target;
-
         // Set the position of the draggable element relative to the container
         const x = event.dragEvent.clientX - dropzoneElement.getBoundingClientRect().left;
         const y = event.dragEvent.clientY - dropzoneElement.getBoundingClientRect().top;
