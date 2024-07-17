@@ -67,30 +67,6 @@
   }
 </script>
 
-<style>
-  .draggable {
-    position: absolute;
-    z-index: 10;
-    cursor: grab;
-  }
-  .container {
-    position: relative;
-  }
-  
-  .sidebar {
-    width: 75px;
-    background-color: #333;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    transition: transform 0.3s ease;
-  }
-</style>
 
 <div class="h-screen w-screen flex relative">
   <div class={`sidebar ${minimized ? '-translate-x-full' : ''}`}>
@@ -104,8 +80,5 @@
     <img src="https://picsum.photos/50" class="draggable mt-12" />
     <img src="https://picsum.photos/51" class="draggable mt-4" />
     <img src="https://picsum.photos/52" class="draggable mt-4" />
-  </div>
-  <div class="flex-grow bg-gray-100 p-4">
-    <div class="container h-full border-dashed border-2 border-gray-300"></div>
   </div>
 </div>
