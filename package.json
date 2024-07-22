@@ -53,6 +53,7 @@
 		"daisyui": "^4.7.2",
 		"dotenv": "^16.4.4",
 		"html2canvas": "^1.4.1",
+		"interactjs": "^1.10.27",
 		"lucide-svelte": "^0.279.0",
 		"openai": "^4.52.0",
 		"pg": "^8.12.0",
